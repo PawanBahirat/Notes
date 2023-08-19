@@ -519,11 +519,11 @@ This code works in O(n), as the whole array is iterated over once.
 
 - Problem Statement :
 
-In this problem, you have to implement the int findMinimum(int[] arr) method, which will traverse the whole array and find the smallest number in the array.
+In this problem, you have to implement the `int findMinimum(int[] arr)` method, which will traverse the whole array and find the smallest number in the array.
 
 - Method Prototype :
 
-int findMinimum(int[] arr) Here arr1 and arr2 are sorted already.
+`int findMinimum(int[] arr)` Here arr1 and arr2 are sorted already.
 
 - Sample Input :
 ```java
