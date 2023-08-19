@@ -20,7 +20,6 @@ Brief description or tagline about your project.
 ### Arrays
 
 Introduction
-<div style="background-color:red; height:500px;width:500px;">
  
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
@@ -78,7 +77,7 @@ How are arrays stored in memory?
 In Java, arrays are dynamically allocated. Arrays are stored in the memory using a reference pointer, which points to the first element. For example, if we create an array of size 3 and name it myArray, then the variable will point to the start of the array. See the figure below:
 
 The only drawback of using arrays is that we have to specify the size of the array during the time of instantiation. That means the size remains fixed and can not be extended. If we want to add more elements, we will have to create a new array, copy all the items from the old array to the new one, and then insert the new element.
-</div>
+
 ### 2D Array
 
 Description and usage instructions for 2D Array.
