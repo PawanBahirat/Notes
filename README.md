@@ -157,15 +157,15 @@ public static void main(String args[]) {
 
 - Practice Problems 👍
 
-Sum of Elements in a matrix.
+[Sum of Elements in a matrix.](https://practice.geeksforgeeks.org/problems/sum-of-elements-in-a-matrix2000/1)
 
-Diagonal Sum.
+[Diagonal Sum.](https://practice.geeksforgeeks.org/problems/diagonal-sum0158/1)
 
-Multiply Matrices.
+[Multiply Matrices.](https://practice.geeksforgeeks.org/problems/multiply-matrices/1)
 
-Transpose of Matrix.
+[Transpose of Matrix.](https://practice.geeksforgeeks.org/problems/transpose-of-matrix-1587115621/1)
 
-Rotate by 90 degree.
+[Rotate by 90 degree.](https://practice.geeksforgeeks.org/problems/rotate-by-90-degree-1587115621/1)
 
 
 ### Remove Even Integers From An Array
