@@ -336,7 +336,7 @@ The time complexity for this algorithm is O(n+m), where nn and mm are the sizes 
 <hr>
 
 - Problem statement :
-- 
+
 Implement a function that takes an array `arr`, a number `value`, and the `size` of the array as an input and returns two numbers which add up to `value`.
 
 - Input :
@@ -347,7 +347,7 @@ The input is an array, a value, and the size of the array
 
 An array with two integers that add up to the value given
 
--Sample input :
+- Sample input :
 ```java
 arr = {1,21,3,14,5,60,7,6}; value = 81;
 ```
