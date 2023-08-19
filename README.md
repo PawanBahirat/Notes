@@ -19,7 +19,7 @@ Brief description or tagline about your project.
 
 ### Arrays
 
-Introduction
+<h1> Introduction</h1>
  
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
