@@ -564,7 +564,7 @@ Since the entire list is iterated over once, this algorithm is in linear time, O
 
 
 
-### First Minimum Value In Array
+### First Non-Repeating Integer In An Array
 
 Description and usage instructions for "First Minimum Value In Array" problem.
 
