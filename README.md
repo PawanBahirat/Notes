@@ -2,7 +2,7 @@
 
 Data structure and Algorithms.
 
-## Table of Contents
+## Lets get started!
 
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
