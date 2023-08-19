@@ -31,7 +31,8 @@ Each data element is assigned a numerical value called the index, which correspo
 
 An index makes it possible to access the contents of the array directly. Otherwise, we would have to traverse through the whole array to access a single element. That is the key feature that differentiates Arrays from Linked lists (we will cover them in the next chapter).
 
-Types Of Arrays
+#### Types Of Arrays :
+<hr>
 Arrays can store primitive data-type values (e.g., int, char, floats, boolean, byte, short, long, etc.), non-primitive data-type values (e.g., Java Objects, etc.) or it can even hold references of other arrays. That divides the arrays into two categories:
 
 One Dimensional Array
