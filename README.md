@@ -64,7 +64,7 @@ The above declarations will tell the compiler that reference variables myArray1a
 ####   Array Initialization : 
 <hr>
 Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below:
-``` 
+```java
 arrayName = new type [size];
 ```
 #### Initialization and Declaration in One Step :
