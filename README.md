@@ -112,9 +112,9 @@ int [][] arr = new int[3][4];
 This line will create a pointer to store a 2D array. The size of this 2D array is 3 by 4, which means arr holds three 1D arrays, having 4 elements in each.
 
 Representation of above 2D array in tabular format
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+| Column 0 | Column 1  | Column 2     | Column 3 |
+| :-------- | :------- | :----------  | :--------|
+| `a[0][0]` | `a[0][0]` | `a[0][0]`   | `a[0][0]`  |
 
 
 ### Remove Even Integers From An Array
