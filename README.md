@@ -17,21 +17,21 @@ Brief description or tagline about your project.
 
 ## Data Structures
 
-- Arrays
+Arrays
 
-#### Introduction :
+- Introduction :
  <hr>
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
 Look at the figure below; we have made a simple array with four elements. Each item in the collection is called a Data Element, and the number of data elements stored in an Array is known as its size. You can see that each data element has a maximum of two neighbors, except the first and last one.
 
-#### Array Indexing : 
+- Array Indexing : 
 <hr>
 Each data element is assigned a numerical value called the index, which corresponds to the position of that item in the array. It is important to note that the value of the index is non-negative and always starts from zero. So the first element of an array will be stored at index 0 and the last one at index size-1.
 
 An index makes it possible to access the contents of the array directly. Otherwise, we would have to traverse through the whole array to access a single element. That is the key feature that differentiates Arrays from Linked lists (we will cover them in the next chapter).
 
-#### Types Of Arrays :
+- Types Of Arrays :
 <hr>
 Arrays can store primitive data-type values (e.g., int, char, floats, boolean, byte, short, long, etc.), non-primitive data-type values (e.g., Java Objects, etc.) or it can even hold references of other arrays. That divides the arrays into two categories:
 
@@ -39,11 +39,11 @@ One Dimensional Array
 Multi-Dimensional Array
 In primitive array, values are stored in a contiguous memory location. Whereas, in the non-primitive array, objects are stored in the heap segment.
 
-#### One-Dimensional Array :
+- One-Dimensional Array :
 <hr>
 The basic syntax for declaring and initializing the one-dimensional array is given below:
 
-#### Array Declaration :
+- Array Declaration :
 <hr>
 In the array declaration, reference of an array is created. To declare an array, you have to specify the data type and name of the array.
 ```java
