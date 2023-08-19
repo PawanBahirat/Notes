@@ -118,7 +118,9 @@ This line will create a pointer to store a 2D array. The size of this 2D array i
 | `a[1][0]` | `a[1][1]` | `a[1][2]`  | `a[1][3]` |
 | `a[2][0]` | `a[2][1]` | `a[2][2]`  | `a[2][3]` |
 
+
 - Initialization :
+  
 There are various ways to initialize a 2D array with values.
 
 The traditional method is to assign values to each element. 
