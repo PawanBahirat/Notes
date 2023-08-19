@@ -100,6 +100,20 @@ The Java 2D arrays are arranged as arrays of arrays, i.e., each element of a 2D 
 
 Like 1D arrays, 2D arrays must have values of the same data type.
 
+- Declaration :
+Syntax -
+```java
+data_type [] [] array_name = new data_type[row_size][column_size];
+```
+```java
+int [][] arr = new int[3][4];
+```
+
+This line will create a pointer to store a 2D array. The size of this 2D array is 3 by 4, which means arr holds three 1D arrays, having 4 elements in each.
+
+
+
+
 ### Remove Even Integers From An Array
 
 Description and usage instructions for "Remove Even Integers From An Array" problem.
