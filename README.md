@@ -514,28 +514,55 @@ Therefore, an array of size 2 called `result` is created to store the pair that 
 
 This code works in O(n), as the whole array is iterated over once.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Find Minimum Value in Array
+<hr>
 
-Description and usage instructions for "Find Minimum Value in Array" problem.
+- Problem Statement :
+
+In this problem, you have to implement the int findMinimum(int[] arr) method, which will traverse the whole array and find the smallest number in the array.
+
+- Method Prototype :
+
+int findMinimum(int[] arr) Here arr1 and arr2 are sorted already.
+
+- Sample Input :
+```java
+arr = {9, 2, 3, 6}
+```
+- Sample Output :
+```java
+2
+```
+**SOLUTION**
+- CODE :
+```java
+public static int findMinimum(int[] arr) {
+
+    int minimum = arr[0];
+
+    //At every Index compare its value with minimum and if its less 
+    //then make that index value new minimum value
+    for (int i = 1; i < arr.length; i++) {
+
+      if (arr[i] < minimum) {
+        minimum = arr[i];
+      }
+    }
+    return minimum;
+  }
+```
+- Explanation :
+
+Start with the first element, which is 9 in this example, and save it in minimum as the smallest value. Then, iterate over the rest of the array and compare the minimum to each element. If any element is smaller than the minimum, then set the minimum to that element. By the end of the array, the number stored in the minimum will be the smallest integer in the whole array.
+
+- Time Complexity :
+
+Since the entire list is iterated over once, this algorithm is in linear time, O(n).
+
+
+
+
+
 
 ### First Minimum Value In Array
 
