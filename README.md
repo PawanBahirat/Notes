@@ -20,7 +20,7 @@ Brief description or tagline about your project.
 ### Arrays
 
 Introduction
-<div style="background-image: url('URL_TO_IMAGE'); background-size: cover; background-repeat: no-repeat; width: 100%; height: 400px; color: white; text-align: center; padding: 100px 0;">
+<div style="background:rgb(37, 150, 190);">
  
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
