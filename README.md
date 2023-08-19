@@ -43,8 +43,8 @@ In primitive array, values are stored in a contiguous memory location. Whereas, 
 <hr>
 The basic syntax for declaring and initializing the one-dimensional array is given below:
 
-#### Array Declaration :<hr>
-
+#### Array Declaration :
+<hr>
 In the array declaration, reference of an array is created. To declare an array, you have to specify the data type and name of the array.
 ```java
 datatype arrayName[]; or datatype[] arrayName;
