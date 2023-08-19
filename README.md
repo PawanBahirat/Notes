@@ -19,17 +19,6 @@ Brief description or tagline about your project.
 
 ### Arrays
 
-- [Arrays](#arrays)
-- [2D Array](#2d-array)
-- [Remove Even Integers From An Array](#remove-even-integers-from-an-array)
-- [Merge Two Sorted Arrays](#merge-two-sorted-arrays)
-- [Find Two Numbers That Add Up To N](#find-two-numbers-that-add-up-to-n)
-- [Find Minimum Value in Array](#find-minimum-value-in-array)
-- [First Minimum Value In Array](#first-minimum-value-in-array)
-- [Find Second Maximum Value In An Array](#find-second-maximum-value-in-an-array)
-
-### Arrays
-
 Description and usage instructions for Arrays.
 
 ### 2D Array
