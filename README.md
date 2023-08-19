@@ -111,12 +111,28 @@ int [][] arr = new int[3][4];
 
 This line will create a pointer to store a 2D array. The size of this 2D array is 3 by 4, which means arr holds three 1D arrays, having 4 elements in each.
 
-Representation of above 2D array in tabular format
+- Representation of above 2D array in tabular format :
 | Column 0  | Column 1  | Column 2   | Column 3  |
 | :-------  | :-------  | :-------   | :-------  |
 | `a[0][0]` | `a[0][1]` | `a[0][2]`  | `a[0][3]` |
 | `a[1][0]` | `a[1][1]` | `a[1][2]`  | `a[1][3]` |
 | `a[2][0]` | `a[2][1]` | `a[2][2]`  | `a[2][3]` |
+
+- Initialization :
+There are various ways to initialize a 2D array with values.
+
+The traditional method is to assign values to each element. 
+```java
+int [][] arr =new int [3][4]; //assigning 10 at Row 2 and Column 1 arr[2][1]=10;
+```
+We can also initialize it with the declaration itself. 
+```java
+int[][] arr = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, {9, 10, 11, 12} };
+```
+We can also initialize or assign the values using a loop. 
+```java
+for (int i = 0; i < 3; i++) { for (int j = 0; j < 4; j++) { arr[i][j]=i+j; } }
+```
 
 
 ### Remove Even Integers From An Array
