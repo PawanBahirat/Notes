@@ -19,7 +19,7 @@ Brief description or tagline about your project.
 
 ### Arrays
 
-#### Introduction
+#### Introduction :
  
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
@@ -58,7 +58,7 @@ class OneDArray{
 The above declarations will tell the compiler that reference variables myArray1and myArray2 will hold an array of type int. For now, no actual array exists. To link these reference variables with the actual physical array, we have to create one using the new operator.
 
 Array Initialization
-Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below: arrayName = new type [size];
+Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below: <pre>arrayName = new type [size];</pre>
 
 Initialization and Declaration in One Step
 We can also declare and initialize the array in one step.
