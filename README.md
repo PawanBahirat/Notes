@@ -258,7 +258,10 @@ Since the entire array has to be iterated over, this solution is in O(n).
 In this problem, given two sorted arrays, you have to implement the int[] mergeArrays(int[] arr1, int[] arr2) method, which returns an array consisting of all elements of both arrays in a sorted way.
 
 - Method Prototype :
-int[] mergeArrays(int[] arr1, int[] arr2) Here arr1 and arr2 are sorted already.
+```java
+int[] mergeArrays(int[] arr1, int[] arr2)
+```
+Here arr1 and arr2 are sorted already.
 
 - Sample Input :
 ```java
