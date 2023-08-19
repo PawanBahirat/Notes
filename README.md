@@ -94,7 +94,11 @@ The only drawback of using arrays is that we have to specify the size of the arr
 ### 2D Array
 <hr>
 
-Description and usage instructions for 2D Array.
+- Introduction : 
+
+The Java 2D arrays are arranged as arrays of arrays, i.e., each element of a 2D array is another array. These are generally used if we want to store the data items in a table or matrix-like structure. The representation of the elements is in rows and columns. Thus, we can get a total number of elements in a multidimensional array by multiplying row size with column size.
+
+Like 1D arrays, 2D arrays must have values of the same data type.
 
 ### Remove Even Integers From An Array
 
