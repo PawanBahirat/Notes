@@ -17,7 +17,7 @@ Brief description or tagline about your project.
 
 ## Data Structures
 
--Arrays
+- Arrays
 
 #### Introduction :
  <hr>
