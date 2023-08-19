@@ -20,6 +20,8 @@ Brief description or tagline about your project.
 ### Arrays
 
 Introduction
+<div style="background-image: url('URL_TO_IMAGE'); background-size: cover; background-repeat: no-repeat; width: 100%; height: 400px; color: white; text-align: center; padding: 100px 0;">
+ 
 An array also referred to as a collection of elements, is the simplest and most widely used Data Structure. Most of the Data Structures (e.g.Stack and Queue) were derived using the Array structure, which is why it is known as one of the central building blocks of Data Structures. These Data Structures will be discussed later in the coming chapters. The purpose of an Array is to group similar kinds of data for fast access.
 
 Look at the figure below; we have made a simple array with four elements. Each item in the collection is called a Data Element, and the number of data elements stored in an Array is known as its size. You can see that each data element has a maximum of two neighbors, except the first and last one.
@@ -45,7 +47,7 @@ In the array declaration, reference of an array is created. To declare an array,
 datatype arrayName[]; or datatype[] arrayName;
 
 Example Program
-<pre>
+cc
 class OneDArray{ 
     public static void main(String  args[]){
         //Declaration Syntax
@@ -76,7 +78,7 @@ How are arrays stored in memory?
 In Java, arrays are dynamically allocated. Arrays are stored in the memory using a reference pointer, which points to the first element. For example, if we create an array of size 3 and name it myArray, then the variable will point to the start of the array. See the figure below:
 
 The only drawback of using arrays is that we have to specify the size of the array during the time of instantiation. That means the size remains fixed and can not be extended. If we want to add more elements, we will have to create a new array, copy all the items from the old array to the new one, and then insert the new element.
-
+</div>
 ### 2D Array
 
 Description and usage instructions for 2D Array.
