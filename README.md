@@ -242,14 +242,15 @@ class CheckRemoveEven {
 }
 ```
 - Explanation :
+
 This solution first finds the number of odd elements in the given array by iterating over it and incrementing a count variable if an element is odd.
 
 Next, we initialize an array with a size oddElements, and store all the odd numbers in it.
 
 - Time Complexity :
+
 Since the entire array has to be iterated over, this solution is in O(n).
 
-Description and usage instructions for "Remove Even Integers From An Array" problem.
 
 ### Merge Two Sorted Arrays
 
