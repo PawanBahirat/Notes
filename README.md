@@ -1,0 +1,2 @@
+# Notes
+FullStackDeveloper  notes.
