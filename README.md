@@ -46,7 +46,7 @@ In the array declaration, reference of an array is created. To declare an array,
 datatype arrayName[]; or datatype[] arrayName;
 
 Example Program
-cc
+<pre>
 class OneDArray{ 
     public static void main(String  args[]){
         //Declaration Syntax
