@@ -42,9 +42,9 @@ The basic syntax for declaring and initializing the one-dimensional array is giv
 
 Array Declaration
 In the array declaration, reference of an array is created. To declare an array, you have to specify the data type and name of the array.
-<pre>
+```java
 datatype arrayName[]; or datatype[] arrayName;
-</pre>
+```
 Example Program
 ```java
 class OneDArray{ 
