@@ -39,10 +39,12 @@ One Dimensional Array
 Multi-Dimensional Array
 In primitive array, values are stored in a contiguous memory location. Whereas, in the non-primitive array, objects are stored in the heap segment.
 
-One-Dimensional Array
+#### One-Dimensional Array :
+<hr>
 The basic syntax for declaring and initializing the one-dimensional array is given below:
 
-Array Declaration
+#### Array Declaration :
+<hr>
 In the array declaration, reference of an array is created. To declare an array, you have to specify the data type and name of the array.
 ```java
 datatype arrayName[]; or datatype[] arrayName;
@@ -59,29 +61,34 @@ class OneDArray{
 ```
 The above declarations will tell the compiler that reference variables myArray1and myArray2 will hold an array of type int. For now, no actual array exists. To link these reference variables with the actual physical array, we have to create one using the new operator.
 
-Array Initialization
+####   Array Initialization : 
+<hr>
 Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below:
 ``` 
 arrayName = new type [size];
 ```
-Initialization and Declaration in One Step
+#### Initialization and Declaration in One Step :
+<hr>
 We can also declare and initialize the array in one step.
 ```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
 ```
-Practice Problem
+#### Practice Problem : 
+<hr>
 [Sum of Array Elements.](https://practice.geeksforgeeks.org/problems/sum-of-array-elements2502/1)
 
-Adding or Updating Elements in an Array
+#### Adding or Updating Elements in an Array :
+<hr>
 To add or update the element in an array, we specify the particular index and assign the new value.
 ```java
 arrayName[index] = value;
 ```
-How are arrays stored in memory?
+#### How are arrays stored in memory? :
+<hr>
 In Java, arrays are dynamically allocated. Arrays are stored in the memory using a reference pointer, which points to the first element. For example, if we create an array of size 3 and name it myArray, then the variable will point to the start of the array. See the figure below:
 
 The only drawback of using arrays is that we have to specify the size of the array during the time of instantiation. That means the size remains fixed and can not be extended. If we want to add more elements, we will have to create a new array, copy all the items from the old array to the new one, and then insert the new element.
-<hr>
+
 
 ### 2D Array
 
