@@ -69,7 +69,7 @@ Array initialization actually gives memory to the elements of an array. The basi
 arrayName = new type [size];
 ```
 - Initialization and Declaration in One Step :
-<hr>
+
 We can also declare and initialize the array in one step.
 ```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
@@ -91,7 +91,7 @@ In Java, arrays are dynamically allocated. Arrays are stored in the memory using
 
 The only drawback of using arrays is that we have to specify the size of the array during the time of instantiation. That means the size remains fixed and can not be extended. If we want to add more elements, we will have to create a new array, copy all the items from the old array to the new one, and then insert the new element.
 
-- 2D Array
+2D Array
 <hr>
 
 Description and usage instructions for 2D Array.
