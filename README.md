@@ -73,18 +73,18 @@ We can also declare and initialize the array in one step.
 ```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
 ```
-#### Practice Problem : 
-<hr>
+Practice Problem : 
+
 [Sum of Array Elements.](https://practice.geeksforgeeks.org/problems/sum-of-array-elements2502/1)
 
-#### Adding or Updating Elements in an Array :
-<hr>
+Adding or Updating Elements in an Array :
+
 To add or update the element in an array, we specify the particular index and assign the new value.
 ```java
 arrayName[index] = value;
 ```
-#### How are arrays stored in memory? :
-<hr>
+How are arrays stored in memory? 
+
 In Java, arrays are dynamically allocated. Arrays are stored in the memory using a reference pointer, which points to the first element. For example, if we create an array of size 3 and name it myArray, then the variable will point to the start of the array. See the figure below:
 
 The only drawback of using arrays is that we have to specify the size of the array during the time of instantiation. That means the size remains fixed and can not be extended. If we want to add more elements, we will have to create a new array, copy all the items from the old array to the new one, and then insert the new element.
