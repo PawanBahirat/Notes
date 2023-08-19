@@ -173,7 +173,7 @@ public static void main(String args[]) {
 
 Given an array of size n, remove all even integers from it. Implement this solution in Java and see if it runs without an error.
 
-In this problem, you have to implement the int [] removeEven(int[] arr) method, which removes all the even elements from the array and returns back updated array.
+In this problem, you have to implement the `int [] removeEven(int[] arr)` method, which removes all the even elements from the array and returns back updated array.
 
 - Method Prototype :
 ```java
@@ -255,7 +255,7 @@ Since the entire array has to be iterated over, this solution is in O(n).
 <hr>
 
 - Problem Statement :
-In this problem, given two sorted arrays, you have to implement the int[] mergeArrays(int[] arr1, int[] arr2) method, which returns an array consisting of all elements of both arrays in a sorted way.
+In this problem, given two sorted arrays, you have to implement the `int[] mergeArrays(int[] arr1, int[] arr2)` method, which returns an array consisting of all elements of both arrays in a sorted way.
 
 - Method Prototype :
 ```java
@@ -333,8 +333,205 @@ Now you’ve got the sorted resultantArray!
 The time complexity for this algorithm is O(n+m), where nn and mm are the sizes of arr1 and arr2, respectively. This is because both arrays are iterated over once.
 
 ### Find Two Numbers That Add Up To N
+<hr>
 
-Description and usage instructions for "Find Two Numbers That Add Up To N" problem.
+- Problem statement :
+- 
+Implement a function that takes an array `arr`, a number `value`, and the `size` of the array as an input and returns two numbers which add up to `value`.
+
+- Input :
+
+The input is an array, a value, and the size of the array
+
+- Output :
+
+An array with two integers that add up to the value given
+
+-Sample input :
+```java
+arr = {1,21,3,14,5,60,7,6}; value = 81;
+```
+- Sample output :
+```java
+arr = {21,60};
+```
+For example, in this illustration we are given 81 as the number value. When we traverse the whole array, we find that 21 and 60 are the integers that add up to 81.
+
+**Soluion: Using quicksort**
+- Code :
+```java
+Helper.java
+
+import java.util.Random;
+
+class Helper {
+ static void swap(int[] array, int i, int j) {
+  int temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
+ }
+ public static int choosePivot(int left, int right) {
+  Random rand = new Random();
+  // Pick 3 random numbers within the range of the array
+  int i1 = left + (rand.nextInt(right - left + 1));
+  int i2 = left + (rand.nextInt(right - left + 1));
+  int i3 = left + (rand.nextInt(right - left + 1));
+
+  // Return their median
+  return Math.max(Math.min(i1, i2), Math.min(Math.max(i1, i2), i3));
+ }
+
+ public static int partition(int arr[], int left, int right) {
+  int pivotInd = choosePivot(left, right); // Index of pivot
+  swap(arr, right, pivotInd); // self created function to swap two indices of an array
+  int pivot = arr[right]; // Pivot 
+  int i = (left - 1); // All the elements less than or equal to the
+  // pivot go before or at i
+
+  for (int j = left; j <= right - 1; j++) {
+   if (arr[j] <= pivot) {
+    i++; // increment the index 
+    swap(arr, i, j);
+   }
+  }
+  swap(arr, i + 1, right); // Putting the pivot back in place
+  return (i + 1);
+ }
+
+ public static void quickSort(int arr[], int left, int right) {
+  if (left < right) {
+   // pi is where the pivot is at
+   int pi = partition(arr, left, right);
+
+   // Separately sort elements before and after partition 
+   quickSort(arr, left, pi - 1);
+   quickSort(arr, pi + 1, right);
+  }
+ }
+}
+main.java
+
+class CheckSum {
+ static Helper obj = new Helper();
+
+ public static int[] findSum(int[] arr, int n) //Returns 2 elements of arr that sum to the given value
+ {
+  //Helper sort function that uses the Quicksort Algorithm
+  obj.quickSort(arr, 0, arr.length - 1); //Sort the array in Ascending Order
+
+  int Pointer1 = 0; //Pointer 1 -> At Start
+  int Pointer2 = arr.length - 1; //Pointer 2 -> At End
+
+  int[] result = new int[2];
+  int sum = 0;
+
+  while (Pointer1 != Pointer2) {
+
+   sum = arr[Pointer1] + arr[Pointer2]; //Calulate Sum of Pointer 1 and 2
+
+   if (sum < n)
+    Pointer1++; //if sum is less than given value => Move Pointer 1 to Right
+   else if (sum > n)
+    Pointer2--;
+   else {
+    result[0] = arr[Pointer1];
+    result[1] = arr[Pointer2];
+    return result; // containing 2 number 
+   }
+  }
+  return arr;
+ }
+
+ public static void main(String args[]) {
+
+  int n = 9;
+  int[] arr1 = {2, 4, 5, 7, 8};
+  int[] arr2 = findSum(arr1, n);
+  int num1 = arr2[0];
+  int num2 = arr2[1];
+
+  if ((num1 + num2) != n)
+   System.out.println("Results not found!");
+  else
+   System.out.println("Sum of " + n + " found: " + num1 + " and " + num2);
+ }
+}
+```
+While solution #1 is very intuitive, it is not very time efficient. A better way to solve this challenge is by first sorting the array, then using two variables: one starting from the first index of the array and the second starting from the last index of the array, (size-1size−1).
+
+If the sum of the elements at these indices of the array is smaller than the given value, then we increment Pointer1. If the sum is smaller, then we decrement Pointer2 from the end. If none of those conditions are true, this means that the sum is equal to the given value. That being said, we will append the elements at those indices in the array and return the result.
+
+- Time complexity :
+Since the sorting function we use in this code takes O(nlog(n)) and the algorithm itself takes O(n) time, the overall time complexity of this algorithm is in O(nlog(n)).
+
+**Solution: Use hashing**
+```java
+class CheckSum {
+ public static int[] findSum(int[] arr, int n) {
+  int[] result = new int[2];
+  HashMap < Integer, Boolean > hmap = new HashMap < Integer, Boolean > (); // Create a hashmap
+
+  for (int i = 0; i < arr.length; i++) {
+   if (hmap.containsKey(arr[i])) // If a value from arr is present in hmap
+   {
+    result[0] = arr[i];
+    result[1] = n - arr[i];
+    return result;
+   }
+   else
+   hmap.put(n - arr[i], true); // Store value - arr[i] if element is not present in arr
+  }
+  return result;
+ }
+
+ public static void main(String args[]) {
+
+  int n = 9;
+  int[] arr1 = {2, 4, 5, 7, 8};
+   int[] arr2 = findSum(arr1, n);
+  int num1 = arr2[0];
+  int num2 = arr2[1];
+
+  if ((num1 + num2) != n)
+   System.out.println("Results not found!");
+  else
+   System.out.println("Sum of " + n + " found: " + num1 + " and " + num2);
+ }
+}
+```
+
+- Explanation :
+
+We solve this problem by using a HashMap called `hmap`.
+
+We will run a `for` loop on the whole array. If the element `arr[i]` doesn’t exist in the hmap, we add `n - arr[i]` to the `hmap` as shown in the line 14.
+
+If any element of `arr` exists in the `hmap`, that means the difference of `n` and the number found `(n - arr[i])` are also present.
+
+Therefore, an array of size 2 called `result` is created to store the pair that sums up to `n`. If `hmap` contains any array element, `result[]` is updated, or else it is returned containing the default value.
+
+- Time complexity :
+
+This code works in O(n), as the whole array is iterated over once.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Find Minimum Value in Array
 
