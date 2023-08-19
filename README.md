@@ -72,9 +72,9 @@ Sum of Array Elements.
 
 Adding or Updating Elements in an Array
 To add or update the element in an array, we specify the particular index and assign the new value.
-
+```java
 arrayName[index] = value;
-
+```
 How are arrays stored in memory?
 In Java, arrays are dynamically allocated. Arrays are stored in the memory using a reference pointer, which points to the first element. For example, if we create an array of size 3 and name it myArray, then the variable will point to the start of the array. See the figure below:
 
