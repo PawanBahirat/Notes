@@ -54,12 +54,11 @@ class OneDArray{
         int[] myArray2;
     }
 }
-</pre>
 ```
 The above declarations will tell the compiler that reference variables myArray1and myArray2 will hold an array of type int. For now, no actual array exists. To link these reference variables with the actual physical array, we have to create one using the new operator.
 
 Array Initialization
-Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below: <pre>arrayName = new type [size];</pre>
+Array initialization actually gives memory to the elements of an array. The basic syntax for initializing an array is given below: ```java arrayName = new type [size];</pre>```
 
 Initialization and Declaration in One Step
 We can also declare and initialize the array in one step.
