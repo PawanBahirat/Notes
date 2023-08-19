@@ -1,6 +1,6 @@
-# Project Title
+# DSA
 
-Brief description or tagline about your project.
+Data structure and Algorithms.
 
 ## Table of Contents
 
