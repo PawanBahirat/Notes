@@ -64,9 +64,9 @@ arrayName = new type [size];
 ```
 Initialization and Declaration in One Step
 We can also declare and initialize the array in one step.
-
+```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
-
+```
 Practice Problem
 Sum of Array Elements.
 
