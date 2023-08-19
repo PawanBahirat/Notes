@@ -45,6 +45,7 @@ In the array declaration, reference of an array is created. To declare an array,
 datatype arrayName[]; or datatype[] arrayName;
 
 Example Program
+<pre>
 class OneDArray{ 
     public static void main(String  args[]){
         //Declaration Syntax
@@ -52,6 +53,7 @@ class OneDArray{
         int[] myArray2;
     }
 }
+</pre>
 The above declarations will tell the compiler that reference variables myArray1and myArray2 will hold an array of type int. For now, no actual array exists. To link these reference variables with the actual physical array, we have to create one using the new operator.
 
 Array Initialization
