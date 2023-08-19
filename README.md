@@ -74,7 +74,7 @@ We can also declare and initialize the array in one step.
 ```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
 ```
-Practice Problem 
+- Practice Problem 👍
 
 [Sum of Array Elements.](https://practice.geeksforgeeks.org/problems/sum-of-array-elements2502/1)
 
@@ -154,6 +154,20 @@ public static void main(String args[]) {
 }
 }
 ```
+
+- Practice Problems 👍
+
+Sum of Elements in a matrix.
+
+Diagonal Sum.
+
+Multiply Matrices.
+
+Transpose of Matrix.
+
+Rotate by 90 degree.
+
+
 ### Remove Even Integers From An Array
 
 Description and usage instructions for "Remove Even Integers From An Array" problem.
