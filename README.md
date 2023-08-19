@@ -4,28 +4,36 @@ Brief description or tagline about your project.
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Data Structures](#data-structures)
+  - [Arrays](#arrays)
+    - [1D Array](#1d-array)
+    - [2D Array](#2d-array)
+  - [String](#string)
+  - [Linked List](#linked-list)
+    - [Singly Linked List](#singly-linked-list)
 
-## Getting Started
+## Data Structures
 
-Provide a brief overview of what your project is about and what it aims to achieve.
+### Arrays
 
-### Prerequisites
+#### 1D Array
 
-List any software, libraries, or tools that need to be installed before using your project.
+Description and usage instructions for 1D Array.
 
-### Installation
+#### 2D Array
 
-Provide step-by-step instructions on how to install and set up your project. You can include code snippets if necessary.
+Description and usage instructions for 2D Array.
 
-```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
-# Additional setup steps, if any
+### String
+
+Description and usage instructions for String.
+
+### Linked List
+
+#### Singly Linked List
+
+Description and usage instructions for Singly Linked List.
+
+## Contributing
+
+... (rest of your README)
