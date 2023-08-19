@@ -74,7 +74,7 @@ We can also declare and initialize the array in one step.
 ```java
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
 ```
-Practice Problem : 
+Practice Problem 
 
 [Sum of Array Elements.](https://practice.geeksforgeeks.org/problems/sum-of-array-elements2502/1)
 
