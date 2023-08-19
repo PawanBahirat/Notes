@@ -68,7 +68,7 @@ We can also declare and initialize the array in one step.
 datatype[] arrayName = new datatype [size]; or datatype arrayName[] = new datatype [size];
 ```
 Practice Problem
-Sum of Array Elements.
+[Sum of Array Elements.](https://practice.geeksforgeeks.org/problems/sum-of-array-elements2502/1)
 
 Adding or Updating Elements in an Array
 To add or update the element in an array, we specify the particular index and assign the new value.
