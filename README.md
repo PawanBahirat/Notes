@@ -681,7 +681,56 @@ The time complexity of this program is O(n).
 
 ### Find Second Maximum Value In An Array
 
-Description and usage instructions for "Find Second Maximum Value In An Array" problem.
+- Problem Statement :
+
+In this problem, you have to implement the `int findSecondMaximum(int[] arr)` method, which will traverse the whole array and return the second largest element present in the array.
+
+- Assumption :
+ 
+Array should contain at least two unique elements.
+
+- Method Prototyp :
+```java
+int findSecondMaximum(int[] arr)
+```
+- Sample Input :
+```java
+arr = {9,2,3,6}
+```
+- Sample Output :
+```java
+6
+```
+**SOLUTION**
+- CODE :
+```java
+public static int findSecondMaximum(int[] arr) {
+
+    int max = Integer.MIN_VALUE;;
+    int secondmax = Integer.MIN_VALUE;
+
+    // Keep track of Maximum value, whenever the value at an array index is greater
+    // than current Maximum value then make that max value 2nd max value and
+    // make that index value maximum value  
+    for (int i = 0; i < arr.length; i++) {
+      if (arr[i] > max) {
+        secondmax = max;
+        max = arr[i];
+      }
+      else if (arr[i] > secondmax && arr[i] != max) {
+        secondmax = arr[i];
+      }
+    }//end of for-loop
+
+    return secondmax;
+  }
+  ```
+- Explanation :
+We initialize two variables `max` and `secondmax` to Integer. MIN_VALUE having value `-2147483648`, which is the maximum integer negative value range. We then traverse the array, and if the current element in the array is greater than the maximum value, then set `secondmax` to `max` and `max` to the current element. If the current element is greater than the `secondmax` but less than max, then update `secondmax` to store the value of the current element. Finally, return the value stored in `secondmax`.
+
+- Time Complexity :
+- 
+This solution is in O(n) since the list is traversed once only.
 
 ## Contributing
 
