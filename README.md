@@ -23,6 +23,7 @@ Data structure and Algorithms.
     - [Maximum Sum Subarray Of Size K](#maximum-sum-subarray-of-size-k)
   - [Strings](#strings)
     - [Strings](#strings)
+    - [Reverse Words in a Sentence](#reverse-word-in-a-sentence)
   
 ## Data Structures
 
@@ -1224,7 +1225,8 @@ The algorithm runs in constant space O(1).
 ### Strings
 <hr>
 
-Common Methods & Operations
+- Common Methods & Operations :
+
 A cheat sheet of common methods and operations on strings. Take a look at the table below that lists some common operations that can be performed on a string using built-in methods.
 
 | Method | Description |
@@ -1242,9 +1244,116 @@ A cheat sheet of common methods and operations on strings. Take a look at the ta
 | str1.contains(str2) | Returns true if str2 is found in string str1 |
 | str1.concat(str2) | Combines strings str1 and str2 |
 	
-	
-	
+### Reverse Words in a Sentence
+<hr>
 
+Given a sentence (an array of characters), reverse the order of words.
+
+- Description- :
+
+Reverse the order of words in a given sentence (an array of characters). Take the “Hello World” string for example:
+```
+The "Hello World" string reversed should be "World Hello".
+```
+- Solution :
+
+Here is how the solution works:
+
+Reverse the string.
+Traverse the string and reverse each word in place.
+Let’s apply this solution to our example:
+```
+“The quick brown fox jumped over the lazy dog.”.
+```
+Reverse the string: “.god yzal eht revo depmuj xof nworb kciuq ehT”
+Reverse each word in-place: “dog. lazy the over jumped fox brown quick The”
+
+- Code :tada:
+```java
+
+class ReverseWords {
+  // Null terminating strings are not used in java
+  public static void strRev(char[] str, int start, int end) {
+    if (str == null || str.length < 2) {
+      return;
+    }
+
+    while (start < end) {
+      char temp = str[start];
+      str[start] = str[end];
+      str[end] = temp;
+      start++;
+      end--;
+    }
+  }
+
+  public static void reverseWords(char[] sentence) {
+    // Here sentence is a null-terminated string ending with char '\0'.
+    if (sentence == null || sentence.length == 0) {
+      return;
+    }
+
+    // To reverse all words in the string, we will first reverse
+    // the string. Now all the words are in the desired location, but
+    // in reverse order: "Hello World" -> "dlroW olleH".
+    int len = sentence.length;
+    strRev(sentence, 0, len - 2);
+
+    // Now, let's iterate the sentence and reverse each word in place.
+    // "dlroW olleH" -> "World Hello"
+    int start = 0;
+    int end;
+
+    while (true) {
+      // find the  start index of a word while skipping spaces.
+      while (sentence[start] == ' ') {
+        ++start;
+      }
+
+      if (start >= sentence.length - 1) {
+        break;
+      }
+
+      // find the end index of the word.
+      end = start + 1;
+      while (end < sentence.length - 1 && sentence[end] != ' ') {
+        ++end;
+      }
+
+      // let's reverse the word in-place.
+      strRev(sentence, start, end - 1);
+      start = end;
+    }
+  }
+  static char[] getArray(String t) {
+    char[] s = new char[t.length() + 1];
+    int i = 0;
+    for (; i < t.length(); ++i) {
+      s[i] = t.charAt(i);
+    }
+    return s;
+  }
+
+  public static void main(String[] args) {
+    char[] s = getArray("Hello World!");
+    System.out.println(s);
+    reverseWords(s);
+    System.out.println(s);
+  }
+}
+```
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n). Position of all the elements in the sentence is changed.
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
+
+```
+The solution reverses every word in-place i.e., it does not require any extra space.
+```
 
 
 
