@@ -27,7 +27,7 @@
     - [Balanced Parentheses](#balanced-parentheses)
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
  - [Linked List](#linked-list)
-    - [Introduction To Linked Lists](introduction-to-linked-lists)
+    - [Introduction To Linked Lists](#introduction-to-linked-lists)
 ## Data Structures
 
 ### Arrays
