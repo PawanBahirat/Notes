@@ -26,6 +26,9 @@
     - [Find all Palindrome Substrings](#find-all-palindrome-substrings)
     - [Balanced Parentheses](#balanced-parentheses)
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
+ - [Linked List](#linked-list)
+    - [Introduction TO Linked Lists](introduction-to-linked-list)
+    - 
 ## Data Structures
 
 ### Arrays
@@ -2002,5 +2005,54 @@ The above algorithm’s time complexity will be O(N), where ‘N’ is the numbe
 
 The algorithm’s space complexity will be O(K)O(K), where KK is the number of distinct characters in the input string. This also means K<=NK<=N, because in the worst case, the whole string might not have any duplicate character, so the entire string will be added to the HashMap. Having said that, since we can expect a fixed set of characters in the input string (e.g., 26 for English letters), we can say that the algorithm runs in fixed space O(1)O(1); in this case, we can use a fixed-size array instead of the HashMap.
 
+## Linked List
+
+### Introduction TO Linked Lists
+<hr>
+
+A linked list is a linear data structure consisting of nodes where each node contains data and a pointer to the next node in the list. There are two kinds of linked lists:
+
+```
+Singly linked list 
+Doubly link
+```
+- Singly Linked List :
+
+A singly linked list can only be traversed in one direction, meaning, from the first node (head) towards the last node. The last node points to NULL, indicating the end of the list.
+
+- Pros :
+
+Insertion and deletion at head is more efficient compared to the corresponding operations in an array.
+Changes are localized when inserting and deleting somewhere in the middle of the linked list. In the case of an array, all subsequent elements need to be moved around. Of course, if you first have to search for the position to insert or delete in a linked list, then it still takes O(n) in the worst case.
+- Cons :
+
+As each node also contains a pointer, it has a memory overhead.
+We cannot access a node through indexing directly, rather we have to traverse from the start to access an element at a given position n.
+Reverse traversing is not possible with a singly linked list.
+Doubly Linked List
+Each node in a doubly linked list contains a pointer to the next node as well as pointer to the previous node. This allows the list to be traversed in both directions: forward and backward.
+
+Doubly linked lists have all the advantages of singly-linked lists while providing some additional pros and cons.
+
+- Pros :
+
+Insert and delete at the head as well as tail are O(1) operations
+The list can be traversed forward as well as backward
+
+- Cons :
+
+Have greater space overhead than singly-linked lists
+
+- Singly vs. Doubly linked list table :
+
+Deletion at the tail is one of the operations that distinguishes a doubly-linked list from a singly-linked list. The following table shows a side by side comparison of key operations on both.
+
+| Operations | Singly Linked List | Doubly Linked List|
+| Insert at head | O(1) | O(1) |
+| Delete at head | O(1)	| O(1) |
+| Insert at tail | O(n)	| O(1) |
+| Delete at tail | O(n)	| O(1) |
+
+In terms of space, if there are `n` nodes in a linked list, `d` is the (average) number of bytes of data in each node and `p` is the number of bytes consumed by a pointer, then a `singly linked list` consumes n*(d+p) bytes, whereas a `doubly linked list` consumes n*(d+2p) bytes.
 
 ... (rest of your README)
