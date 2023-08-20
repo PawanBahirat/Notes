@@ -799,6 +799,55 @@ for i = 1 -> size of A
 
 The runtime complexity of this solution is linear, O(n).
 
+### Binary Search on Sorted Array
+<hr>
+
+- Description :
+
+Given a sorted array of integers, return the index of the given key. Return `-1` if the key is not found.
+
+- Example : 
+
+Given the following array, if the search key is `47`, binary search will return `3`.
+| `0` | `1`  | `2`   | `3`  |
+| `1` | `10` | `20`  | `47` |
+
+- Explanation :
+
+Binary search is used to find the index of an element in a sorted array. If the element doesn’t exist, that can be determined efficiently as well. The algorithm divides the input array by half at every step. After every step, either we have found the index that we are looking for or half of the array can be discarded. Hence, the solution can be calculated in O(log n) time.
+
+Here’s how the algorithm works:
+
+At every step, consider the array between low and high indices
+Calculate the mid index.
+If the element at the mid index is the key, return mid.
+If the element at mid is greater than the key, then change the index high to mid - 1. The index at low remains the same.
+If the element at mid is less than the key, then change low to mid + 1. The index at high remains the same.
+When low is greater than high, the key doesn’t exist and -1 is returned.
+Code
+static int binSearch(int[] A, int key) {
+  
+    int low = 0;
+    int high = A.length -1;
+
+    while (low <= high) {
+
+      int mid = low + ((high - low) / 2);
+
+      if (A[mid] == key) {
+        return mid;
+      }
+
+      if (key < A[mid]) {
+        high = mid - 1;
+      }
+      else {
+        low = mid + 1;
+      }
+    }
+    return -1;
+  }
+
 
 
 
