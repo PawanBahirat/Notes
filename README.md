@@ -3756,7 +3756,7 @@ class StackUsingQueueClass{
 }
 ```
 
-### Reversing the First k Elements of a Queue
+### Reversing The First K Elements Of A Queue
 <hr>
 
 - Problem Statement :
