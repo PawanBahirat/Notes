@@ -995,6 +995,7 @@ The memory complexity of this solution is constant, O(1).
 
 ### Stock Buy Sell to Maximize Profit
 <hr>
+
 - Description :
   
 Given a list of daily stock prices (integers for simplicity), return the buy and sell prices for making the maximum profit.
