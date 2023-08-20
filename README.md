@@ -46,7 +46,7 @@
     - [Introduction To Stacks and Queues](#introduction-to-stacks-and-queues)
     - [Implementation Of Stack](#implementation-of-stack)
     - [Implementation Of Queue](#implementation-of-queue)
-    - [Implement Queue Using Stacks](#implement-queue-using-stacks]
+    - [Implement Queue Using Stacks](#implement-queue-using-stacks)
     - [Implement Queue Using Stacks (1)](#implement-queue-using-stacks-1)
     - [Reversing The First K Elements Of A Queue](#reversing-the-first-k-element-of-a-queue)
     - [Evaluate Postfix Expressions Using Stacks](#evaluate-postfix-expressions-using-stacks)
