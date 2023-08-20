@@ -22,7 +22,7 @@ Data structure and Algorithms.
     - [Sort an Array Using Quicksort Algorithm](#sort-an-array-using-quicksort-algorithm)
     - [Maximum Sum Subarray Of Size K](#maximum-sum-subarray-of-size-k)
   - [Strings](#strings)
-    -[Strings](#strings)
+    - [Strings](#strings)
   
 ## Data Structures
 
@@ -1231,17 +1231,25 @@ A cheat sheet of common methods and operations on strings. Take a look at the ta
 | --- | --- |
 | str.length() | Returns the length of the string str |
 | str.charAt(n) | Returns the character at the specified index |
+| str.indexOf(ch) | Returns the index of the first occurrence of character ch in the string. |
+| str.substring(start, end) | Returns a new string which is a substring of str beginning at start and extends to end-1 |
+| str.substring(start, end) | Returns a new string which is a substring of str beginning at start and extends to end-1 |
+| str.toLowerCase() | Converts string str to lower case |
+| str.toUpperCase() | Converts string str to upper case |
+| str1.equals(str2) | Compares the str1 with the str2 and returns true if both matches else false. |
+| str1.compareTo(str2) | Returns 0 if the str1 is equal to str2, negative value if the str1 is lexicographically less than str2 or value greater than 0 if the str1 is lexicographically greater than str2|
+| str.split(regex) | Splits the string and returns the array of substrings that matches the given regular expression. |
+| str1.contains(str2) | Returns true if str2 is found in string str1 |
+| str1.concat(str2) | Combines strings str1 and str2 |
+	
+	
+	
 
-Method	Description
-	
-	
-str.indexOf(ch)	Returns the index of the first occurrence of character ch in the string.
-str.substring(start, end)	Returns a new string which is a substring of str beginning at start and extends to end-1
-str.toLowerCase()	Converts string str to lower case
-str.toUpperCase()	Converts string str to upper case
-str1.equals(str2)	Compares the str1 with the str2 and returns true if both matches else false.
-str1.compareTo(str2)	Returns 0 if the str1 is equal to str2, negative value if the str1 is lexicographically less than str2 or value greater than 0 if the str1 is lexicographically greater than str2
-str.split(regex)	Splits the string and returns the array of substrings that matches the given regular expression.
-str1.contains(str2)	Returns true if str2 is found in string str1
-str1.concat(str2)	Combines strings str1 and str2
+
+
+
+
+
+
+
 ... (rest of your README)
