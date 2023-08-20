@@ -1632,7 +1632,77 @@ The runtime complexity of this solution is linear, O(n).
 
 The memory complexity of this solution is linear, O(1).
 
+### Word Break Problem
 
+Given a dictionary of words and an input string tell whether the input string can be completely segmented into dictionary words.
 
+- Description :
+
+We are given a dictionary of words and a large input string. We have to find out whether the input string can be completely segmented into the words of a given dictionary. The following two examples elaborate on the problem further.
+
+- Solution :
+
+We can solve this problem by segmenting the large string at each possible position to see if the string can be completely segmented to words in the dictionary. If we write the algorithm in steps it will be as follows:
+```
+n = length of input string
+for i = 0 to n - 1
+  first_word = substring (input string from index [0, i] )
+  second_word = substring (input string from index [i + 1, n - 1] )
+  if dictionary has first_word
+    if second_word is in dictionary OR second_word is of zero length, then return true
+    recursively call this method with second_word as input and return true if it can be segmented
+The algorithm will compute two strings from scratch in each iteration of the loop. Worst case scenario, there would be a recursive call of the second_word each time. This shoots the time complexity up to 2^n.
+```
+Code :tada:
+```java
+
+class StringSegmentation {
+
+  public static boolean canSegmentString(String s, Set <String> dictionary) {
+    for (int i = 1; i <= s.length(); ++i) {
+      String first = s.substring(0, i);
+      if (dictionary.contains(first)) {
+        String second = s.substring(i);
+
+        if (second == null || second.length() == 0 || dictionary.contains(second) || canSegmentString(second, dictionary)) {
+          return true;
+        }
+
+      }
+    }
+    return false;
+  }
+
+  public static void main(String[] args) {
+    Set < String > dictionary = new HashSet < String > ();
+    String s = new String();
+    s = "hellonow";
+
+    dictionary.add("hello");
+    dictionary.add("hell");
+    dictionary.add("on");
+    dictionary.add("now");
+    if (canSegmentString(s, dictionary)) {
+      System.out.println("String Can be Segmented");
+    } else {
+      System.out.println("String Can NOT be Segmented");
+    }
+  }
+}
+```
+You can see that we may be computing the same substring multiple times, even if it doesn’t exist in the dictionary. This redundancy can be fixed by memoization, where we remember which substrings have already been solved To achieve memoization, we can store the second string in a new set each time.This will reduce both time and memory complexities.
+
+- Runtime complexity :
+
+The runtime complexity of this solution is exponential, O(2^n), if we use only recursion.
+
+With memoization, the runtime complexity of this solution can be improved to be polynomial, O(n^2).
+
+- Memory complexity :
+
+The memory complexity of this solution is polynomial, O(n^2).
+```
+Memory Complexity is O(n^2), because we create a substring on each recursion call. Creating a substring can be avoided if we pass indices.
+```
 
 ... (rest of your README)
