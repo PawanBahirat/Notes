@@ -866,18 +866,17 @@ Given a large array of integers and a window of size ww, find the current maximu
 
 Let’s try to find all maximums for a window size equal to 33 in the array given below:
 
-| :-------  | :-------  | :-------   | :-------  |
-| `a[0][0]` | `a[0][1]` | `a[0][2]`  | `a[0][3]` |
+`-4`	`2`	`-5`	`3`	`6`
 
 Step1: For the first 3 elements in the window, max is 2.
 
--4	2	-5
+`-4`	`2`	`-5`
 Step2: Slide window one position to the right and max for window becomes 3.
 
-2	-5	3
+`2`	`-5`	`3`
 Step3: In the last window, max is 6.
 
--5	3	6
+`-5`	`3`	`6`
 Solution Approach
 The algorithm uses the deque data structure to find the maximum in a window. A deque is a double-ended queue in which push and pop operations work in O(1) at both ends. It will act as our window. At the start of the algorithm, we search for the maximum value in the first window. The first element’s index is pushed to the front of the deque. If an element is smaller than the one at the back of the queue, then the index of this element is pushed in and becomes the new back. If the current element is larger, the back of the queue is popped repeatedly until we can find a higher value, and then we’ll push the index of the current element in as the new back. As we can see, the deque stores elements in decreasing order. The front of the deque contains the index for the maximum value in that particular window. We will repeat the following steps each time our window moves to the right:
 
