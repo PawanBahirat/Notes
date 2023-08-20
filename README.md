@@ -54,7 +54,19 @@
     - [Solve A Celebrity Problem Using A Stack](#solve-a-celebrity-problem-using-a-stack)
     - [Check For Balanced Parentheses Using A Stack](#check-for-balanced-parentheses-using-a-stack)
     - [Create Stack Where Min() Gives Minimum In Constant Time O(1)](#create-stack-where-min-gives-minimum-in-constant-time-o1)
-
+  - [Trees](#trees)
+    - [Introduction To Trees](#introduction-to-trees)
+    - [Check If Two Binary Trees Are Identical](#check-if-two-binary-trees-are-identical)
+    - [In-Order Iterator For A Binary Tree](#in-order-iterator-for-a-binary-tree)
+    - [Iterative In-Order Traversal Of Binary Tree](#iterative-in-order-traversal-of-binary-tree)
+    - [In-Order Successor Of Binary Search Tree](#in-order-successor-of-binary-search-tree)
+    - [In-Order Successor Binary Search Tree With Parent Pointers](#in-order-successor-binary-search-tree-with-parent-pointers)
+    - [Level Order Traversal Of Binary Tree](#level-order-traversal-of-binary-tree)
+    - [Valid Binary Search Tree](#valid-binary-search-tree)
+    - [Serialize/Deserialize Binary Tree](#serializedeserialize-binary-tree)
+    - [Minimum Depth Of A Binary Tree](#minimum-depth-of-a-binary-tree)
+    - [All Paths For A Sum](#all-paths-for-a-sum)
+    - [Count Paths For A Sum](#count-paths-for-a-sum)
 
 ## Data Structures
 
@@ -4292,4 +4304,978 @@ Due to all these safeguards we’ve put in place, the `min` function only needs 
 - Time Complexity :
 
 Our goal was to create a stack that returns the minimum value in constant time. As we can see in the algorithm above, the `min` function truly works in O(1).
+
+## Trees
+
+### Introduction to Trees
+<hr>
+
+- Introduction :
+
+Trees consist of vertices (nodes) and edges that connect them. An edge is nothing but an ordered pair of nodes. Unlike the linear data structures, trees are hierarchical. We focus on rooted trees, here, in which, one of the nodes has a special significance and is designated the root of the tree.
+
+An edge connects two nodes in a tree. If (u, v) is an edge in a tree, then uu is the parent of v and v is a child of uu. Each node in a tree contains a value. Trees are similar to Graphs (which we’ll cover later), except that a cycle cannot exist in a Tree - they are acyclic. In other words, there is always exactly one path between any two nodes.
+
+- The following terminology is important :
+
+`Root Node` : A node with no parent nodes. Generally, trees don’t have to have a root. However, rooted trees have one distinguished node and are largely what we will use in this course.
+
+`Parent and Child Nodes` : If uu and vv are nodes in a tree and (u, v)(u,v) is an edge in the tree, then uu is the parent of vv. Conversely, vv is a child of uu. The root node has no parent
+
+`Sibling Node` : Nodes that have the same Parent Node
+
+`Leaf Node` : A node that doesn’t have any Child Node
+
+`Ancestor Nodes` : All the nodes on the path from a node uu to the root node are ancestors of uu. In other words, ancestors of a node include its parents, grandparents, and so on.
+
+`Descendant Nodes` : The children, grand children and so on, of a node
+
+`Sub-tree` : The tree under a given node is its sub tree. It includes all of its descendants
+
+`Degree of a node` : Total number of children of a node
+
+`Path` : The path between two nodes uu and vv is an alternating sequence of nodes and edges, which starts at uu and ends at vv with edges that are present in the tree and no node is repeated. In a tree, there is exactly one path between any pair of nodes
+
+`Length of a path` : The number of edges in a path
+
+`Depth of a node n` : The length of the path from a node n to the root node. The depth of the root node is 0.
+
+`Level of a node u` : (Depth of a Node uu)+1
+
+`Height of a node uu` : The length of the path from uu to its deepest descendant. The height of the leaf nodes is always 0.
+
+`Height of a Tree` : Height of the root node
+
+- Binary tree :
+
+In a binary tree, any node can have at most two children. A binary tree is called a full (or proper) binary tree if every node other than the leaf nodes has exactly two children. A binary tree is called a complete binary tree if every level, except possibly the last one, are completely filled with nodes and the leaf nodes are as far left as possible.
+
+- Implementation :
+
+There are different ways to implement trees. A common approach is:
+
+Declare a class to represent a node in the tree
+If it is a binary tree, have pointers to the left and right children. Otherwise, have a pointer to a list of children
+Maintain a root pointer that holds a reference to the root of the tree
+
+### Check If Two Binary Trees Are Identical
+<hr>
+
+- Description :
+
+Given the roots of two binary trees, determine if these trees are identical or not. Identical trees have the same layout and data at each node. Consider the following two identical binary trees that have the same layout and data. Trees that have the same data don’t need to be identical trees. Trees that have the same data may not be structurally identical. For example, if you look at the two trees below, although they have the same data, they are not identical.
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is O(h).
+
+- Explanation :
+
+The recursive solution has O(h)memory complexity as it will consume memory on the stack up to the height of binary tree hh. It will be O(log n) for a balanced tree and, in the worst case, can be O(n).
+
+This problem can be effectively solved using a recursive solution. The base case of recursion for this solution is if both nodes being compared are null, or one of them is null.
+
+Two trees ‘A’ and ‘B’ are identical if:
+
+data on their roots is the same or both roots are null left sub-tree of ‘A’ is identical to the left sub-tree of 'B’ right sub-tree of ‘A’ is identical to the right sub-tree of 'B’ To solve this problem, we’ll do a depth-first traversal on both trees simultaneously and keep comparing the data at each level.
+
+- Code :tada:
+```java
+
+class IdenticalTrees{
+  public static boolean areIdentical(BinaryTreeNode root1, BinaryTreeNode root2) {
+
+    if (root1 == null && root2 == null) {
+      return true;
+    }
+
+    if (root1 != null && root2 != null) {
+      return ((root1.data == root2.data) &&
+              areIdentical(root1.left, root2.left) &&
+              areIdentical(root1.right, root2.right));
+    }
+
+    return false;
+  }
+  
+  public static void main(String[] argv) {
+    
+    List<Integer> input1 = new ArrayList<Integer>();
+    input1.add(100);input1.add(50);input1.add(200);input1.add(25);input1.add(125);input1.add(250);
+    BinaryTreeNode root1  = BinaryTree.createBST(input1);
+    
+    List<Integer> input2 = new ArrayList<Integer>();
+    input2.add(1);input2.add(2);input2.add(10);input2.add(50);input2.add(180);input2.add(199);
+    BinaryTreeNode root2  = BinaryTree.createBST(input2);
+    
+    BinaryTree.displayLevelOrder(root1);
+
+    BinaryTree.displayLevelOrder(root2);
+  
+    if (areIdentical(root1, root2)) {
+      System.out.println("The trees are identical");
+    } else {
+      System.out.println("The trees are not identical");
+    }
+  }
+}  
+```
+
+### In-Order Iterator For A Binary Tree
+<hr>
+
+- Description :
+
+We are given the root node of a binary tree. We have to write an iterator that takes in this root and iterates through the nodes of a binary tree in an in-order way. The expectation is to write two critical methods of any iterator: `hasNext()` and `getNext()`. Consider the following binary tree:
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is O(h).
+```
+An iterative solution has O(h)O(h) memory complexity as it instantiates a stack that has to store information up to the height of the binary tree (h)(h). It will be O(logn)O(logn) for a balanced tree and, in the worst case, can be O(n)O(n).
+```
+- Explanation :
+
+We strongly recommend that you read the solution for iterative in-order traversal. It will help you better understand this solution. In this problem, we will need a stack to help us navigate the binary tree in-order and maintain the necessary state. Let’s see some basic rules for writing this iterator:
+
+A stack will contain the next element at the top, to return on getNext(). hasNext() will only check whether the stack is empty or not. To be able to carry out the aforementioned steps, we will need to set up a stack in the correct state at iterator construction. For that purpose, we push all elements from the root up to the leftmost node of the binary tree at iterator construction. The next task is to implement the getNext() method. It requires returning the next element in in-order traversal. It can be done by just returning the top node from the stack AND also setting up the stack in the correct state for the next getNext() call. For the latter, we look at the right child of the top node of the stack. If it’s non-null, we push all the nodes from this node to its leftmost node on to the stack.
+
+- Code :tada:
+```java
+
+class InorderIterator {
+  Stack<BinaryTreeNode> stk = new Stack<BinaryTreeNode>();
+
+  public InorderIterator(BinaryTreeNode root) {
+    populateIterator(root);
+  }
+
+  public void populateIterator(BinaryTreeNode root) {
+    while(root != null) {
+      stk.push(root);
+      root = root.left;
+    }
+  }
+
+  public boolean hasNext() {
+    return !stk.isEmpty();
+  }
+
+  public BinaryTreeNode getNext() {
+    if(stk.isEmpty())
+      return null;
+
+    BinaryTreeNode rVal = stk.pop();
+    BinaryTreeNode temp = rVal.right;
+    populateIterator(temp);
+
+    return rVal;
+  }
+  
+  public static String inorderUsingIterator(BinaryTreeNode root) {
+    InorderIterator iter = new InorderIterator(root);
+    String result = "";
+    while (iter.hasNext()) {
+      result += iter.getNext().data + " "; 
+    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    
+    List<Integer> input = new ArrayList<Integer>();
+    input.add(100);input.add(50);input.add(200);input.add(25);input.add(75);input.add(125);input.add(300);
+    input.add(12); input.add(35); input.add(60);
+    BinaryTreeNode root = BinaryTree.createBST(input);
+    System.out.print("Inorder Iterator = ");
+    System.out.println(inorderUsingIterator(root));
+  }
+}
+```
+
+### Iterative In-Order Traversal Of Binary Tree
+<hr>
+
+- Description :
+
+Given a binary tree, write an iterative algorithm to traverse the tree in-order. Let’s look at the tree below as an example.
+
+**Solution**
+
+- Runtime complexity:
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is O(h).
+
+```
+The iterative solution has O(h) memory complexity as it instantiates a stack that has to store information up to the height of binary tree h. It will be O(log n) for a balanced tree and can be O(n) in the worst case.
+```
+- Explanation :
+
+The in-order traversal of a binary tree starts from the root. First, it visits the left node (L)(L), followed by the current node (N)(N), and finally, the right node (R)(R). This is repeated for every node during the traversal. An easy way to remember this is LNRLNR, the node comes in the middle. For a BST, in-order traversal will always print nodes in an ascending order (based on their values). For an iterative in-order traversal, a stack is used to track the nodes. Here is the pseudocode.
+```
+initialize the current_node as root.
+create an empty stack stk.
+Push the current_node in stk and set  current_node = current_node->left until current_node becomes NULL.
+if stk is not empty and current_node == NULL then
+  Print the top element from stk
+  Pop the top element from stk and set current_node = element_popped->right
+  go to step 3
+if current_node is null and stack is empty then algorithm terminates.
+```
+- Code :tada:
+```java
+
+class InorderIterative{
+  static String iterativeInorder(BinaryTreeNode root)
+  {
+    String result = "";
+    if(root == null)
+      return result;
+
+    Stack<BinaryTreeNode> stk = new Stack<BinaryTreeNode>();
+  
+    while(!stk.empty() || root != null)
+    {
+      if(root != null)
+      {
+        stk.push(root);
+        root = root.left;
+        continue;
+      }
+      result+=stk.peek().data + " ";
+      System.out.print(stk.peek().data + " ");
+      root = stk.pop().right;
+    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    List<Integer> input = new ArrayList<Integer>();
+    input.add(100);input.add(50);input.add(200);input.add(25);input.add(75);input.add(125);input.add(350);
+    BinaryTreeNode root = BinaryTree.createBST(input);
+    System.out.print("Inorder Iterative Traversal= ");
+    iterativeInorder(root);
+    System.out.println();
+  }
+}  
+```
+
+### In-order Successor Of Binary Search Tree
+<hr>
+
+- Description :
+
+The in-order successor of a node in a binary Search Tree (BST) is the next node in in-order traversal. Write a method to find the in-order successor of a given value “d” in a BST.
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is logarithmic, O(logn)O(logn).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1)O(1).
+
+- Explanation :
+
+A naive solution of this problem would be doing an in-order traversal of the BST. Once dd is found, it returns the next node in the traversal. The runtime of this approach is linear. We can do better than linear in this problem if we closely look at the possible locations of the in-order successor. Let’s define some rules around that:
+
+Find the value dd in BST.
+
+If dd has a right child then the left most child in right child’s subtree will be the in-order successor of dd. This would also be the child with the minimum value in that subtree.
+
+If dd has no right child then:
+
+in-order successor is NULL if dd is right most node in the BST i.e. last node in the in-order traversal.
+in-order successor is the node with minimum value higher than dd in the parent chain of d.
+
+- Code :tada:
+```java
+class InorderSuccessor {
+  static BinaryTreeNode findMin(BinaryTreeNode root) {
+    if(root == null)
+      return null;
+  
+    while(root.left != null) {
+      root = root.left;
+    }
+
+    return root;
+  }
+
+  static BinaryTreeNode inorderSuccessorBST(BinaryTreeNode root, int d) {
+
+    if(root == null) {
+      return null;
+    }
+
+    BinaryTreeNode successor = null;
+
+    while (root != null) {
+
+      if(root.data < d) {
+        root = root.right;
+      }
+      else if(root.data > d) {
+        successor = root;
+        root = root.left;
+      }
+      else {
+        if(root.right != null)
+        {
+          successor = findMin(root.right);
+        }
+        break;
+      }
+    }
+    return successor;
+  }
+  
+  /// Test Program.
+  public static void main(String[] args) {
+    ArrayList<Integer> origData = new ArrayList<Integer>();
+    origData.add(100);origData.add(50);origData.add(200);origData.add(25);origData.add(75);
+    origData.add(125);origData.add(350);
+    BinaryTreeNode root = BinaryTree.createBST(origData);
+
+    ArrayList<Integer> allData = BinaryTree.BSTtoArraylist(root);
+  
+    for (Integer d : origData) {
+      BinaryTreeNode successor = inorderSuccessorBST(root, d);
+      int i = allData.indexOf(d);
+      Integer expectedVal = null;
+      if (i < allData.size() - 1) {
+        expectedVal = allData.get(i + 1);
+      }
+
+      if (successor != null) {
+        if (expectedVal.intValue() != successor.data) {
+          System.out.println("*******" + d + " ==== " + expectedVal + ", " + successor.data + "*****");
+          //System.out.println(expectedVal.intValue() == successor.data);
+        }
+      }  else {
+        //System.out.println(successor == null);
+      }    
+      if (successor != null) {
+        System.out.print("(" + d + ", " + successor.data + ") ");
+      } else { 
+        System.out.print("(" + d + ", null) ");
+      }
+    }
+  }
+}  
+```
+
+### In-order Successor Binary Search Tree With Parent Pointers
+<hr>
+
+- Description :
+
+An in-order successor of a node in a binary tree is the next node in an in-order traversal. Write a method to find an in-order successor of a given binary tree node in a binary search tree given parent pointers.
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is logarithmic, O(logn)O(logn).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1)O(1).
+
+- Explanation :
+
+We strongly recommend that you try solving the in-order successor in BST without parent pointers first. Here is the algorithm for finding an in-order successor with parent pointers:
+
+If the given node has a right child, then the left most child in the right child’s subtree will be the in-order successor If the given node has no right child, then: Start going up the parent chain. In this chain, keep going until you find a node who is a left child of its parent. This parent node will be the in-order successor If no such node is found, the in-order successor will be `NULL`
+
+- Code :tada:
+```java
+
+class InorderSuccessor{
+  static BinaryTreeNode findMinInTree(
+      BinaryTreeNode root) {
+
+    if(root == null)
+      return null;
+  
+    while(root.left != null) {
+      root = root.left;
+    }
+
+    return root;
+  }
+
+  static BinaryTreeNode inorderSuccessorBstParentPointer(
+      BinaryTreeNode node){
+  
+    if(node == null) {
+      return null;
+    }
+
+    if(node.right != null)
+    {
+      return findMinInTree(node.right);
+    }
+  
+    while(node.parent != null)
+    {
+      if(node.parent.left == node){
+        return node.parent;
+      }
+      node = node.parent;
+    }
+
+    return null;
+  }
+
+  static BinaryTreeNode findSuccessor(
+    BinaryTreeNode root, int d) {
+    while (root != null) {
+
+      if(root.data < d) {
+        root = root.right;
+      } else if(root.data > d) {
+        root = root.left;
+      } else {
+        return inorderSuccessorBstParentPointer(root);
+      }
+    }
+    return null;
+  }
+    /// Test Program.
+  public static void main(String[] args) {
+
+    List<Integer> input = new ArrayList<Integer>();
+    input.add(100);input.add(50);input.add(200);input.add(25);input.add(75);input.add(125);input.add(350);
+    BinaryTreeNode root = BinaryTree.createBST(input);
+
+    BinaryTree.populate_parents(root);
+  
+    for (Integer d : input) {
+      BinaryTreeNode successor = findSuccessor(root, d);
+      int i = input.indexOf(d);
+      Integer expected_val = null;
+      if (i < input.size() - 1) {
+        expected_val = input.get(i + 1);
+      }
+      if (successor != null)
+        System.out.print("(" + d + ", " + successor.data + ") ");
+      else 
+        System.out.print("(" + d + ", null) ");
+    }
+  }
+}  
+```
+
+### Level Order Traversal Of Binary Tree
+<hr>
+
+- Description :
+
+Given the root of a binary tree, display the node values at each level. Node values for all levels should be displayed on separate lines.
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n)O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n)O(n).
+```
+Iterative solution has O(n)O(n) memory complexity as it instantiates queues that can take space up to n/2n/2 nodes.
+```
+- Explanation :
+
+Here, we are using two queues: current_queue and next_queue. We push the nodes in both queues alternately based on the current level number.
+
+We’ll dequeue nodes from the current_queue, print the node’s data, and enqueue the node’s children to the next_queue. Once the current_queue becomes empty, we have processed all nodes for the current level_number. To indicate the new level, we will print a line break (’\n’), swap the two queues, and continue with the above-mentioned logic.
+
+- Code :tada:
+```java
+
+class LevelOrderTraversal{
+  // Using two queues
+  public static String levelOrderTraversal(BinaryTreeNode root) {
+
+    if (root == null) {
+      return "";
+    }
+
+    String result = "";
+  
+    ArrayList<Queue<BinaryTreeNode>> queues = 
+      new ArrayList<Queue<BinaryTreeNode>>();
+
+    queues.add(new ArrayDeque<BinaryTreeNode>());
+    queues.add(new ArrayDeque<BinaryTreeNode>());
+
+    Queue<BinaryTreeNode> current_queue = queues.get(0);
+    Queue<BinaryTreeNode> next_queue = queues.get(1);
+
+    current_queue.add(root);
+    int level_number = 0;
+
+    while (!current_queue.isEmpty()) {
+      BinaryTreeNode temp = current_queue.poll();
+      System.out.print(temp.data + " ");
+      result += String.valueOf(temp.data) + " ";
+
+      if (temp.left != null) {
+        next_queue.add(temp.left);
+      }
+
+      if (temp.right != null) {
+        next_queue.add(temp.right);
+      }
+
+      if (current_queue.isEmpty()) {
+        System.out.println();
+        ++level_number;
+        current_queue = queues.get(level_number % 2);
+        next_queue = queues.get((level_number + 1) % 2);
+      }
+    }
+    System.out.println();
+    return result;
+  }
+
+  public static void main(String[] argv) {
+    List<Integer> input = new ArrayList<Integer>();
+    input.add(100);input.add(50);input.add(200);input.add(25);input.add(75);input.add(350);
+    BinaryTreeNode root = BinaryTree.createBST(input);
+    System.out.println("Level Order Traversal:");
+    levelOrderTraversal(root);
+  }
+}  
+```
+
+### Valid Binary Search Tree
+<hr>
+
+- Description :
+
+Given a Binary Tree, figure out whether it’s a Binary Search Tree. In a binary search tree, each node’s key value is smaller than the key value of all nodes in the right subtree, and are greater than the key values of all nodes in the left subtree i.e. L < N < RL<N<R.
+
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n)O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n)O(n).
+```
+Recursive solution has O(h)O(h) memory complexity as it will consume memory on the stack up to the height of binary tree h. It will be O(log n)O(logn) for a balanced tree and in the worst case can be O(n)O(n).
+```
+- Explanation :
+
+There are several ways of solving this problem. A basic algorithm would be to check on each node where the maximum value of its left sub-tree is less than the node’s data and the minimum value of its right sub-tree is greater than the node’s data. This is highly inefficient as for each node, both of its left and right sub-trees are explored.
+
+Another approach would be to do a regular in-order traversal and in each recursive call, pass maximum and minimum bounds to check whether the current node’s value is within the given bounds. This approach is efficient compared to the one above.
+
+- Code :tada:
+```java
+
+class IsBST{
+  private static boolean isBstRec(BinaryTreeNode root, int min_value, int max_value) {
+
+    if (root == null) {
+      return true;
+    }
+
+    if (root.data < min_value || root.data > max_value) {
+      return false;
+    }
+
+    return isBstRec(root.left, min_value, root.data) &&
+           isBstRec(root.right, root.data, max_value);
+  }
+
+  public static boolean isBst(BinaryTreeNode root) {
+    return isBstRec(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+ 
+  public static void main(String[] argv) {
+    BinaryTreeNode root = new BinaryTreeNode(100);
+    BinaryTree.insert(root, 50);
+    BinaryTree.insert(root, 200);
+    BinaryTree.insert(root, 25);
+    // Add a node at an incorrect position
+    BinaryTree.insertInorderBinaryTree(root, 125);
+    BinaryTree.insert(root, 150);
+    BinaryTree.insert(root, 300);
+    
+    BinaryTree.displayInorder(root);
+    System.out.println();
+    System.out.println(Boolean.toString(isBst(root)));
+  }
+}
+```
+
+### Serialize_deserialize Binary Tree
+<hr>
+
+- Description :
+
+Serialize a binary tree to a file and then deserialize it back to a tree so that the original and the deserialized trees are identical. Serialize: write the tree in a file.
+
+Deserialize: read from a file and reconstruct the tree in memory.
+```
+There is no restriction regarding the format of a serialized stream, therefore you can serialize it in any efficient format. However, after deserializing the tree from the stream, it should be exactly like the original tree.
+```
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n)O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is Logarithmic, O(logn)O(logn).
+```
+The recursive solution has O(h)O(h) memory complexity as it will consume memory on the stack up to the height of the binary tree h. It will be O(logn)O(logn) for a balanced tree and in the worst case can be O(n)O(n).
+```
+- Explanation :
+
+There can be multiple approaches to serialize and deserialize the tree. One approach is to perform a depth-first traversal and serialize individual nodes to the stream. We’ll use a pre-order traversal here. We’ll also serialize some marker to represent a null pointer to help deserialize the tree. Consider the below binary tree as an example. Markers (M*) have been added in this tree to represent null nodes. The number with each marker i.e. 11 in M1M1, 22 in M2M2, merely represents the relative position of a marker in the stream. When deserializing the tree we’ll again use the pre-order traversal and create a new node for every non-marker node. Encountering a marker indicates that it was a null node.
+
+- Code :tada:
+```java
+
+class SerializeBT{
+  private static final int MARKER = Integer.MIN_VALUE;
+
+  public static void serialize(BinaryTreeNode node,
+      ObjectOutputStream stream)
+          throws java.io.IOException {
+    if (node == null) {
+      stream.writeInt(MARKER);
+      return;
+    }
+
+    stream.writeInt(node.data);
+    serialize(node.left, stream);
+    serialize(node.right, stream);
+  }
+
+  public static BinaryTreeNode deserialize(
+      ObjectInputStream stream) throws java.io.IOException {
+    int val = stream.readInt();
+    if (val == MARKER) {
+      return null;
+    }
+
+    BinaryTreeNode node = new BinaryTreeNode(val);
+    node.left = deserialize(stream);
+    node.right = deserialize(stream);
+    return node;
+  }
+  
+  public static void main(String[] args) {
+    try{
+      List<Integer> input = new ArrayList<Integer>();
+      input.add(100);input.add(50);input.add(200);input.add(25);input.add(75);input.add(125);input.add(350);
+      BinaryTreeNode root = BinaryTree.createBST(input);
+
+      BinaryTree.displayLevelOrder(root);
+
+      ByteArrayOutputStream baostream = new ByteArrayOutputStream();
+      ObjectOutputStream stream = new ObjectOutputStream(baostream);
+      serialize(root, stream);
+      stream.close();
+
+      ByteArrayInputStream baistream = new ByteArrayInputStream(
+        baostream.toByteArray());
+      ObjectInputStream  istream = new ObjectInputStream(baistream);
+      BinaryTreeNode rootDeserialized = deserialize(istream);
+
+      System.out.println("\nResult:");
+      BinaryTree.displayLevelOrder(rootDeserialized);
+    }
+    catch(Exception ex){
+      ex.printStackTrace();
+    }
+  }
+}  
+```
+
+### Minimum Depth Of A Binary Tree
+<hr>
+
+- Description :
+
+Find the minimum depth of a binary tree. The minimum depth is the number of nodes along the shortest path from the root node to the nearest leaf node.
+
+**Solution**
+
+- Runtime complexity :
+
+The time complexity of the above algorithm is O(N)O(N), where ‘N’ is the total number of nodes in the tree. This is due to the fact that we traverse each node once.
+
+- Memory complexity :
+
+The space complexity of the above algorithm will be O(N)O(N) which is required for the queue. Since we can have a maximum of N/2N/2 nodes at any level (this could happen only at the lowest level), therefore we will need O(N)O(N) space to store them in the queue.
+
+- Explanation :
+
+This problem follows the Binary Tree Level Order Traversal pattern. We can follow the same BFS approach. The only difference will be, instead of keeping track of all the nodes in a level, we will only track the depth of the tree. As soon as we find our first leaf node, that level will represent the minimum depth of the tree.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+};
+
+class MinimumBinaryTreeDepth {
+  public static int findDepth(TreeNode root) {
+    if (root == null)
+      return 0;
+
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    int minimumTreeDepth = 0;
+    while (!queue.isEmpty()) {
+      minimumTreeDepth++;
+      int levelSize = queue.size();
+      for (int i = 0; i < levelSize; i++) {
+        TreeNode currentNode = queue.poll();
+
+        // check if this is a leaf node
+        if (currentNode.left == null && currentNode.right == null)
+          return minimumTreeDepth;
+
+        // insert the children of current node in the queue
+        if (currentNode.left != null)
+          queue.add(currentNode.left);
+        if (currentNode.right != null)
+          queue.add(currentNode.right);
+      }
+    }
+    return minimumTreeDepth;
+  }
+
+  public static void main(String[] args) {
+    TreeNode root = new TreeNode(12);
+    root.left = new TreeNode(7);
+    root.right = new TreeNode(1);
+    root.right.left = new TreeNode(10);
+    root.right.right = new TreeNode(5);
+    System.out.println("Tree Minimum Depth: " + MinimumBinaryTreeDepth.findDepth(root));
+    root.left.left = new TreeNode(9);
+    root.right.left.left = new TreeNode(11);
+    System.out.println("Tree Minimum Depth: " + MinimumBinaryTreeDepth.findDepth(root));
+  }
+}
+```
+
+### All Paths For A Sum
+<hr>
+
+- Description :
+
+Given a binary tree and a number ‘S’, find all paths from root-to-leaf such that the sum of all the node values of each path equals ‘S’.
+
+**Solution**
+
+- Runtime complexity :
+
+The time complexity of the above algorithm is O(N^2), where ‘N’ is the total number of nodes in the tree. This is due to the fact that we traverse each node once (which will take O(N), and for every leaf node, we might have to store its path (by making a copy of the current path) which will take O(N).
+
+We can calculate a tighter time complexity of O(NlogN) from the space complexity discussion below.
+
+- Memory complexity :
+
+If we ignore the space required for the allPaths list, the space complexity of the above algorithm will be O(N) in the worst case. This space will be used to store the recursion stack. The worst-case will happen when the given tree is a linked list (i.e., every node has only one child).
+
+- Explanation :
+
+This problem follows the Binary Tree Path Sum pattern. We can follow the same DFS approach. There will be two differences:
+
+Every time we find a root-to-leaf path, we will store it in a list.
+We will traverse all paths and will not stop processing after finding the first path.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+};
+
+class FindAllTreePaths {
+  public static List<List<Integer>> findPaths(TreeNode root, int sum) {
+    List<List<Integer>> allPaths = new ArrayList<>();
+    List<Integer> currentPath = new ArrayList<Integer>();
+    findPathsRecursive(root, sum, currentPath, allPaths);
+    return allPaths;
+  }
+
+  private static void findPathsRecursive(TreeNode currentNode, int sum, List<Integer> currentPath,
+      List<List<Integer>> allPaths) {
+    if (currentNode == null)
+      return;
+
+    // add the current node to the path
+    currentPath.add(currentNode.val);
+
+    // if the current node is a leaf and its value is equal to sum, save the current path
+    if (currentNode.val == sum && currentNode.left == null && currentNode.right == null) {
+      allPaths.add(new ArrayList<Integer>(currentPath));
+    } else {
+      // traverse the left sub-tree
+      findPathsRecursive(currentNode.left, sum - currentNode.val, currentPath, allPaths);
+      // traverse the right sub-tree
+      findPathsRecursive(currentNode.right, sum - currentNode.val, currentPath, allPaths);
+    }
+
+    // remove the current node from the path to backtrack, 
+    // we need to remove the current node while we are going up the recursive call stack.
+    currentPath.remove(currentPath.size() - 1);
+  }
+
+  public static void main(String[] args) {
+    TreeNode root = new TreeNode(12);
+    root.left = new TreeNode(7);
+    root.right = new TreeNode(1);
+    root.left.left = new TreeNode(4);
+    root.right.left = new TreeNode(10);
+    root.right.right = new TreeNode(5);
+    int sum = 23;
+    List<List<Integer>> result = FindAllTreePaths.findPaths(root, sum);
+    System.out.println("Tree paths with sum " + sum + ": " + result);
+  }
+}
+```
+
+### Count Paths For A Sum
+<hr>
+
+- Description :
+
+Given a binary tree and a number ‘S’, find all paths in the tree such that the sum of all the node values of each path equals ‘S’. Please note that the paths can start or end at any node but all paths must follow direction from parent to child (top to bottom).
+
+**Solution**
+
+- Runtime complexity :
+
+The time complexity of the above algorithm is O(N^2) in the worst case, where ‘N’ is the total number of nodes in the tree. This is due to the fact that we traverse each node once, but for every node, we iterate the current path. The current path, in the worst case, can be O(N) (in the case of a skewed tree). But, if the tree is balanced, then the current path will be equal to the height of the tree, i.e., O(logN). So the best case of our algorithm will be O(NlogN).
+
+- Space complexity :
+
+The space complexity of the above algorithm will be O(N). This space will be used to store the recursion stack. The worst case will happen when the given tree is a linked list (i.e., every node has only one child). We also need O(N) space for storing the currentPath in the worst case.
+
+Overall space complexity of our algorithm is O(N).
+
+- Explanation :
+
+This problem follows the Binary Tree Path Sum pattern. We can follow the same DFS approach. But there will be four differences:
+
+We will keep track of the current path in a list which will be passed to every recursive call.
+
+Whenever we traverse a node we will do two things:
+
+Add the current node to the current path.
+As we added a new node to the current path, we should find the sums of all sub-paths ending at the current node. If the sum of any sub-path is equal to ‘S’ we will increment our path count.
+We will traverse all paths and will not stop processing after finding the first path.
+
+Remove the current node from the current path before returning from the function. This is needed to Backtrack while we are going up the recursive call stack to process other paths.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+};
+
+class CountAllPathSum {
+  public static int countPaths(TreeNode root, int S) {
+    List<Integer> currentPath = new LinkedList<>();
+    return countPathsRecursive(root, S, currentPath);
+  }
+
+  private static int countPathsRecursive(TreeNode currentNode, int S, List<Integer> currentPath) {
+    if (currentNode == null)
+      return 0;
+
+    // add the current node to the path
+    currentPath.add(currentNode.val);
+    int pathCount = 0, pathSum = 0;
+    // find the sums of all sub-paths in the current path list
+    ListIterator<Integer> pathIterator = currentPath.listIterator(currentPath.size());
+    while (pathIterator.hasPrevious()) {
+      pathSum += pathIterator.previous();
+      // if the sum of any sub-path is equal to 'S' we increment our path count.
+      if (pathSum == S) {
+        pathCount++;
+      }
+    }
+
+    // traverse the left sub-tree
+    pathCount += countPathsRecursive(currentNode.left, S, currentPath);
+    // traverse the right sub-tree
+    pathCount += countPathsRecursive(currentNode.right, S, currentPath);
+
+    // remove the current node from the path to backtrack, 
+    // we need to remove the current node while we are going up the recursive call stack.
+    currentPath.remove(currentPath.size() - 1);
+
+    return pathCount;
+  }
+
+  public static void main(String[] args) {
+    TreeNode root = new TreeNode(12);
+    root.left = new TreeNode(7);
+    root.right = new TreeNode(1);
+    root.left.left = new TreeNode(4);
+    root.right.left = new TreeNode(10);
+    root.right.right = new TreeNode(5);
+    System.out.println("Tree has path: " + CountAllPathSum.countPaths(root, 11));
+  }
+}
+```
 ... (rest of your README)
