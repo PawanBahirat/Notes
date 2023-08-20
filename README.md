@@ -15,7 +15,7 @@ Data structure and Algorithms.
     - [First Non-Repeating Integer In An Array](#first-non-repeating-integer-in-an-array)
     - [Find Second Maximum Value In An Array](#find-second-maximum-value-in-an-array)
     - [Find The Sum Of Maximum Sum Subarray](#find-the-sum-of-maximum-sum-subarray)
-    - [Binary Search On Sorted Array](binary-search-on-sorted-array)
+    - [Binary Search on Sorted Array](#binary-search-on-sorted-array)
 
 ## Data Structures
 
