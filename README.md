@@ -818,13 +818,15 @@ Binary search is used to find the index of an element in a sorted array. If the 
 
 Here’s how the algorithm works:
 
-At every step, consider the array between low and high indices
-Calculate the mid index.
-If the element at the mid index is the key, return mid.
-If the element at mid is greater than the key, then change the index high to mid - 1. The index at low remains the same.
-If the element at mid is less than the key, then change low to mid + 1. The index at high remains the same.
-When low is greater than high, the key doesn’t exist and -1 is returned.
-Code
+At every step, consider the array between `low` and `high` indices
+Calculate the `mid` index.
+If the element at the `mid` index is the `key`, return `mid`.
+If the element at `mid` is greater than the `key`, then change the index `high` to `mid - 1`. The index at `low` remains the same.
+If the element at `mid` is less than the `key`, then change `low` to `mid + 1`. The index at high remains the same.
+When `low` is greater than `high`, the `key` doesn’t exist and -1 is returned.
+
+- Code :
+```java
 static int binSearch(int[] A, int key) {
   
     int low = 0;
@@ -847,7 +849,7 @@ static int binSearch(int[] A, int key) {
     }
     return -1;
   }
-
+```
 
 
 
