@@ -73,6 +73,12 @@
     - [Find All Of The Words In A Trie](#find-all-of-the-words-in-a-trie)
     - [Sort The Elements Of An Array Using A Trie](#sort-the-elements-of-an-array-using-a-trie)
     - [Word Formation From A Given Dictionary Using A Trie](#word-formation-from-a-given-dictionary-using-a-trie)
+  - [Recursion](#Recursion)
+    - [Find The Greatest Common Divisor](#find-the-greatest-common-divisor)
+    - [Check For Prime Number](#check-for-prime-number)
+    - [How Does The Decimal To Binary Conversion Work-?](#how-does-the-decimal-to-binary-conversion-work-?)
+    - [Is This String A Palindrome](#is-this-string-a-palindrome)
+    - [Insert Values In A Binary Search Tree](#insert-values-in-a-binary-search-tree)
 ## Data Structures
 
 ### Arrays
@@ -5834,4 +5840,518 @@ We perform the insert operation m times for a dictionary of size m. After that, 
 "h", "he", "hel", "hell"...
 ```
 If the length of the average word in the dictionary is h, then the time taken for trie construction is O(m*h). Let the length of the word being searched be n. Then, the complexity for this turns out to be n^2. Hence, the total time complexity is O(mh + n ^ 2).. We could argue that in some applications, the trie is constructed only once, and then many many lookups are performed. So, the cost of trie creation is amortized over all the lookups. In that case, the complexity reduces to O(n ^ 2).
+
+## Recursion
+
+### Find The Greatest Common Divisor
+
+In this lesson, we will find the greatest common divisor (GCD) using recursion.
+
+- What is GCD?
+
+The GCD of two integers is the largest integer that can fully divide both numbers, without a remainder.
+
+- How to find GCD?
+
+- What is the greatest common divisor of 54 and 36?
+
+The number 3636 can be expressed as a product of two integers in several different ways:
+
+36x1=18x2= 12x3 = 9x4
+
+Thus the divisors for 3636 are 1, 2, 3, 4, 6, 9, 12, 18, 36.
+
+The number 5454 can be expressed as a product of two integers in several different ways:
+
+54×1=27×2=18×3=9×6
+
+Thus the divisors for 5454 are 1, 2, 3, 6, 9, 18, 27.
+
+Common divisors are 1, 2, 3, 6, 9 and 18.
+
+The greatest common divisor or GCD for 36 and 54 is 18.
+
+- Problem Statement :
+
+Write a recursive method that computes the GCD of two integers.
+
+- Instructions :
+
+1. The method should take two integers as input. Their GCD is to be computed, as input.
+2. The method should return the GCD of the two integers as output.
+3. The method should be recursive.
+
+- Sample Input :
+```
+24, 18
+```
+- Sample Output :
+```
+6
+```
+**Solution: Greatest Common Divisor**
+
+- Code :tada:
+```java
+
+class Solution {
+    
+    public static int gcd(int num1, int num2) {
+
+        // Base case
+        if (num1 == num2) {
+            return num1;
+        }
+        // Recursive case
+        if (num1 > num2) {
+            return gcd(num1-num2, num2);
+        }
+        else {
+            return gcd(num1, num2-num1);
+        }
+    }
+
+    public static void main( String args[] ) {
+        int x = 56;
+        int y = 42;
+        int result = gcd(x, y);
+        System.out.println("The GCD of " + x + " and " + y + " is:");
+        System.out.println(result);
+    }
+}
+```
+- Understanding the Code :
+
+In the code above, the method `gcd` is a recursive method, since it makes a recursive call in the method body. Below is an explanation of the above code.
+
+- Driver Method :
+
+In the `main` code, we have defined three integer variables: `x`,`y` and `result`.
+`result` stores the greatest common divisor of `x` and `y` when the `gcd` method is called.
+Line 23 prints `result`.
+
+- Recursive Method :
+
+The return type of this method is an integer because GCD of two numbers is always an integer.
+
+The method takes two integer input arguments `num1` and `num2`.
+
+- Base Case :
+
+The base case of the method is defined in the `if` block, from line 6 to line 8. When `num2` is equal to `num1`	, the method returns `num1`.
+
+- Recursive Case  ;
+
+If the base case does not compute to be true, the method checks the second `if` condition on line 10, to be true i.e `if num1 > num2`. If it computes to true, a recursive call is made with parameters `num1-num2` and `num2` respectively.
+
+If the base case and the `if` condition does not compute to true, the method automatically goes to the `else` statement on line 14, where `num2 > num1` and a recursive call is made with parameters num1 and num2-num1 respectively.
+
+In the case above the recursive calls will be as follows:
+
+1. First recursive call will be for `num2 > num1` and will be `gcd(56-42,42)`.
+
+2. Second recursive call will be for `num1 > num2` and will be `ogcd(14,42-14)`.
+
+3. Third recursive call will be for `num1 > num2` and will be `gcd(14,28-14)`.
+
+After the third recursive call, the `num1==num2` condition computes to true. So, the base case is reached; hence the method returns `num1`, which is equal to 14.
+
+### Check For Prime Number
+<hr>
+
+In this lesson, you will implement the code to check if a number is prime using recursion.
+
+- What is a prime number? :
+
+A `prime number` is a number greater than 1 that has only two divisors: 1 and the number itself. The first few prime numbers are:
+
+2, 3, 5, 7, 11, 13, 17, 19, 23, 29, .....
+
+`Composite` numbers are numbers that are not prime; that is, they have divisors other than 11 and itself
+
+4, 6, 8, 9, 10, 12, 14, 15, 16, 18.......
+```
+The numbers 11 and 00 are neither prime nor composite.
+```
+All the numbers are either prime or composite, except for 00 and 11.
+
+- Problem Statement :
+
+Write a recursive method, named `isPrime()` that checks if a number is prime or not.
+
+- Instructions :
+
+1. The method should take two integers as input.
+2. The method should return Boolean, meaning it will return true if the number is prime or return false if the number is not prime.
+3. The method should be recursive.
+
+- Sample Input :
+```
+7
+```
+- Sample Output :
+```
+true
+```
+**Solution: Greatest Common Divisor**
+
+- Code :tada:
+```java
+
+class ChallengeClass {
+
+    public static boolean isPrime(int num, int i) {
+
+        // First base case
+        if (num < 2) {
+            return false;
+        }
+        // Second base case
+        else if (i == 1) {
+            return true;
+        }
+        // Third base case
+        else if (num%i == 0) {
+            return false;
+        }
+        // Recursive case
+        else {
+            return isPrime(num, i-1);
+        }
+    }
+
+    public static void main( String args[] ) {
+        int input = 13;
+        boolean result = isPrime(input, input/2);
+
+        // Print if the number is prime
+        if (result == true) {
+            System.out.println(input + " is a prime number");
+        }
+        // Prints if the number is NOT a prime number
+        else {
+            System.out.println(input + " is NOT a prime number");
+        }
+    } 
+}
+```
+- Understanding the Code :
+
+In the code above, the method isPrime is a recursive method, since it makes a recursive call in the method body. Below is an explanation of the above code:
+
+- Driver Method :
+
+In the `main` code, we have defined an integer variable, named `input`, and a boolean variable, named `result`.
+
+The `result` variable stores the output of the `isPrime` method.
+
+The first parameter in the `isPrime` method is the number to be tested, named `input`. The second parameter, `input/2`, is half of the number to be tested.
+
+Lines 28-30 and lines 32-34 print the type - prime or not prime - of the number based on the value of the `result`.
+
+Recursive Method
+The return type of this method is `Boolean` since we want to check if the number is prime or not and it takes the two integers, `num` and `i`, as input parameters.
+`num` is the number to be tested and i is the iterator and has the initial value of `num/2` when the method is called in the main code.
+`i` has the initial value of `num/2` because all the factors of a number are less than equal to the half of that number. We iterate through all the numbers less than or equal to `i` to check if `num` has a factor. We use the `%` operator to check for the factors of num.
+
+- Base Case :
+
+We have defined the base cases for the method in the `if` conditions.
+
+1. In the first `if` condition, line 6-8, when `num` is less than or equal to 22, the method returns `num` since 00 and 11 are not prime numbers.
+
+2. In the second `if` condition, lines 10-12, when `i` is equal to 11, the method returns true. We will need to understand the recursive part of the method to understand this base case.
+
+3. In the third `if` condition, lines 14-16, if the number has a divisor other than 11, the method returns false. To check for this condition, we use the `%` operator to compute modulo of `num` with the iterator `i`.
+
+- Recursive Case :
+
+When the `if` condition for any of the base cases does not compute to be true, the method enters the `else` block, lines 18-20, where it makes a recursive call.
+
+In the recursive call, the `isPrime` method is called with the first parameter, `num`, and the second parameter, `i-1`.
+
+In this case, the recursive calls will be as follows:
+
+1. The first recursive call will be `isPrime(13,5)`.
+
+2. The second recursive call will be `sPrime(13,4)`.
+
+3. The third recursive call will be `isPrime(13,3)`.
+
+4. The fourth recursive call will be `isPrime(13,2)`.
+
+5. The fifth recursive call will be `isPrime(13,1)` which is when the second base case condition will be reached since `i==1`.
+
+The method will return `true` since `num` is divisible by 1 only.
+
+### How does the Decimal to Binary Conversion work?
+<hr>
+
+Given a decimal number, you keep dividing the number by 2 until it reaches 1 and records the remainder at each step.
+
+The resulting list of remainders is the equivalent binary number for your decimal number. For example:
+
+- Input : 
+```
+1919
+```
+- Output : 
+```
+1001110011
+```
+The illustration below explains the process of converting a decimal number to a binary number.
+
+- Problem Statement :
+
+You are required to write a method that takes a decimal integer as an input parameter and returns its equivalent binary number.
+
+It is recommended that you try solving the exercise yourself before viewing the solution.
+
+- Code Implementation :tada:
+```java
+class ChallengeClass {
+
+    public static int decimalToBinary(int decimalNum) {
+        if (decimalNum == 0) {
+            return 0;
+        }
+        else {
+            return (decimalNum%2 + 10*decimalToBinary(decimalNum/2));
+        }
+    }
+
+    public static void main( String args[] ) {
+        int input = 27;
+        int result = decimalToBinary(input);
+        System.out.println("The binary form of " + input + " is: " + result);
+    }
+
+}
+```
+- Understanding the Code :
+
+In the code above, the method `decimalToBinary` is a recursive method, since it calls itself in the method body. Below is an explanation of the above code:
+
+- Driver Method :
+
+In the main code, we have defined an integer variable, an input that represents the decimal number that is to be converted to its equivalent binary number.
+The method `decimalToBinary` is called on line 14 and takes the input variable as its argument.
+The `System.out.println` command on line 15 prints the integer value that returned from the `decimalToBinary method`.
+
+- Recursive Method :
+
+The return type of this method is `int` because the binary number will always be in an integer form.
+The `decimalToBinary` method takes in only one integer, `decimalNum`, as its input parameter.
+It consists of a base case and a recursive case both of which are explained in detail below.
+
+- Base Case :
+
+The base case makes sure that if or when the decimalNum equals to 0, the method should return 0 and get terminated.
+
+- Recursive Case :
+
+If the base condition does not compute to be true, the method enters the `else` block at line 8, where the recursive call is made. Note that in this recursive call, the input parameter is `(decimalNum/2)`, which is multiplied by 10, and `decimalNum%2` is further added to it.
+With each recursive call, the input parameter decimalNum is reduced by half.
+Let us look at the example below to see why this input parameter is passed to the recursive function.
+
+Let the decimal number be 9.
+
+1. 9 % 2 (which equals to 1) + 10 * (9/2)
+2. 4 % 2 (which equals to 0) + 10 *∗ (4/2)
+3. 2 % 2 (which equals to 0) + 10 * (2/2)
+4. 1 % 2 (which equals to 1) + 10 *∗ (1/2)
+
+The output equivalent binary number for 9 is thus 1001.
+
+### Is this String a Palindrome?
+<hr>
+
+This challenge aims to test your understanding of recursion by finding out whether or not a string is a palindrome.
+
+- Problem Statement :
+
+Before we dive into the challenge, let’s learn what a palindrome is. A palindrome is a string of words that reads the same both backward and forwards, for example, the words mom or dad, or even madam. In this problem, we will have to determine whether or not the given string is a palindrome! The method where you must write your code is provided in the code snippet below. You may not change the input parameters.
+```
+SAMPLE INPUT: dad SAMPLE OUTPUT: true SAMPLE INPUT: Hello SAMPLE OUTPUT: false
+```
+- Code Implementation :tada:
+```java
+
+class ChallengeClass {
+
+    public static boolean isPalindrome(String text) {
+        if (text.length() == 0) {
+            return false;
+        }
+        else if (text.length() == 1) {
+            return true;
+        }
+        else {
+            if (text.charAt(0) == text.charAt(text.length()-1)) {
+                return isPalindrome(text.substring(1, text.length()-1));
+            }
+        }
+        return false;
+    }
+
+    public static void main( String args[] ) { 
+        String input1 = "hello";
+        String input2 = "dadad";
+        boolean answer1 = isPalindrome(input1);
+        boolean answer2 = isPalindrome(input2);
+        System.out.println("Is " + input1 + " a Palindrome? = " + answer1);
+        System.out.println("Is " + input2 + " a Palindrome? = " + answer2);
+    }  
+}
+```
+- Understanding the Code :
+
+Every recursive code has two methods: the recursive method and the main method.
+
+- Driver Method :
+
+The recursive method is called within the driver method. Let’s first look at what it does-from line 19 to 24.
+
+In this driver method, we have two strings where `input2` is a palindrome and `input1` is not.
+
+For each string, it calls on the `isPalindrome` method, and the output of the method is stored in the `answer1` and `answer2` variables.
+
+On line 23 and line 24, the code prints `true` if the string is a palindrome. If it is not a palindrome, the code prints `false`.
+
+- Recursive Method :
+
+Now let’s look at the recursive method: the `isPalindrome` method from line 4 to line 15. Within this recursive method, you have the base case and the recursive case.
+
+The method itself returns a `boolean` value, either true or false - depending on whether or not a palindrome is found. The method takes in one argument, the string `text` which is the string that will be checked.
+
+- Base Case :
+
+The first if condition from line 4 to line 6 states that if the length of the given `text` is zero, it will return false indicating that the string is not a palindrome since it is an empty string.
+The else if condition from line 7 to line 9 states that if a given `text` has a length equal to one, it will return true, since a string of a single letter string is technically a palindrome.
+
+- Recursive Case :
+
+Provided that the above-mentioned base conditions are not met, we move to the recursive case.
+
+The if condition on line 11 examines if the first and last index is equal. The function `isPalindrome` is called again-but with changed parameters. This enables the function to check if the entire string is a palindrome, rather than the first and last index.
+
+We then pass the modified string `text` to the recursive method, `isPalindrome` comparing values from the next index using `substring(1, text.length()-1)` from the start of the string while decrementing the last index by 1.
+
+The recursive call, in this case, terminates when the values mentioned above become equal, or when the values do not match at their respective positions.
+
+### Insert Values In A Binary Search Tree
+<hr>
+
+This lesson will help you learn recursion through trees.
+
+- What is a Binary Search Tree? :
+
+A Binary Search Tree (BST) is a hierarchical data structure that consists of vertices connected through edges. The value of the left node is less than the value of the parent node, and the value of the right node is greater than the value of the parent node.
+
+- Code Implementation :tada:
+```java
+
+class binarySearchTree {
+
+	//Variables
+	private Node root;
+	//Getter for Root
+	public Node getRoot() {
+		return root;
+	}
+  //Setter for root
+  public void setRoot(Node root) {
+		this.root = root;
+	}
+
+
+	//Recursive function to insert a value in BST 
+	public Node recursive_insert(Node currentNode, int value) {
+
+		//Base Case
+		if (currentNode == null) {
+			return new Node(value);
+		}
+
+		if (value < currentNode.getData()) {
+			//Iterate left sub-tree
+			currentNode.setLeftChild(recursive_insert(currentNode.getLeftChild(), value));
+		} else if (value > currentNode.getData()) {
+			//Iterate right sub-tree
+			currentNode.setRightChild(recursive_insert(currentNode.getRightChild(), value));
+		} else {
+			// value already exists
+			return currentNode;
+		}
+
+		return currentNode;
+	}
+
+	//Function to call recursive insert
+	public boolean insert(int value) {
+
+		root = recursive_insert(this.root, value);
+		return true;
+	}
+
+	//Function to check if Tree is empty or not  
+	public boolean isEmpty() {
+		return root == null; //if root is null then it means Tree is empty
+	}
+
+	//Just for Testing purpose 
+	public void printTree(Node current) {
+
+		if (current == null) return;
+
+		System.out.print(current.getData() + ",");
+		printTree(current.getLeftChild());
+		printTree(current.getRightChild());
+
+	}
+	public static void main(String args[]) {
+
+		binarySearchTree bsT = new binarySearchTree();
+		bsT.insert(6);
+		bsT.insert(4);
+		bsT.insert(8);
+		bsT.insert(5);
+		bsT.insert(2);
+		bsT.insert(8);
+		bsT.insert(12);
+		bsT.insert(10);
+		bsT.insert(14);
+		bsT.printTree(bsT.getRoot());
+
+	}
+}
+```
+- Understanding the Code :
+
+In the code above, the function `insert` is a recursive method, since it makes a recursive call. Below is an explanation of the above code:
+
+- Driver Method :
+
+In the `main` code, we create a new `BST`, named bsT.
+The `insert()` method is subsequently called to insert nodes in the BST.
+The `printTree()` method prints the BST using the in order traversal. It takes the root of the tree to begin the traversal. This process just prints the BST in order.
+
+- Recursive Method :
+
+The return type of the `insert()` function is `boolean` and takes one integer type of input parameter `value` which depicts the value of the node. This method calls the actual recursive method `recursive_insert` that takes two input parameters. The first is `currentNode` of type `Node`. The second parameter `value` is the integer to be inserted in the BST. We will discuss the `recursive_insert` method below.
+
+- Base Case :
+
+We have defined a base case for the method in first if condition between lines 19 to 21.
+If the value of the `currentNode` is `null`, meaning there is an available space for the child node to be inserted, a `new Node()` is created with the `value`.
+
+- Recursive Case :
+
+If the base case condition is not met and the `value` to be inserted is less than the value of `currentNode.getData()`, the function enters the second `if` condition, line 25, where it makes a recursive call.
+In this process, the `recursive_insert` method is recursively .The first parameter is `currentNode.getLeftChild()` and the second parameter is `value`.
+If the method has not reached the base and the inserted `value` is greater than the value of `currentNode.getData()`, the function enters the other `else if` condition, in line 26-28, where, it makes a recursive call.
+In this `else if` condition, the `recursive_insert` method is called. The first parameter is `currentNode.getRightChild()` and the second parameter is `value`.
+If all the above conditions are not met, we reach the `else` condition from lines 29 to 31 which returns the `currentNode` since the defined `value` already exists.
+Line 34 returns the `currentNode` after being inserted into its position.
+Subsequent recursive calls will continually be made until the first parameter equals `null`, which ensures the availability of a position for the new node. The new node is then added to its corresponding position.
 ... (rest of your README)
