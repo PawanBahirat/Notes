@@ -28,6 +28,7 @@
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
  - [Linked List](#linked-list)
     - [Introduction To Linked Lists](#introduction-to-linked-lists)
+    - [Insertion in a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-\(insert-at-end)]
 ## Data Structures
 
 ### Arrays
@@ -2053,5 +2054,118 @@ Deletion at the tail is one of the operations that distinguishes a doubly-linked
 | Delete at tail | O(n)	| O(1) |
 
 In terms of space, if there are `n` nodes in a linked list, `d` is the (average) number of bytes of data in each node and `p` is the number of bytes consumed by a pointer, then a `singly linked list` consumes n*(d+p) bytes, whereas a `doubly linked list` consumes n*(d+2p) bytes.
+
+### Insertion in a Singly Linked List (insert at End)
+<hr>
+
+- Introduction :
+
+Now, we are going to explain the second part (Insertion at End) and look at its examples, along with one coding challenge for the sake of practice. So let’s see how elements are inserted at the end of a linked list. In this type of insertion, we add an element at the end of the list.
+
+- Problem Statement :
+
+In the code snippet provided below, you will complete the void insertAtEnd(T data) method. This will take a generic type T value called data and insert that value at the end of the list. This code would be the part of the SinglyLinkedList class that we created in the previous lesson, therefore, any private members of that class can be accessed inside the function as well. After writing the code, run it and see how many tests you passed.
+
+- Method Prototype :
+```
+void insertAtEnd(T data)
+```
+- Output :
+
+The return type of the method is `void`. The object on which it is called will be modified only.
+
+- Sample Input :
+
+```
+linkedlist = 0->1->2 data = 3
+```
+- Sample Output :
+
+```
+linkedlist = 0->1->2->3
+```
+**Solution**
+
+If you grasped the logic behind insertion at the head of a linked list, this shouldn’t be much of a challenge. If the list is empty, the situation is exactly like insertion at the head. Otherwise, we can use a loop to reach the tail of the list and set our new node as the `nextNode` of the `last` node.
+
+- Code :tada:
+```java
+
+public class SinglyLinkedList<T> {
+//Node inner class for SLL
+    public class Node {
+        public T data;
+        public Node nextNode;
+
+    }
+
+    public Node headNode; //head node of the linked list
+    public int size;      //size of the linked list
+
+    //Constructor - initializes headNode and size
+    public SinglyLinkedList() {
+        headNode = null;
+        size = 0;
+    }
+
+    //Helper Function that checks if List is empty or not 
+    public boolean isEmpty() {
+        if (headNode == null) return true;
+        return false;
+    }
+
+    //Inserts new data at the start of the linked list
+    public void insertAtHead(T data) {
+        //Creating a new node and assigning it the new data value
+        Node newNode = new Node();
+        newNode.data = data;
+        //Linking head to the newNode's nextNode
+        newNode.nextNode = headNode;
+        headNode = newNode;
+        size++;
+    }
+
+    // Helper Function to printList
+    public void printList() {
+        if (isEmpty()) {
+            System.out.println("List is Empty!");
+            return;
+        }
+
+        Node temp = headNode;
+        System.out.print("List : ");
+        while (temp.nextNode != null) {
+            System.out.print(temp.data.toString() + " -> ");
+            temp = temp.nextNode;
+        }
+        System.out.println(temp.data.toString() + " -> null");
+    }
+    
+    //Inserts new data at the end of the linked list
+    public void insertAtEnd(T data) {
+        //if the list is empty then call insertATHead()
+        if (isEmpty()) {
+            insertAtHead(data);
+            return;
+        }
+        //Creating a new Node with value data 
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.nextNode = null;
+
+        Node last = headNode;
+        //iterate to the last element 
+        while (last.nextNode != null) {
+            last = last.nextNode;
+        }
+        //make newNode the next element of the last node
+        last.nextNode = newNode;
+        size++;
+    }
+}
+```
+- Time Complexity :
+
+This algorithm traverses the entire linked list, and hence, works in O(n) time.
 
 ... (rest of your README)
