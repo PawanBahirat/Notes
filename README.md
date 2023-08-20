@@ -2048,6 +2048,7 @@ Have greater space overhead than singly-linked lists
 Deletion at the tail is one of the operations that distinguishes a doubly-linked list from a singly-linked list. The following table shows a side by side comparison of key operations on both.
 
 | Operations | Singly Linked List | Doubly Linked List|
+| --- | --- | --- |
 | Insert at head | O(1) | O(1) |
 | Delete at head | O(1)	| O(1) |
 | Insert at tail | O(n)	| O(1) |
