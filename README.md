@@ -857,7 +857,7 @@ static int binSearch(int[] A, int key) {
   }
 ```
 
-### Find Maximum In Sliding Window :
+### Find Maximum In Sliding Window
 <hr>
 
 - Description :
