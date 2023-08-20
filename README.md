@@ -9032,7 +9032,7 @@ class LCS {
 ```
 Because of the three recursive calls, the time complexity of the above algorithm is exponential O(3^{m+n}), where ‘m’ and ‘n’ are the lengths of the two input strings. The space complexity is O(m+n), this space will be used to store the recursion stack.
 
-- Top-down Dynamic Programming with Memorization :
+- Top-down Dynamic Programming with Memoization :
 
 We can use an array to store the already solved subproblems. The three changing values to our recursive function are the two indexes (i1 and i2) and the ‘count’. Therefore, we can store the results of all subproblems in a three-dimensional array. (Another alternative could be to use a hash-table whose key would be a string (i1 + “|” i2 + “|” + count)).
 
@@ -9872,7 +9872,7 @@ class LBS {
 ```
 The time complexity of the above algorithm is exponential O(2^n), where ‘n’ is the lengths of the input array. The space complexity is O(n) which is used to store the recursion stack.
 
-- Top-down Dynamic Programming with Memorization :
+- Top-down Dynamic Programming with Memoization :
 
 To overcome the overlapping subproblems, we can use an array to store the already solved subproblems.
 
