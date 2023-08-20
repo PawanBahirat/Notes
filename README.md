@@ -2631,6 +2631,7 @@ The logic behind it is very similar to that of the `search` function. The trick 
 Since this is a linear algorithm, the time complexity will be O(n).
 
 ### Reverse a Linked List
+<hr>
 
 - Problem Statement :
 
@@ -2689,6 +2690,7 @@ In the end, we simply point the head to the last node in our loop.
 The algorithm runs in O(n) since the list is traversed once.
 
 ### Detect Loop in a Linked List
+<hr>
 
 - Problem Statement :
 
@@ -2741,6 +2743,7 @@ This is the most optimized method to find out the loop in the LinkedList. We sta
 The algorithm runs in Constant with O(n) with the Auxiliary Space complexity of O(1).
 
 ### Find the Middle Node of a Linked List
+<hr>
 
 - Problem Statement :
 
@@ -2801,5 +2804,522 @@ When the `current` pointer reaches the end, the `mid` pointer will be at the mid
 - Time Complexity :
 
 We are traversing the linked list at twice the speed, so it is certainly faster. However, the bottleneck complexity is still O(n).
+
+### Remove Duplicates from a Linked List
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement `public static void removeDuplicates(SinglyLinkedList list)` method. This method will take a Singly linked list as input and remove all the elements that appear more than once in the list. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+public static void removeDuplicates(SinglyLinkedList list)
+```
+- Output :
+
+The linked list with all the duplicates removed.
+
+- Sample Input :
+```
+linkedlist = 7->14->21->14->22->null
+```
+- Sample Output :
+```
+linkedlist = 7->14->21->22->null
+```
+- Solution**
+- Code :tada:
+
+```java
+    public static void removeDuplicates(SinglyLinkedList list) {
+        SinglyLinkedList.Node current = list.headNode; // will be used for outer loop
+        SinglyLinkedList.Node compare = null;     // will be used for inner loop
+
+        while (current != null && current.nextNode != null) {
+            compare = current;
+            while (compare.nextNode != null) {
+                if (current.data.equals(compare.nextNode.data)) { //check if duplicate
+                    compare.nextNode = compare.nextNode.nextNode;
+                } else {
+                    compare = compare.nextNode;
+                }
+            }
+            current = current.nextNode;
+        }
+    }
+ ```
+    
+- Explanation :
+
+This solution is simply a brute force solution. In this solution, we traverse the linked list using two loops. The pointer `current` keeps track of the outer loop, and the pointer `compare` is used for the inner loop. When both of these pointers point to the same value, then that node is deleted. This is not the most efficient approach to solve this problem. It can also be solved using a Hash Table.
+
+- Time Complexity :
+
+This algorithm has two nested loops. Hence, the time complexity is O(n^2).
+
+```
+Note: The solution provided above is not the optimal solution for this problem. A more efficient approach is to use hashing instead.
+```
+
+### Return the Nth node from End
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement `Object nthElementFromEnd(SinglyLinkedList list, int n)` method, which will take a linked list as an input and returns the nth element of the list from the end. To solve this, you will have to come up with a formula by comparing multiple outputs and inputs and identifying a common pattern. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+public static Object nthElementFromEnd(SinglyLinkedList list, int n)
+```
+- Output: 
+
+It will return nth node from the end of the linked list.
+
+- Sample Input :
+```
+linkedlist = 22->18->60->78->47->39->99 and n=3
+```
+- Sample Output :
+```
+47
+```
+**Solution**
+- Code :tada:
+```java
+
+    public static Object nthElementFromEnd(SinglyLinkedList list, int n) {
+        int size = list.getSize();
+        n = size - n + 1; //we can use the size variable to calculate distance from start
+        if (size == 0 || n > size) {
+            return null; //returns null if list is empty or n is greater than size
+        }
+        SinglyLinkedList.Node current = list.getHeadNode();
+        int count = 1;
+        //traverse until count is not equal to n
+        while (current != null) {
+            if (count == n)
+                return current.data;
+            count++;
+            current = current.nextNode;
+        }
+        return null;
+    }
+```
+- Explanation :
+
+In the above solution, we first use the getter function `list.getSize()` to access the length of the list. Then we find the node which is at x position from the start.
+
+- Time Complexity :
+
+In the worst-case time complexity of this algorithm is O(n). Because we might have to access the 1st element from the end.
+
+### Implementation of Linked List
+<hr>
+
+Linked list implementation will be covered in this lesson. We'll use this implementation in the whole chapter. Before moving on to the challenges of the linked list, let’s look at the implementation of `LinkedListNode` and `LinkedList` classes first. These classes are prepended in all the coming challenges of the chapter.
+
+- Implementation of LinkedListNode Class :
+- Code :tada:
+```java
+class LinkedListNode {
+    public int key;
+    public int data;
+    public LinkedListNode next;
+    public LinkedListNode arbitraryPointer;
+
+    public LinkedListNode(int data) {
+        this.data = data;
+        this.next = null;
+    }
+
+    public LinkedListNode(int key, int data) {
+        this.key = key;
+        this.data = data;
+        this.next = null;
+    }
+
+    public LinkedListNode(int data, LinkedListNode next) {
+        this.data = data;
+        this.next = next;
+    }
+
+    public LinkedListNode(int data, LinkedListNode next, LinkedListNode arbitraryPointer) {
+        this.data = data;
+        this.next = next;
+        this.arbitraryPointer = arbitraryPointer;
+    }
+}
+Implementation of LinkedList Class
+import java.util.*;
+
+class LinkedList { 
+
+    public static LinkedListNode insertAtHead(LinkedListNode head, int data) {
+        LinkedListNode newNode = new LinkedListNode(data);
+        newNode.next = head;
+        return newNode;
+    }
+
+    public static LinkedListNode insertAtTail(LinkedListNode head, int data) {
+        LinkedListNode newNode = new LinkedListNode(data);
+        if (head == null) {
+            return newNode;
+        }
+        LinkedListNode temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+        return head;
+    }
+
+    public static LinkedListNode createLinkedList(ArrayList<Integer> lst) {
+        LinkedListNode head = null;
+        LinkedListNode tail = null;
+        for (Integer x : lst) {
+            LinkedListNode newNode = new LinkedListNode(x);
+            if (head == null) {
+                head = newNode;
+            } else {
+                tail.next = newNode;
+            }
+            tail = newNode;
+        }
+        return head;
+    }
+
+    public static LinkedListNode createLinkedList(int[] arr) {
+        LinkedListNode head = null;
+        LinkedListNode tail = null;
+        for (int i = 0; i < arr.length; ++i) {
+            LinkedListNode newNode = new LinkedListNode(arr[i]);
+            if (head == null) {
+                head = newNode;
+            } else {
+                tail.next = newNode;
+            }
+            tail = newNode;
+        }
+        return head;
+    }
+
+    public static LinkedListNode createRandomList(int length) {
+        LinkedListNode listHead = null;
+        Random generator = new Random();
+        for(int i = 0; i < length; ++i) {
+            listHead = insertAtHead(listHead, generator.nextInt(100));
+        }
+        return listHead;
+    }
+
+    public static void display(LinkedListNode head) {
+        LinkedListNode temp = head;
+        while (temp != null) {
+            System.out.printf("%d", temp.data);
+            temp = temp.next;
+            if (temp != null) {
+              System.out.printf(", ");
+            }
+        }
+        System.out.println();
+    }  
+}
+
+class Pair<X, Y> {
+    public X first;
+    public Y second;
+    public Pair(X first, Y second) {
+    this.first = first;
+    this.second = second;
+  }
+}
+```
+
+### Intersection Point of Two Lists
+<hr>
+
+Given the head nodes of two linked lists that may or may not intersect, find out if they intersect and return the point of intersection. Return null otherwise.
+
+- Description :
+
+Given the head nodes of two linked lists that may or may not intersect, find out if they do in fact intersect and return the point of intersection. Return null otherwise
+
+- Hints :
+Find the length of both linked lists.
+
+The linked lists have to physically intersect. This means that their addresses need to be the same. If two nodes have the same data but their addresses are not the same, the lists won’t intersect and the function should return NULL.
+
+**Solution**
+
+The first solution that comes to mind is one with quadratic time complexity, i.e., for each node in the first linked list, a linear scan must be done in the second linked list. If any node from the first linked list is found in the second linked list (comparing addresses of nodes, not their data), that is the intersection point. However, if none of the nodes from the first list is found in the second list, that means there is no intersection point. Although this works, it is not efficient. A more efficient solution would be to store the nodes of the first linked list in a HashSet and then go through the second linked list nodes to check whether any of the nodes exist in the HashSet. This approach has a linear runtime complexity and linear space complexity. We can use a much better, i.e., O(m + n), linear time complexity algorithm that doesn’t require extra memory. To simplify our problem, let’s say both the linked lists are of the same size. In this case, you can start from the heads of both lists and compare their addresses. If these addresses match, it means it is an intersection point. If they don’t match, move both pointers forward one step and compare their addresses. Repeat this process until an intersection point is found, or both of the lists are exhausted. How do we solve this problem if the lists are not of the same length? We can extend the linear time solution with one extra scan on the linked lists to find their lengths. Below is the complete algorithm:
+
+```
+Find lengths of both linked lists: L1 and L2 Calculate the difference in length of both linked lists: d = |L1 - L2| Move head pointer of longer list 'd' steps forward Now traverse both lists, comparing nodes until we find a match or reach the end of lists
+```
+
+Code :tada:
+```java
+
+class Intersect{
+  public static LinkedListNode intersect(LinkedListNode head1, LinkedListNode head2) {
+
+    LinkedListNode list1node = null;
+    int list1length = get_length(head1);
+    LinkedListNode list2node = null;
+    int list2length = get_length(head2);
+
+    int length_difference = 0;
+    if(list1length >= list2length) {
+      length_difference = list1length - list2length;
+      list1node = head1;
+      list2node = head2;
+    } else {
+      length_difference = list2length - list1length;
+      list1node = head2;
+      list2node = head1;
+    }
+
+    while(length_difference > 0) {
+      list1node = list1node.next;
+      length_difference--;
+    }
+
+    while(list1node != null) {
+      if(list1node == list2node) {
+        return list1node;
+      }
+
+      list1node = list1node.next;
+      list2node = list2node.next;
+    }
+    return null;
+  }
+
+  private static int get_length(
+    LinkedListNode head) {      
+    int list_length = 0;
+    while(head != null) {
+      head = head.next;
+      list_length++;
+    }
+    return list_length;
+  }
+  public static void main(String[] args) {
+    int [] a1 = {13,4};
+    int [] a2 = {29, 23, 82, 11};
+    LinkedListNode list_head_1 = LinkedList.createLinkedList(a1);
+    LinkedListNode list_head_2 = LinkedList.createLinkedList(a2);
+    LinkedListNode node1 = new LinkedListNode(12);
+    LinkedListNode node2 = new LinkedListNode(27);
+
+    LinkedList.insertAtTail(list_head_1, node1);
+    LinkedList.insertAtTail(list_head_1, node2);
+    
+    LinkedList.insertAtTail(list_head_2, node1);
+    
+    System.out.print("List 1: ");
+    LinkedList.display(list_head_1);
+    System.out.print("List 2: ");
+    LinkedList.display(list_head_2);
+
+    LinkedListNode intersect_node = intersect(list_head_1, list_head_2);
+    System.out.println(String.format("Intersect at %d", intersect_node.data));  
+  }
+}  
+```
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(m + n) Where m is the length of the first linked list and n is the length of the second linked list.
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
+
+### Reverse Alternate K Nodes in a Singly Linked List
+<hr>
+
+Given a singly linked list and an integer 'k', reverse every 'k' element. If k <= 1, then the input list is unchanged. If k >= n (n is the length of linked list), then reverse the whole linked list.
+
+- Description :
+
+Given a singly linked list and an integer ‘k’, reverse every ‘k’ element. If `k <= 1`, then the input list is unchanged. If` k >= n` (n is the length of the linked list), then reverse the whole linked list.
+
+- Hints :
+
+Reverse the first k element, then move to the next k element.
+
+**Solution**
+
+Algorithmically, it is a simple problem, but writing code for this is a bit trickier as it involves keeping track of a few pointers. Logically, we break down the list to sub-lists each of size ‘k’. We’ll use the below pointers:
+
+`reversed`: it points to the head of the output list.
+`current_head`: head of the sub-list of size ‘k’ currently being worked upon.
+`current_tail`: tail of the sub-list of size ‘k’ currently being worked upon.
+`prev_tail`: tail of the already processed linked list (where sub-lists of size ‘k’ have been reversed).
+We’ll work upon one sub-list of size ‘k’ at a time. Once that sub-list is reversed, we have its head and tail in `current_head` and `current_tail` respectively. If it was the first sub-list of size ‘k’, its head (i.e., `current_head`) is the head (i.e., `reversed`) of the output linked list. We’ll point `reversed` to `current_head` of the first sub-list. If it is the 2nd or higher sub-list, we’ll connect the tail of the previous sub-list to head of the current sub-list, i.e., update `next` pointer of the tail of the previous sub-list with the head pointer of current sub-list to join the two sub-lists.
+
+- Code :tada:
+```java
+
+class ReverseK{
+  static LinkedListNode reverseKNodes(LinkedListNode head, int k) {
+
+    // if k is 0 or 1, then list is not changed
+    if (k <= 1 || head == null) {
+      return head;
+    }
+
+    LinkedListNode reversed = null;
+    LinkedListNode prevTail = null;
+
+    while (head != null && k > 0) {
+      LinkedListNode currentHead = null;
+      LinkedListNode currentTail = head;
+
+      int n = k;
+      while (head != null && n > 0) {
+        LinkedListNode temp = head.next;
+        head.next = currentHead;
+        currentHead = head;
+
+        head = temp;
+        n--;
+      }
+
+      if (reversed == null) {
+        reversed = currentHead;
+      }
+
+      if (prevTail != null) {
+        prevTail.next = currentHead;
+      }
+      prevTail = currentTail;
+    }
+
+    return reversed;
+  }
+
+  public static void main(String[] args) {
+    int[] v1 = new int[]{1, 2, 3, 4, 5, 6, 7};
+    LinkedListNode listHead = LinkedList.createLinkedList(v1);
+    System.out.print("Original list: ");
+    LinkedList.display(listHead);
+
+    listHead = reverseKNodes(listHead, 4);
+    System.out.print("List reversed by 4: ");
+    LinkedList.display(listHead);
+  }
+}  
+```
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
+
+### Merge K Sorted Lists
+<hr>
+
+- Problem Statement :
+
+Given an array of ‘K’ sorted LinkedLists, merge them into one sorted list.
+
+- Example 1 :
+```
+Input: L1=[2, 6, 8], L2=[3, 6, 7], L3=[1, 3, 4] Output: [1, 2, 3, 3, 4, 6, 6, 7, 8]
+```
+- Example 2 :
+```
+Input: L1=[5, 8, 9], L2=[1, 7] Output: [1, 5, 7, 8, 9]
+```
+- Solution : 
+
+A brute force solution could be to add all elements of the given ‘K’ lists to one list and sort it. If there are a total of ‘N’ elements in all the input lists, then the brute force solution will have a time complexity of O(NlogN)* as we will need to sort the merged list. Can we do better than this? How can we utilize the fact that the input lists are individually sorted? If we have to find the smallest element of all the input lists, we have to compare only the smallest (i.e. the first) element of all the lists. Once we have the smallest element, we can put it in the merged list. Following a similar pattern, we can then find the next smallest element of all the lists to add it to the merged list.
+
+The best data structure that comes to mind to find the smallest number among a set of ‘K’ numbers is a Heap. Let’s see how can we use a `heap` to find a better algorithm.
+
+We can insert the first element of each array in a Min Heap.
+After this, we can take out the smallest (top) element from the heap and add it to the merged list.
+After removing the smallest element from the heap, we can insert the next element of the same list into the heap.
+We can repeat steps 2 and 3 to populate the merged list in sorted order.
+
+- Code :tada:
+```java
+import java.util.*;
+
+class ListNode {
+  int value;
+  ListNode next;
+
+  ListNode(int value) {
+    this.value = value;
+  }
+}
+
+class MergeKSortedLists {
+
+  public static ListNode merge(ListNode[] lists) {
+    PriorityQueue<ListNode> minHeap = new PriorityQueue<ListNode>((n1, n2) -> n1.value - n2.value);
+
+    // put the root of each list in the min heap
+    for (ListNode root : lists)
+      if (root != null)
+        minHeap.add(root);
+
+    // take the smallest (top) element form the min-heap and add it to the result; 
+    // if the top element has a next element add it to the heap
+    ListNode resultHead = null, resultTail = null;
+    while (!minHeap.isEmpty()) {
+      ListNode node = minHeap.poll();
+      if (resultHead == null) {
+        resultHead = resultTail = node;
+      } else {
+        resultTail.next = node;
+        resultTail = resultTail.next;
+      }
+      if (node.next != null)
+        minHeap.add(node.next);
+    }
+
+    return resultHead;
+  }
+
+  public static void main(String[] args) {
+    ListNode l1 = new ListNode(2);
+    l1.next = new ListNode(6);
+    l1.next.next = new ListNode(8);
+
+    ListNode l2 = new ListNode(3);
+    l2.next = new ListNode(6);
+    l2.next.next = new ListNode(7);
+
+    ListNode l3 = new ListNode(1);
+    l3.next = new ListNode(3);
+    l3.next.next = new ListNode(4);
+
+    ListNode result = MergeKSortedLists.merge(new ListNode[] { l1, l2, l3 });
+    System.out.print("Here are the elements form the merged list: ");
+    while (result != null) {
+      System.out.print(result.value + " ");
+      result = result.next;
+    }
+  }
+}
+```
+
+- Time complexity :
+
+Since we’ll be going through all the elements of all arrays and will be removing/adding one element to the heap in each step, the time complexity of the above algorithm will be O(N*logK), where ‘N’ is the total number of elements in all the ‘K’ input arrays.
+
+- Space complexity :
+
+The space complexity will be `O(K)` because, at any time, our min-heap will be storing one number from all the ‘K’ input arrays
+
 
 ... (rest of your README)
