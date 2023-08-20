@@ -734,6 +734,6 @@ We initialize two variables `max` and `secondmax` to Integer. MIN_VALUE having v
 
 This solution is in O(n) since the list is traversed once only.
 
-## Contributing
+### Find The Sum Of Maximum Sum Subarray
 
 ... (rest of your README)
