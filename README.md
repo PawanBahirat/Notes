@@ -4126,7 +4126,7 @@ This step repeats until we have only one person in the stack. For the last perso
 
 The time complexity of this problem is O(n).
 
-### Check for Balanced Parentheses using a Stack
+### Check For Balanced Parentheses Using A Stack
 <hr>
 
 - Problem Statement :
