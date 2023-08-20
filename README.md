@@ -53,7 +53,7 @@ In the array declaration, reference of an array is created. To declare an array,
 datatype arrayName[]; or datatype[] arrayName;
 ```
 - Example Program :
-- Code :shipit:
+- Code :tada:
 ```java
 class OneDArray{ 
     public static void main(String  args[]){
@@ -140,7 +140,7 @@ for (int i = 0; i < 3; i++) { for (int j = 0; j < 4; j++) { arr[i][j]=i+j; } }
 ```
 
 - Printing 2D array in tabular format :
-- Code :shipit:
+- Code :tada:
 ```java
 public class Main {
 public static void main(String args[]) {
@@ -197,7 +197,7 @@ arr = {1, 2, 4, 5, 10, 6, 3}
 arr = {1, 5, 3}
 ```
 **SOLUTION**
-- CODE :shipit:
+- Code :tada:
 ```java
 class CheckRemoveEven {
   
@@ -276,7 +276,7 @@ arr2 = {2, 6, 7, 8}
 arr = {1, 2, 3, 4, 5, 6, 7, 8}
 ````
 **SOLUTION**
-- CODE :shipit:
+- Code :tada:
 ```java
 class checkMergeArray { 
 
@@ -361,7 +361,7 @@ arr = {21,60};
 For example, in this illustration we are given 81 as the number value. When we traverse the whole array, we find that 21 and 60 are the integers that add up to 81.
 
 **Soluion: Using quicksort**
-- Code :shipit:
+- Code :tada:
 ```java
 Helper.java
 
@@ -465,10 +465,10 @@ While solution #1 is very intuitive, it is not very time efficient. A better way
 If the sum of the elements at these indices of the array is smaller than the given value, then we increment Pointer1. If the sum is smaller, then we decrement Pointer2 from the end. If none of those conditions are true, this means that the sum is equal to the given value. That being said, we will append the elements at those indices in the array and return the result.
 
 - Time complexity :
-Since the sorting function we use in this code takes O(nlog(n)) and the algorithm itself takes O(n) time, the overall time complexity of this algorithm is in O(nlog(n)).
+Since the sorting function we use in this Code takes O(nlog(n)) and the algorithm itself takes O(n) time, the overall time complexity of this algorithm is in O(nlog(n)).
 
 **Solution: Use hashing**
-- Code :shipit:
+- Code :tada:
 ```java
 class CheckSum {
  public static int[] findSum(int[] arr, int n) {
@@ -516,7 +516,7 @@ Therefore, an array of size 2 called `result` is created to store the pair that 
 
 - Time complexity :
 
-This code works in O(n), as the whole array is iterated over once.
+This Code works in O(n), as the whole array is iterated over once.
 
 ### Find Minimum Value in Array
 <hr>
@@ -538,7 +538,7 @@ arr = {9, 2, 3, 6}
 2
 ```
 **SOLUTION**
-- CODE :shipit:
+- Code :tada:
 ```java
 public static int findMinimum(int[] arr) {
 
@@ -589,7 +589,7 @@ arr = {9, 2, 3, 2, 6, 6}
 9
 ```
 **Solution: Using a HashMap**
-- Code :shipit:
+- Code :tada:
 ```java
 class CheckFirstUnique {
     public static int findFirstUnique(int[] arr) {
@@ -637,10 +637,10 @@ Afterward, we traverse the array again from the beginning and return the first e
 
 - Time Complexity :
 
-The array is iterated multiple times but the complexity is still linear. The time complexity of this code is O(n).
+The array is iterated multiple times but the complexity is still linear. The time complexity of this Code is O(n).
 
 **Solution: Using a TreeMap**
-- Code :shipit:
+- Code :tada:
   
 ```java
 class CheckFirstUnique {
@@ -709,7 +709,7 @@ arr = {9,2,3,6}
 6
 ```
 **SOLUTION**
-- CODE :shipit:
+- Code :tada:
 ```java
 public static int findSecondMaximum(int[] arr) {
 
@@ -761,7 +761,7 @@ arr = {1, 7, -2, -5, 10, -1}
 ```
 
 **Kadane's Algorithm**
-- Code :shipit:
+- Code :tada:
 ```java
 public static int findMaxSumSubArray(int[] arr) {
         if (arr.length < 1) {
@@ -830,7 +830,7 @@ If the element at `mid` is greater than the `key`, then change the index `high` 
 If the element at `mid` is less than the `key`, then change `low` to `mid + 1`. The index at high remains the same.
 When `low` is greater than `high`, the `key` doesn’t exist and -1 is returned.
 
-- Code :shipit:
+- Code :tada:
 ```java
 static int binSearch(int[] A, int key) {
   
