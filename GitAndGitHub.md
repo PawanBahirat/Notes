@@ -3,6 +3,7 @@
 - [Git And Github](#git-and-github)
   - [Getting Started](#getting-started)
     - [What Is Version Control?](#what-is-version-control)
+    - [Why Is Git So Important?](#why-is-git-so-important)
    
   
 ## Getting Started
@@ -59,6 +60,9 @@ A Git snapshot is, essentially, the state of the project files at a certain poin
 Git has three primary states that it allows the project’s files to acquire. The three states are:
 
 `Modified` - files that have been changed, but the changes have not yet been marked by Git. These changes won’t become part of the next snapshot.
+
 `Staged` - the changes have been tracked by Git and will be marked as such in the next snapshot.
+
 `Committed` - the changed files that have successfully become part of the latest snapshot.
+
 Before we move on to learn more about Git, let’s briefly go over how you can use the terminal to edit text files using text editors and terminal commands.
