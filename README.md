@@ -2554,7 +2554,7 @@ links the prevNode to the nextNode. The current node’s link will be destroyed 
 
 In the worst case, you would have to traverse until the end of the list. This means the time complexity will be O(n).
 
-### Linked Lists vs Arrays
+### Linked Lists vs Array
 <hr>
 
 Let's put the two data structures against each other to find out which is more efficient.
