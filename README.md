@@ -52,7 +52,8 @@ In the array declaration, reference of an array is created. To declare an array,
 ```java
 datatype arrayName[]; or datatype[] arrayName;
 ```
-Example Program
+- Example Program :
+- Code :shipit:
 ```java
 class OneDArray{ 
     public static void main(String  args[]){
@@ -139,7 +140,7 @@ for (int i = 0; i < 3; i++) { for (int j = 0; j < 4; j++) { arr[i][j]=i+j; } }
 ```
 
 - Printing 2D array in tabular format :
-
+- Code :shipit:
 ```java
 public class Main {
 public static void main(String args[]) {
@@ -196,7 +197,7 @@ arr = {1, 2, 4, 5, 10, 6, 3}
 arr = {1, 5, 3}
 ```
 **SOLUTION**
-- CODE :
+- CODE :shipit:
 ```java
 class CheckRemoveEven {
   
@@ -275,7 +276,7 @@ arr2 = {2, 6, 7, 8}
 arr = {1, 2, 3, 4, 5, 6, 7, 8}
 ````
 **SOLUTION**
-- CODE :
+- CODE :shipit:
 ```java
 class checkMergeArray { 
 
@@ -360,7 +361,7 @@ arr = {21,60};
 For example, in this illustration we are given 81 as the number value. When we traverse the whole array, we find that 21 and 60 are the integers that add up to 81.
 
 **Soluion: Using quicksort**
-- Code :
+- Code :shipit:
 ```java
 Helper.java
 
@@ -467,6 +468,7 @@ If the sum of the elements at these indices of the array is smaller than the giv
 Since the sorting function we use in this code takes O(nlog(n)) and the algorithm itself takes O(n) time, the overall time complexity of this algorithm is in O(nlog(n)).
 
 **Solution: Use hashing**
+- Code :shipit:
 ```java
 class CheckSum {
  public static int[] findSum(int[] arr, int n) {
@@ -536,7 +538,7 @@ arr = {9, 2, 3, 6}
 2
 ```
 **SOLUTION**
-- CODE :
+- CODE :shipit:
 ```java
 public static int findMinimum(int[] arr) {
 
@@ -587,7 +589,7 @@ arr = {9, 2, 3, 2, 6, 6}
 9
 ```
 **Solution: Using a HashMap**
-- Code :
+- Code :shipit:
 ```java
 class CheckFirstUnique {
     public static int findFirstUnique(int[] arr) {
@@ -638,6 +640,8 @@ Afterward, we traverse the array again from the beginning and return the first e
 The array is iterated multiple times but the complexity is still linear. The time complexity of this code is O(n).
 
 **Solution: Using a TreeMap**
+- Code :shipit:
+  
 ```java
 class CheckFirstUnique {
     public static int findFirstUnique(int[] arr) {
@@ -705,7 +709,7 @@ arr = {9,2,3,6}
 6
 ```
 **SOLUTION**
-- CODE :
+- CODE :shipit:
 ```java
 public static int findSecondMaximum(int[] arr) {
 
@@ -757,7 +761,7 @@ arr = {1, 7, -2, -5, 10, -1}
 ```
 
 **Kadane's Algorithm**
-- Code :
+- Code :shipit:
 ```java
 public static int findMaxSumSubArray(int[] arr) {
         if (arr.length < 1) {
@@ -801,7 +805,6 @@ for i = 1 -> size of A
 The runtime complexity of this solution is linear, O(n).
 
 ### Binary Search on Sorted Array
-:shipit:
 <hr>
 
 - Description :
@@ -827,7 +830,7 @@ If the element at `mid` is greater than the `key`, then change the index `high` 
 If the element at `mid` is less than the `key`, then change `low` to `mid + 1`. The index at high remains the same.
 When `low` is greater than `high`, the `key` doesn’t exist and -1 is returned.
 
-- Code :
+- Code :shipit:
 ```java
 static int binSearch(int[] A, int key) {
   
