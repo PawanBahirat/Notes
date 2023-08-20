@@ -40,7 +40,7 @@
     - [Return The Nth Node From End](#return-the-nth-node-from-end)
     - [Implementation Of Linked List](#implementaion-of-linked-list)
     - [Intersection Point Of Two Lists](#intersection-point-of-two-lists)
-    - [Reverse Alternate K Nodes In A Singly Linked List](#reverse-alternate-k-nodes-in-asingly-linked-list)
+    - [Reverse Alternate K Nodes In A Singly Linked List](#reverse-alternate-k-nodes-in-a-singly-linked-list)
     - [Merge K Sorted Lists](#merge-k-sorted-lists)
 
 ## Data Structures
