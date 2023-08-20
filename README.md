@@ -2655,7 +2655,7 @@ linkedlist = 6->4->4->9->10
 
 **Solution**
 - Code :tada:
-- 
+
 ```java
 public static void reverse(SinglyLinkedList list){
 	SinglyLinkedList.Node previous = null; //To keep track of the previous element, will be used in swapping links
