@@ -868,15 +868,15 @@ Let’s try to find all maximums for a window size equal to 33 in the array give
 
 `-4`	`2`	`-5`	`3`	`6`
 
- - Step1 : For the first 3 elements in the window, max is 2.
+- Step1 : For the first 3 elements in the window, max is 2.
 
 `-4`	`2`	`-5`
 
- - Step2 : Slide window one position to the right and max for window becomes 3.
+- Step2 : Slide window one position to the right and max for window becomes 3.
 
 `2`	`-5`	`3`
 
- - Step3 : In the last window, max is 6.
+- Step3 : In the last window, max is 6.
 
 `-5`	`3`	`6`
 
