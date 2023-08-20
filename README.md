@@ -23,7 +23,7 @@ Data structure and Algorithms.
     - [Maximum Sum Subarray Of Size K](#maximum-sum-subarray-of-size-k)
   - [Strings](#strings)
     - [Strings](#strings)
-    - [Reverse Words in a Sentence](#reverse-word-in-a-sentence)
+    - [Reverse Words in a Sentence](#reverse-words-in-a-sentence)
   
 ## Data Structures
 
