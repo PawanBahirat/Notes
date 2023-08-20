@@ -53,7 +53,7 @@
     - [Next Greater Element Using Stackproblem Statement](#next-greater-element-using-stack)
     - [Solve A Celebrity Problem Using A Stack](#solve-a-celebrity-problem-using-a-stack)
     - [Check For Balanced Parentheses Using A Stack](#check-for-balanced-parantheses-using-a-stack)
-    - [Create Stack Where Min() Gives Minimum In Constant Time](#create-stack-where-min-gives-minimum-in-constant-time)
+    - [Create Stack Where Min() Gives Minimum In Constant Time](#create-stack-where-min-gives-minimum-in-constant-time-0-1)
 
 ## Data Structures
 
@@ -3333,5 +3333,960 @@ Since we’ll be going through all the elements of all arrays and will be removi
 
 The space complexity will be `O(K)` because, at any time, our min-heap will be storing one number from all the ‘K’ input arrays
 
+## Stack and Queues
 
+### Introduction to Stacks & Queues
+<hr>
+
+- Introduction to stack :
+
+A stack is a collection of elements in which the storage and retrieval follows the Last in First Out (LIFO) ordering. This means that the last element added is the element on the top, and the first element added is at the bottom.
+
+A real-life example of Stack could be a stack of books. To get the book that’s somewhere in the middle, you will have to remove all the books placed at the top of it. Also, the last book you added to the Stack of books is at the top! A typical implementation of stack supports the following operations:
+
+`push()`: adds an element to the stack
+`pop()`: removes the last inserted element from the stack
+`top()`: Returns the value of the last inserted element from the stack, without removing it
+`size()`: Returns the number of elements currently in the stack
+`isEmpty()`: Returns true if there are no elements in the stack
+`isFull()` : Returns true if the stack is full, false otherwise. This method is implemented only if there is a constraint on the maximum size of the stack
+
+- What are stacks used for? :
+
+Despite the simple implementation, stacks can be used to solve very complex problems! There are many famous algorithms, such as Depth First Search and the Expression Evaluation Algorithm, which harness the functionality of stacks. Stacks are used:
+
+To backtrack to the previous task/state, for example in recursive code
+To store a partially completed task, for example, when you are exploring two different paths on a Graph from a point while figuring out the smallest path to the target.
+
+- Introduction to queue :
+
+Similar to the stack, a queue is another linear data structure that stores the elements in a sequential manner. The storage and retrieval in a queue follows the FIFO principle, which is short for First in First Out. In other words, in a queue, the first element inserted is the one that comes out first. You can think of a queue as a pipe with both ends open. Elements enter from one end (back) and leave from the other (front). A perfect real-life example of a queue is a line of people waiting to get a ticket from the booth. A new person joins the line at the end, and the person standing at the front will be the first to get the ticket and leave the line.
+
+- What are queues used for? :
+
+Just like stacks, queues are used widely in searching and sorting algorithms such as the Breadth-First Search algorithm. Most operating systems also perform operations based on a Priority Queue that allows operating systems to switch between appropriate processes. They are also used to store packets on routers in a certain order when a network is congested. Implementing a cache also heavily relies on queues. We generally use Queues when:
+
+We want to prioritize something over another
+A resource is shared between multiple devices
+
+- Operations :
+
+The key operations on a queue are as follows:
+
+`enqueue()`: Adds an element to the tail of the queue
+`dequeue()`: Removes the element from the front of the queue
+`front()`: Returns the element from the front of the queue without actually removing it from the queue
+`size()` : Returns the number of elements currently in the queue
+`isEmpty()` : Returns true if
+`isFull()` : Returns true if the queue is full, false otherwise.
+
+This is only implemented if there is a constraint on the maximum size of the queue
+
+### Implementation of Stack
+<hr>
+
+How is Stack implemented in Java? What are some of the main methods that each stack have? That is what we are going to cover in this lesson.
+
+- Introduction :
+
+Every programming language comes with the basic functionality of Stack. In Java, you can use the pre-built class of Stack by importing it to your program. However, you can manually implement a stack and extend its functionality for your use. Stacks can either be implemented using arrays or linked lists. It has yet to be concluded which implementation is more efficient, as both data structures offer different variations of Stack. However, stacks are generally implemented using arrays because it takes less space; we don’t need to store an additional pointer like in a linked list.
+
+- Implementation :
+
+As we discussed in the previous lesson, a typical Stack must contain the following standard methods:
+
+`push (datatype V)`
+`datatype pop()`
+`boolean isEmpty()`
+`datatype top()`
+
+Before we take a look at these methods one by one, let’s construct a class of Stack, and create an instance. This class has the following three data members:
+
+the array that will hold all the elements
+the size of this array
+a variable for the `top` element of Stack.
+
+The following code shows how to construct the `Stack` class:
+
+- Code :tada:
+```java
+
+public class Stack <V> {
+    private int maxSize;
+    private int top;
+    private V array[];
+
+    /*
+    Java does not allow generic type arrays. So we have used an
+    array of Object type and type-casted it to the generic type V.
+    This type-casting is unsafe and produces a warning.
+    Comment out the line below and execute again to see the warning.
+    */
+    @SuppressWarnings("unchecked")
+    public Stack(int max_size) {
+        this.maxSize = max_size;
+        this.top = -1; //initially when stack is empty
+        array = (V[]) new Object[max_size];//type casting Object[] to V[]
+    }
+
+    //returns the maximum size capacity
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    //returns true if Stack is empty
+    public boolean isEmpty(){
+        return top == -1;
+    }
+
+    //returns true if Stack is full
+    public boolean isFull(){
+        return top == maxSize -1;
+    }
+
+    //returns the value at top of Stack
+    public V top(){
+        if(isEmpty())
+            return null;
+        return array[top];
+    }
+
+    //inserts a value to the top of Stack
+    public void push(V value){
+        if(isFull()) {
+            System.err.println("Stack is Full!");
+            return;
+        }
+        array[++top] = value; //increments the top and adds value to updated top
+    }
+
+    //removes a value from top of Stack and returns
+    public V pop(){
+        if(isEmpty())
+            return null;
+        return array[top--]; //returns value and top and decrements the top
+    }
+
+}
+```
+- Complexities of Stack Operations :
+
+Let’s look at the time complexity of each stack operation.
+
+|Operation | Time Complexity |
+| --- | --- |
+| isEmpty | O(1) |
+| top | O(1) |
+| size | O(1) |
+| push | O(1) |
+| pop | O(1) |
+
+### Implementation of Queue
+<hr>
+
+How is Queue implemented in Java? What are some of the main methods that each Queue have? That is what we are going to cover in this lesson.
+
+- Implementation of Queues :
+
+Queues are implemented in many ways. They can be represented by using an array, a linked list, or even a stack. That being said, an array is most commonly used because it’s the easiest way to implement Queues. As discussed in the previous lesson, a typical Queue must contain the following standard methods:
+
+`enqueue (datatype V)`
+`datatype dequeue()`
+`boolean isEmpty()`
+`boolean isFull()`
+`datatype top()`
+
+Before we take a look at these methods one by one, let’s construct a Queue class with an integer data type and create an instance. We will make a class with 5 data members to hold the following information:
+
+The `array` that will contain all the elements
+The `maxSize` is the size of this array
+The `front` element of the Queue
+The `back` element of the Queue
+The `currentSize` of elements in the Queue
+The following code shows how to construct the `Stack` class:
+
+- Code :tada:
+```java
+
+public class Queue<V> {
+    private int maxSize;
+    private V[] array;
+    private int front;
+    private int back;
+    private int currentSize;
+
+    /*
+    Java does not allow generic type arrays. So we have used an
+    array of Object type and type-casted it to the generic type V.
+    This type-casting is unsafe and produces a warning.
+    Comment out the line below and execute again to see the warning.
+    */
+    @SuppressWarnings("unchecked")
+    public Queue(int maxSize) {
+        this.maxSize = maxSize;
+        array = (V[]) new Object[maxSize];
+        front = 0;
+        back = -1;
+        currentSize = 0;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    public int getCurrentSize() {
+        return currentSize;
+    }
+
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    public V top() {
+        return array[front];
+    }
+
+    public void enqueue(V value) {
+        if (isFull())
+            return;
+        back = (back + 1) % maxSize; //to keep the index in range
+        array[back] = value;
+        currentSize++;
+    }
+
+    public V dequeue() {
+        if (isEmpty())
+            return null;
+
+        V temp = array[front];
+        front = (front + 1) % maxSize; //to keep the index in range
+        currentSize--;
+
+        return temp;
+    }
+}
+```
+If you look at the output of the code, you can see that the elements are enqueued in the back and dequeued from the front. This means that our queue works perfectly.
+
+### Implement Queue Using Stacks
+<hr>
+
+- Description :
+
+Suppose we have a `Stack` class that provides all common operations like `push()`, `pop()`, `isEmpty() / empty()`. Using the instances of this `Stack` class, implement a Queue class with its `enqueue()`, `dequeue()`, and `isEmpty()` operations.
+```
+If the queue is empty, the dequeue() function should return -1.
+```
+**Solution**
+- Runtime complexity :
+
+The runtime complexity of `enqueue()` is linear, O(n).
+The runtime complexity of `dequeue()` is constant, O(1).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n).
+Let’s look at the pseudocode enqueue() and dequeue() operations:
+
+```	
+enqueue()
+  pop each element from stack1 and push it to stack2.
+  push item being enqueued to stack1.
+  pop each element back from stack2 and push it to stack1.
+
+dequeue()
+  if queue size is 0, 
+    return -1
+
+  pop from stack1 and return.
+```
+- Code :tada:
+```java
+class QueueUsingStackClass{
+  class QueueUsingStack{''
+    Stack<Integer> stack1 = new Stack<Integer>(); 
+    Stack<Integer> stack2 = new Stack<Integer>(); 
+
+    void enqueue(int data) {
+      while(!stack1.isEmpty()) {
+          stack2.push(stack1.pop());
+      }
+
+      stack1.push(data);
+
+      while(!stack2.isEmpty()) {
+          stack1.push(stack2.pop());
+      }
+    }
+
+    boolean isEmpty() {
+      return stack1.size() + stack2.size() == 0;
+    }
+
+    int dequeue() {
+      if(isEmpty()) {
+        return -1;
+      }
+
+      return stack1.pop();
+    }
+  }
+  public static void main(String[] args) {
+  
+    QueueUsingStackClass qsc = new QueueUsingStackClass();
+    QueueUsingStackClass.QueueUsingStack qs = qsc.new QueueUsingStack();
+
+    System.out.println("dequeue()" + " = " + qs.dequeue());
+    qs.enqueue(3);
+    qs.enqueue(6);
+    qs.enqueue(16);
+    System.out.println("dequeue()" + " = " + qs.dequeue());
+    qs.enqueue(8);
+    qs.enqueue(4);
+    System.out.println("dequeue()" + " = " + qs.dequeue());
+  }
+}  
+```
+
+### Implement Stack Using Queues
+<hr>
+
+- Description :
+
+A stack is a data structure in which objects are inserted and removed according to the LIFO (Last In First Out) principle. An item is added at the top of the stack and removed from the top as well. There are two important functionalities in the stack: `push()` and `pop()`.
+
+`push()` means to insert an item at the top of the stack.
+`pop()` means to remove an item from the top of the stack.
+
+A queue is a data structure in which objects are inserted and removed according to the FIFO (First In First Out) principle. An item is added at the back of the queue and removed from the front. There are two important functionalities in the queue: `enque()` and `deque()`.
+
+`enqueue()` means to insert an item at the back of the queue.
+`dequeue()` means to remove an item from the front of the queue.
+
+Suppose we have a `Queue` class that provides all common operations such as `enqueue()`,`dequeue()`, and `size()`.
+
+Using the instances of this `Queue` class, implement a `Stack` class with its `push()`, `pop()`, and `isEmpty()` operations.
+```
+If the stack is empty, the pop() function should return -1.
+```
+**Solution**
+
+- Runtime complexity :
+
+The runtime complexity of this solution for push() is linear, O(n).
+The runtime complexity of this solution for pop() is constant, O(1).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n).
+
+Let’s see what our push and pop operations look like:
+```
+push():
+  if queue1 is empty, 
+    then enqueue on queue1.
+  
+  otherwise,
+    enqueue on queue2 and dequeue all elements from queue1 and push them on queue2. 
+    then swap the queue references.
+
+pop():
+  if stack size is 0, 
+    return -1.
+  
+  dequeue from queue1 and return.
+  ```
+- Code :tada:
+```java
+
+class StackUsingQueueClass{  
+  class StackUsingQueue{
+
+    Queue<Integer> queue1 = new ArrayDeque<Integer>(); 
+    Queue<Integer> queue2 = new ArrayDeque<Integer>(); 
+
+    void push(int data) {
+      if(queue1.isEmpty()) {
+        queue1.add(data);
+      }
+      else {
+        queue2.add(data);
+        while(!queue1.isEmpty()) {
+          queue2.add(queue1.remove());
+        }
+        swap_queues();
+      }
+    }  
+
+    boolean isEmpty() {
+      return queue1.size() + queue2.size() == 0;
+    }
+
+    int pop() {
+      if(isEmpty()) {
+        return -1;
+      }
+      return queue1.remove();
+    }
+
+    void swap_queues() {
+      Queue<Integer> queue3 = queue1;
+      queue1 = queue2;
+      queue2 = queue3;
+    }
+  }
+  
+  public static void main(String[] args) {
+    StackUsingQueueClass sqc = new StackUsingQueueClass();
+    StackUsingQueueClass.StackUsingQueue sq = sqc.new StackUsingQueue();
+    System.out.println("Pop(): " + sq.pop());
+    sq.push(3);
+    sq.push(5);
+    sq.push(9);
+    System.out.println("Pop(): " + sq.pop());
+    sq.push(10);
+    sq.push(16);
+    System.out.println("Pop(): " + sq.pop());
+  }    
+}
+```
+
+### Reversing the First k Elements of a Queue
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the void reverseK(Queue queue, int k) method; this will take a queue and any number (k) as input, and reverse the first k elements of the queue. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+void reverseK(Queue queue, int k)
+```
+Output :
+
+An array with the first “k” elements reversed.
+
+- Sample Input :
+```
+Queue = {1,2,3,4,5,6,7,8,9,10} k = 5
+```
+- Sample Output :
+```
+result = {5,4,3,2,1,6,7,8,9,10}
+```
+**Solution: Using a queue**
+
+- Code :tada:
+```java
+
+    //1.Push first k elements in queue in a stack.
+    //2.Pop Stack elements and enqueue them at the end of queue
+    //3.Dequeue queue elements till "k" and append them at the end of queue   
+    //4.Dequeue the remaining elements and enqueue them again to append them at end of the queue
+    public static void reverseK(Queue queue, int k) {
+        if (queue.isEmpty() || k <= 0)
+            return;
+        Stack stack = new Stack<>(k);
+
+        while(!stack.isFull())
+            stack.push(queue.dequeue());
+
+        while(!stack.isEmpty())
+            queue.enqueue(stack.pop());
+
+        int size = queue.getCurrentSize();
+        for(int i = 0; i < size - k; i++)
+            queue.enqueue(queue.dequeue());
+    }
+```
+- Explanation :
+
+`reverseK(queue, k)` takes `queue` as an input parameter, where k represents the number of elements we want to reverse.
+
+Now, moving on to the actual logic of the method. First, check if the queue is empty or if k is a valid non-zero positive number. If either of them is false, then do nothing, just return.
+
+If none of the conditions given above are true, then create a Stack. Start removing first k values from the queue and push them to the stack by using `stack.push(queue.dequeue)`.
+
+Once all the k values have been pushed to the stack, start popping them and enqueueing them to the back of the queue sequentially. We will do this using `queue.enqueue(stack.pop())`. At the end of this step, we will be left with an empty stack, and the `k` reversed elements will be appended to the back of the queue.
+
+Now we need to move these reversed elements to the front of the queue. To do this, we used `queue.enqueue(queue.dequeue())`. Each element is first dequeued from the back.
+
+- Time Complexity :
+
+Overall, kk elements are dequeued, pushed to the stack, popped from it, and then enqueued. Additionally, n-k elements are dequeued and enqueued to the queue. Each push, pop, enqueue, or dequeue operation takes constant time; the time complexity of this method is O(n)O as all nn elements have to be processed with constant-time​ operations.
+
+### Evaluate Postfix Expressions using Stacks
+<hr>
+
+- Infix and Postfix Expressions :
+
+In the `infix expression` (the usual convention followed in mathematics), operators like + and * appear between the operands involved in the calculation:
+```
+6 + 3 * 8 - 4
+```
+Another convention is the `postfix expression`, where the operators appear after the operands involved in the expression. In postfix, the expression written above will become:
+```
+6 3 8 * + 4 -
+```
+The two operands preceding an operator will be used with that operator
+
+From the first block of digits `6 3 8`, we pick the last two, which are `3` and `8`.
+Reading the operators from left to right, the first one is *. The expression now becomes `3 * 8`
+The next number is `6` while the next operator is +, so we have `6 + 8 * 3`.
+The value of this expression is followed by `4`, which is right before -. Hence we have `6 + 8 * 3 - 4`.
+
+- Problem Statement :
+
+In this problem, you have to implement the `evaluatePostFix()` method that will compute a postfix expression given to it in a string.
+
+Input :
+
+The input is a string containing a valid postfix mathematic expression. Each digit is considered a separate number, i.e., there are no double-digit numbers.
+
+Output :
+
+An integer result of the given postfix expression.
+
+Sample Input :
+```
+expression = "921*-8-4+" # 9 - 2 * 1 - 8 + 4
+```
+Sample Output :
+```
+3
+```
+- Explanation :
+
+1st operation => 2 * 1 = 2, 2nd operation => 9 - 2 = 7, 3rd operation => 7 - 8 = -1, 4th operation => -1 + 4 = 3
+
+**Solution : Numbers as Stack Elements**
+
+Code :tada:
+```java
+
+class EvaluatePostfixChallenge {
+    public static int evaluatePostFix(String expression) {
+        Stack<Integer> stack = new Stack<>(expression.length());
+        //1.Scan expression character by character,
+		//2.If character is a number push it in stack
+		//3.If character is operator then pop two elements from stack
+		//perform the operation and put the result back in stack
+		//At the end, Stack will contain result of whole expression.
+        for (int i = 0; i < expression.length(); i++) {
+            char character = expression.charAt(i);
+
+            if (!Character.isDigit(character)) {
+                Integer x = stack.pop();
+                Integer y = stack.pop();
+
+                switch (character) {
+                    case '+':
+                        stack.push(y + x);
+                        break;
+                    case '-':
+                        stack.push(y - x);
+                        break;
+                    case '*':
+                        stack.push(y * x);
+                        break;
+                    case '/':
+                        stack.push(y / x);
+                        break;
+                }
+
+            } else
+                stack.push(Character.getNumericValue(character));
+        }
+        return stack.pop();
+    }
+	public static void main(String args[]) {
+	
+		System.out.println(evaluatePostFix("921*-8-4+"));
+		//Try your own examples below
+		
+	}
+  
+}
+```
+
+- Explanation :
+
+We check each character of the string from left to right. If we find a digit, it is pushed into the stack.
+
+If we find an operator, we pop two elements from the stack (there have to be at least two present or else this postfix expression is incorrect) and solve the expression. The resulting value is pushed back into the stack.
+
+The process continues until we reach the end of the string.
+
+- Time Complexity :
+
+Since we traverse the string of n characters once, the time complexity for this algorithm is O(n).
+
+### Next Greater Element using Stack
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement `int[] nextGreaterElement(int[] arr)` method. For each element in an array, it finds the next greater element in that array.
+```
+Note: The next greater element is the first element towards the right, which is greater than the current element. For example, in the array [1, 3, 8, 4, 10, 5], the next greater element of 3 is 8, and the next greater element for 8 is 10. To keep it simple, the next greater element for the last or maximum value in the array is -1.
+```
+In each iteration, we only check the array elements appearing after the current element.
+
+Method Prototype :
+```
+int[] nextGreaterElement(int[] arr);
+```
+where arr is an Integer array
+
+- Input :
+
+The input is an integer array
+
+- Output :
+
+An array containing the next greater element of each element from the input array. For the maximum value in the array, the next greater value is `-1`.
+
+- Sample Input :
+
+```
+arr = {4,6,3,2,8,1}
+```
+- Sample Output :
+```
+result = {6,8,8,8,-1,-1}
+```
+**Solution: Stack Iteration**
+
+- Code :tada:
+```java
+
+class NextGreaterChallenge {
+    public static int[] nextGreaterElement(int[] arr) {
+        int[] result = new int[arr.length];
+        int resultIndex = 0;
+        Stack<Integer> stack = new Stack<>(arr.length);
+        // iterate for rest of the elements
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (!stack.isEmpty()) {
+                while (!stack.isEmpty() && stack.top() <= arr[i]) {
+                    stack.pop();
+                }
+            }
+            if(stack.isEmpty()){
+                result[i] = -1;
+            }
+            else
+                result[i]  = stack.top();
+            stack.push(arr[i]);
+        }
+        return result;
+    }
+
+	public static void main(String[] args) 
+	{ 
+    	int arr[] = {4,6,3,2,8,1,11}; 
+		System.out.println(Arrays.toString(arr));
+		int result[] = nextGreaterElement(arr); 
+		System.out.println(Arrays.toString(result));
+	} 
+}
+```
+- Explanation :
+
+Although this method can be solved by brute force using nested loops, a stack can do it much more efficiently.
+
+Using the for-loop on line 7, we iterate the array from the last element to the first one. This is because, at every index, we will have access to the next greater element in the array, which will be present in the stack. Therefore, we just pop from the stack until we get the greater element on top of the stack on lines 8-12. After we have the next greater element on top of the stack, we simply update the value of the current index in the `result` array to the value of the top of the stack (line 17). In case the stack gets empty, we update the value of the current index in the result array to be -1. Finally, we return the `result` array from the function on line 20.
+
+- Time Complexity : 
+
+In the above algorithm, it is observed that every element is pushed on the stack exactly once. Furthermore, since once an element is removed from the stack, it is never re-inserted, every element is removed exactly once, too. That means we perform one push and one pop operation per element, exactly. Therefore, the time complexity of this algorithm will be O(n). This is a significant improvement over the brute force method’s runtime complexity of O(n2).
+
+### Solve a Celebrity Problem using a Stack
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement `findCelebrity()` method to find the celebrity in a party (matrix) using a stack. A celebrity is someone that everyone knows, but he/she doesn’t know anyone at the party.
+
+- Method Prototype :
+```
+int findCelebrity(int[][] party,int numPeople);
+```
+Where the party is a reference variable storing a 2D matrix, which has stored all the information about acquaintances, numPeople and the number of people present in the party.
+
+In the party matrix, a particular [row][col] stores acquaintance information for row and col. In other words, if [row][col] == 1, then it means row knows col, and if it’s zero, then it means row doesn’t know col. Remember that everyone knows a celebrity, but the celebrity doesn’t know the people at the party.
+
+An illustration is also provided for your understanding.
+
+- Output :
+
+It will return - 1 if there is no celebrity in the party. Otherwise, it will return the ID or number of celebrities from the party matrix.
+
+- Sample Input :
+```
+party = { {0,1,1,0}, {1,0,1,1}, {0,0,0,0}, {0,1,1,0}, } numPeople = 4 (Number of rows in party array)
+```
+- Sample Output- :
+```
+2 (because row Index = 2 is a celebrity)
+```
+**Solution**
+
+- Code :tada:
+```java
+class FindCelebChallenge {
+   //returns true if x knows y else returns false
+    private static boolean aqStatus(int[][] party, int x, int y) {
+        if (party[x][y] == 1) return true;
+        return false;
+    }
+
+    public static int findCelebrity(int[][] party, int numPeople) {
+        Stack<Integer> stack = new Stack<>(numPeople);
+        int celebrity = -1;
+
+        //Push all people in stack
+        for (int i = 0; i < numPeople; i++) {
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) {
+
+            //Take two people out of stack and check if they know each other
+            //One who doesn't know the other, push it back in stack.
+            int x = stack.pop();
+
+            if (stack.isEmpty()) {
+                celebrity = x;
+                break;
+            }
+
+            int y = stack.pop();
+
+            if (aqStatus(party, x, y)) {
+                //x knows y , discard x and push y in stack
+                stack.push(y);
+            } else stack.push(x);
+
+        } //end of while
+
+        //At this point we will have last element of stack as celebrity
+        //Check it to make sure it's the right celebrity
+        for (int j = 0; j < numPeople; j++) {
+
+            //Celebrity knows no one while everyone knows celebrity
+            if (celebrity != j && (aqStatus(party, celebrity, j) || !(aqStatus(party, j, celebrity)))) return -1;
+        }
+        return celebrity;
+    }//end of findCelebrity()
+
+    public static void main(String args[]) {
+        
+        int [][] party1 = {
+          {0,1,1,0},
+          {1,0,1,1},
+          {0,0,0,0},
+          {0,1,1,0},   
+        };
+
+        int [][] party2 = {
+          {0,1,1,0},
+          {1,0,1,1},
+          {0,0,0,1},
+          {0,1,1,0},   
+        };
+
+        int [][] party3 = {
+          {0,0,0,0},
+          {1,0,0,1},
+          {1,0,0,1},
+          {1,1,1,0},   
+        };
+        
+        System.out.println(findCelebrity(party1,4));
+        System.out.println(findCelebrity(party2,4));
+        System.out.println(findCelebrity(party3,4));
+    }
+}
+```
+- Explanation :
+
+Although this method can be solved by brute force using nested loops, a stack can do it much more efficiently.
+
+First of all, we push all the people to the stack at line number `13 - 15`. Then we pop 2 people from the stack and check if they know each other or not. If someone doesn’t know, then we push back that person into the stack.
+
+This step repeats until we have only one person in the stack. For the last person, we check if he/she is a celebrity or not at line number `39 - 43`.
+
+- ime Complexity :
+
+The time complexity of this problem is O(n).
+
+### Check for Balanced Parentheses using a Stack
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `isBalanced()` method, which will take a string containing only curly `{}`, square `[]`, and round `()` parentheses. The method will tell us whether all the parentheses in the string are balanced or not.
+
+For all the parentheses to be balanced, every opening parenthesis must have a closing one. The order in which they appear, also matters. For example,`{[]}` is balanced, but `{[}]` is not.
+
+- Method Prototype :
+```
+boolean isBalanced(String exp);
+```
+where exp is an expression containing a combination of parentheses.
+
+- Input :
+
+A string consisting solely of ``(,` )`, `{`, `}`, `[`, and `]`	
+
+- Output :
+
+It returns `False` if the expression doesn’t have balanced parentheses. If it does, the function returns True.
+
+- Sample Input :
+```
+exp = "{[({})]}"
+```
+- Sample Output :
+```
+True
+```
+**Solution**
+
+- Code :tada:
+```java
+
+class CheckBalancedChallenge {
+    public static boolean isBalanced(String exp) {
+
+        //Iterate through the string exp.
+        //For each opening parentheses, push it into stack
+        //For every closing parenthesis check for its opening parentheses in stack
+        //If you can't find the opening parentheses for any closing one then returns false.
+        //and after complete traversal of string exp, if there's any opening parentheses left
+        //in stack then also return false.
+        //At the end return true if you haven't encountered any of the above false conditions.
+        Stack<Character> stack = new Stack<>(exp.length());
+
+        for (int i = 0; i < exp.length(); i++) {
+
+            char character = exp.charAt(i);
+
+            if (character == '}' || character == ')' || character == ']') {
+
+                if (stack.isEmpty()) return false;
+
+                if ((character == '}' && stack.pop() != '{') || (character == ')' && stack.pop() != '(') || (character == ']' && stack.pop() != '[')) return false;
+
+            }
+            else stack.push(character);
+
+        } //end of for
+        if (!stack.isEmpty()) return false;
+
+        return true;
+    }
+
+    public static void main(String args[]) {
+
+        System.out.println(isBalanced("{[()]}"));
+        System.out.println(isBalanced("[{(}]"));
+
+    }
+}
+```
+- Explanation :
+
+This is a simple algorithm. We iterate over the string, one character at a time. Whenever we find a closing parenthesis, we can deduce that the string is unbalance based on two conditions:
+
+The stack is empty.
+The top element in the stack is not an opening parenthesis of the same type.
+If any of these conditions are `true`, we return `false`.
+
+If the parenthesis in the string is an opening parenthesis, it is simply pushed into the stack. If all the parentheses are balanced, the stack should be empty by the end because we `pop()` every opening parenthesis once its closing parenthesis is found.
+
+If it is not empty, we return `false`.
+
+- Time Complexity :
+
+We traverse the string `exp` once. So, the time complexity is O(n), where n is the length of the string. Similarly, the space complexity of this algorithm is also O(n) because we have initialized the stack with the size equal to the length of string `exp`.
+
+### Create Stack where min() gives minimum in O(1)
+
+- Problem Statement :
+
+In this problem, you have to implement a new kind of stack called` MinStack`, which can get the minimum value in O(1) time. An illustration is also provided for your understanding.
+```
+Note: `MinStack` only deals with integer type values.
+```
+- Method Prototype:
+```
+int min()
+```
+- Output :
+
+It returns the minimum number in O(1) time
+
+**Solution**
+
+- Code :tada:
+```java
+
+public class MinStack {
+    int maxSize;
+    Stack<Integer> mainStack;
+    Stack<Integer> minStack;
+    //constructor
+    public MinStack(int maxSize) {
+        //We will use two stacks mainStack to hold original values
+        //and minStack to hold minimum values. Top of minStack will always
+        //be the minimum value from mainStack
+        this.maxSize = maxSize;
+        mainStack = new Stack<>(maxSize);
+        minStack = new Stack<>(maxSize);
+    }
+    //removes and returns value from stack
+    public int pop(){
+        //1. Pop element from minStack to make it sync with mainStack,
+        //2. Pop element from mainStack and return that value
+        minStack.pop();
+        return mainStack.pop();
+    }
+    //pushes value into the stack
+    public void push(Integer value){
+        //1. Push value in mainStack and check value with the top value of minStack
+        //2. If value is greater than top, then push top in minStack
+        //else push value in minStack
+        mainStack.push(value);
+        if(!minStack.isEmpty() && minStack.top() < value)
+            minStack.push(minStack.top());
+        else
+            minStack.push(value);
+    }
+    //returns minimum value in O(1)
+    public int min(){
+        return minStack.top();
+    }
+}
+```
+- Explanation :
+
+This is a smart solution for obtaining the minimum value in a stack, yet, it isn’t a very tricky one.
+
+The whole implementation relies on the existence of two stacks, `minStack`, and `mainStack`.
+
+`mainStack` holds the actual stack with all the elements, whereas `minStack` is a stack whose `top` always contains the current minimum value in the stack.
+
+How does it do this? The answer is in the `push` function. Whenever `push` is called, `mainStack` simply inserts the new value at the top. However, `minStack` checks the value being pushed. If `minStack` is empty, this value is pushed into it and becomes the current minimum. If `minStack` already has elements in it, the value is compared with the top element. If the value is lower than the top of `minStack`, it is pushed in and hence, becomes the new minimum. Otherwise, the top remains the same.
+
+Due to all these safeguards we’ve put in place, the `min` function only needs to return the value at the top of `minStack`.
+
+- Time Complexity :
+
+Our goal was to create a stack that returns the minimum value in constant time. As we can see in the algorithm above, the `min` function truly works in O(1).
 ... (rest of your README)
