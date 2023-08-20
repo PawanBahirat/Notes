@@ -2554,4 +2554,80 @@ links the prevNode to the nextNode. The current node’s link will be destroyed 
 
 In the worst case, you would have to traverse until the end of the list. This means the time complexity will be O(n).
 
+### Linked Lists vs Arrays
+<hr>
+
+Let's put the two data structures against each other to find out which is more efficient.
+
+- Memory Allocation :
+
+The main difference between a linked list and an array is the way they are allocated memory. Arrays instantiate a whole block of memory, e.g., array[1000] gets space to store 1000 elements at the start even if it doesn’t contain any element yet. On the other hand, a linked list only instantiates the portion of memory it uses.
+
+- Insertion and Deletion :
+
+For lists and arrays, many differences can be observed in the way elements are inserted and deleted. In a linked list, insertion and deletion at head happen in a constant amount of time (O(1)), while arrays take O(n) time to insert or delete a value because you have to shift the array elements left or right after that operation.
+
+- Searching :
+
+In an array, it takes constant time to access an index. In a linked list, you have to iterate the list from the start until you find the node with the correct value.
+
+The table given below will summarize the performance difference between linked lists and arrays.
+
+| Operation | Linked List | Array |
+| --- | --- | --- |
+| Access | O(n) | O(1) |
+| Insert (at head) | O(1) | O(n) |
+| Delete (at head) | O(1) | O(n) |
+| Insert (at tail) | O(n) | O(n) |
+| Delete (at tail) | O(n) | O(n) |
+
+As you can see, there is a trade-off between the facilities provided by both structures. You will understand more about the working of linked lists in the lessons that follow.
+
+### Find the Length of a Linked List
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the method `int length()`, which will count the number of nodes in a linked list. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+int length()
+```
+Output :
+
+The length of the given linked list.
+
+- Sample Input :
+```
+linkedlist = 0->1->2-3->4
+```
+- Sample Output :
+```
+length = 5
+```
+**Solution**
+
+```java
+class CheckLength {
+  public static void main( String args[] ) {
+        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
+        list.insertAtEnd("This");
+        list.insertAtEnd("list");
+        list.insertAtEnd("is");
+        list.insertAtEnd("Generic");
+        list.printList();
+        System.out.println("Length : " + list.length());
+    }
+}
+```
+
+- Explanation :
+
+The logic behind it is very similar to that of the `search` function. The trick is to iterate through the list and keep count of how many nodes you’ve visited. This count is held in a variable that is returned when the end of the list is reached.
+
+- Time Complexity :
+
+Since this is a linear algorithm, the time complexity will be O(n).
+
 ... (rest of your README)
