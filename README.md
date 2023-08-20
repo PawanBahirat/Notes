@@ -53,7 +53,7 @@
     - [Next Greater Element Using Stackproblem Statement](#next-greater-element-using-stack)
     - [Solve A Celebrity Problem Using A Stack](#solve-a-celebrity-problem-using-a-stack)
     - [Check For Balanced Parentheses Using A Stack](#check-for-balanced-parantheses-using-a-stack)
-    - [Create Stack Where Min() Gives Minimum In Constant Time O(1)](#create-stack-where-min-gives-minimum-in-constant-time-o-1)
+    - [Create Stack Where Min() Gives Minimum In Constant Time O(1)](#create-stack-where-min-gives-minimum-in-constant-time-o1)
 
 
 ## Data Structures
