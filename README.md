@@ -105,6 +105,14 @@
     - [Longest Bitonic Subsequence](#longest-bitonic-subsequence)
     - [Edit Distance](#edit-distance)
     - [Egg Dropping Problem](#egg-dropping-problem)
+  - [Heaps](#heaps)
+    - [Introduction To Heaps](#introduction-to-heaps)
+    - [Convert A Max-Heap To A Min-Heap](#convert-a-max-heap-to-a-min-heap)
+    - [Find The K Smallest Elements In An Array](#find-the-k-smallest-elements-in-an-array)
+    - [Find The K Largest Elements In An Array](#find-the-k-largest-elements-in-an-array)
+    - [Find The Median Of A Number Stream](#find-the-median-of-a-number-stream)
+    - [Sliding Window Median](#sliding-window-median)
+
 ## Data Structures
 
 ### Arrays
@@ -10466,4 +10474,146 @@ This solution is not relevant to this chapter, but since it is the most optimize
 - Time complexity :
 
 The time complexity of this code is O(eggs*log(floors)).
+
+### Introduction to Heaps
+<hr>
+
+- Introduction :
+
+Heaps are a data structure primarily used for efficiently finding the smallest or largest element in an array. Heaps are advanced data structures based on Binary Trees, which is why they are commonly known as Binary Heaps.
+
+- Implementation :
+
+Heaps are implemented through Arrays, where each element of the array corresponds to a node in the binary tree and the value inside the node is called a “key”. Heaps can also be implemented using trees with a node class and pointers, but it’s usually easier and more space efficient to use an array.
+
+All the nodes are ordered according to the rules listed below:
+
+A Heap tree must be a Complete Binary Tree.
+The nodes must be ordered according to the Heap Property.
+
+- Heap property :
+
+A heap is built, based on the Heap property, by comparing the parent node key with its child node keys. This comparison is done based on the heap property. The two heap structures that we are going to cover in this chapter are:
+```
+Min Heap
+Max Heap
+```
+Min Heap is built on the Min Heap property, and Max Heap is implemented on the Max Heap property. Let’s see how they are different.
+```
+- Max Heap property :
+```
+This property states that all the parent node keys must be greater than or equal to their child node keys. So the root node, in this case, will always contain the largest element present in the Heap. If Node A has a child node B, then,
+```
+key(A) >= key(B)
+```
+- Min Heap property :
+
+In Min Heap, all the parent node keys are less than or equal to their child node keys. This goes without saying that the rule will apply to all children of the node. So the root node, in this case, will always contain the smallest element present in the Heap. If Node A has a child node B, then,
+```
+key(A) <= key(B)
+```
+-vOperations :
+
+Following operations can be performed on a heap:
+
+`Insertion` : It has O(log(n)) time complexity.
+`Remove min/max` : It has O(log(n)) time complexity.
+
+In each of the following lessons, you will tackle problems involving binary heaps. Check the implementation approach used in the lesson and write your solution accordingly.
+
+### Convert a Max-Heap to a Min-Heap
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `convertMax()` function to convert a Binary Max Heap into a Binary Min Heap. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+void convertMax(int []maxHeap);
+```
+Here, maxHeap is an array which is given in maxHeap format, i.e. the parent is greater than its children. It’s a Binary Max Heap, meaning that for a particular node there can be a max. of 2 children (left and right respectively).
+
+- Output :
+
+It does not return anything. The `maxHeap` array is manipulated and changed to a `min-heap`.
+
+- Sample Input :
+```
+[9,4,7,1,-2,6,5];
+```
+- Sample Output :
+```
+[-2,1,5,9,4,6,7]
+```
+- Explanation :
+
+In a Binary Min Heap, the parent node has minimum value compared to its children (which could be a maximum of two). In the result array, -2 is the root of the Min Heap, and both of its children have greater value: left child 1 (calculated as (index * 2) +1 and right child 5 (calculated as (index * 2) + 2).
+
+**Solution**
+
+- Code :tada:
+```java
+
+class CheckConvert {
+
+  public static void convertMax(int[] maxHeap) {
+
+    //Consider maxHeap just an ordinary unsorted array 
+    //Build minHeap of the given array. (We already covered that in previous lesson)
+    //Return converted array in String format
+    buildMinHeap(maxHeap, maxHeap.length);
+
+  }
+
+  private static void buildMinHeap(int[] heapArray, int heapSize) {
+
+    // swap smallest child to parent node 
+    for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+      minHeapify(heapArray, i, heapSize);
+    }
+  }
+
+  private static void minHeapify(int[] heapArray, int index, int heapSize) {
+    int smallest = index;
+
+    while (smallest < heapSize / 2) { // check parent nodes only
+      int left = (2 * index) + 1; //left child
+      int right = (2 * index) + 2; //right child
+      if (left < heapSize && heapArray[left] < heapArray[index]) {
+        smallest = left;
+      }
+
+      if (right < heapSize && heapArray[right] < heapArray[smallest]) {
+        smallest = right;
+      }
+
+      if (smallest != index) { // swap parent with smallest child
+        int temp = heapArray[index];
+        heapArray[index] = heapArray[smallest];
+        heapArray[smallest] = temp;
+        index = smallest;
+      } else {
+        break; // if heap property is satisfied
+      }
+    } //end of while
+  }
+
+
+  public static void main(String args[]) {
+    int[] heapArray = {9,4,7,1,-2,6,5};
+    System.out.println("Max Heap: " + Arrays.toString(heapArray));
+    convertMax(heapArray);
+    System.out.println("Min Heap: " + Arrays.toString(heapArray));
+
+  }
+}
+```
+- Explanation :
+
+Remember that we can consider the given max-heap array, `heapArray` to be a regular list of elements, and reorder it so that it represents a min-heap accurately. We do exactly that in this solution. The `convertMax()` function restores the heap property on all the nodes from the lowest parent node by calling the `minHeapify()` function on each.
+
+- Time Complexity :
+
+The time complexity of this challenge is the same as the complexity for the build heap operation: O(n).
 ... (rest of your README)
