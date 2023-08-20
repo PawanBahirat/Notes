@@ -15,7 +15,7 @@
     - [What Is a Branch?](#what-is-a-branch)
     - [Creating a Branch](#creating-a-branch)
     - [Switching Between Branches](#swithching-between-branches)
-    - [Renaming Branches](#renaiming-branches)
+    - [Renaming Branches](#renaming-branches)
     - [Deleting A Branch](#deleting-a-branch)
     - [Git Stash](#git-stash)
     
