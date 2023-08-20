@@ -10937,10 +10937,10 @@ The time complexity of the `insertNum()` will be O(logN) due to the insertion in
 The space complexity will be O(N) because, as at any time, we will be storing all the numbers.
 
 
-### Find the Median of a Number Stream
+### Sliding Window Median
 <hr>
 
-- Problem Statement :
+- Problem Statement (Find the Median of a Number Stream:
 
 Given an array of numbers and a number ‘k’, find the median of all the ‘k’ sized sub-arrays (or windows) of the array.
 
