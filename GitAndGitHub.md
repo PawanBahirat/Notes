@@ -66,3 +66,51 @@ Git has three primary states that it allows the project’s files to acquire. Th
 `Committed` - the changed files that have successfully become part of the latest snapshot.
 
 Before we move on to learn more about Git, let’s briefly go over how you can use the terminal to edit text files using text editors and terminal commands.
+
+
+### Basic Terminal-Based Text Editors
+<hr>
+
+A basic summary of how you can edit files or make changes using terminal commands or terminal-based text editors.
+
+The goal of this course is to cover the necessary Git commands and concepts. To do that, we will have to alter the content of some files as we go along. We have a variety of options to opt for in this regard. Since you will be able to test out all the commands within the lessons, it’s going to be beneficial if you have an idea about how you can modify plain text files using the terminal itself.
+
+Normally, we use fancy text editors and notepad applications, but, for this course, we will opt to use plain terminal-based commands and terminal-based text editors to make changes and updates.
+
+- Using the `echo` command :
+
+We can add text to a file using the echo command which is shown below:
+```
+echo "Hello world!" >> file1.txt
+```
+```
+Note: The `echo` command can’t be used to add text in arbitrary points in the file. It will, instead, append the text at the end of the text file.
+```
+Try out the command in the terminal provided below. The terminals in this lesson already have a file called `file1.txt`, which is present in the working directory `test_project`. You can verify this by using the command `ls`.
+```
+To view the contents of the file itself, use the command `cat file1.txt`, or you can opt to use one of the terminal-based text editors, such as `nano`, which is discussed later in this lesson.
+```
+This is a very simple and straightforward way to add text to a file.
+
+- Using `nano` :
+
+`nano` is a very simple terminal-based text editor that comes installed as a default with Linux. Click anywhere on the terminal widget below, and then execute the following command.
+```
+nano file1.txt
+```
+From this point forward, you will simply enter any text you plan to add to the file. By using the commands provided at the end of the terminal window, you can save those changes and exit the editor.
+
+Note the `^` key. It represents the `ctrl` key on your keyboard.
+
+In order to get help on the commands, press `ctrl + g` (hold down the control key while hitting `g`).
+If you want to exit nano, press `ctrl + x`. If there are unsaved changes, nano will prompt you to save those changes before exiting.
+```
+Note: The ^ is the control key on the MAC keyboard and Ctrl key on Windows.
+```
+The image shown below is of the user interface you will encounter when you use the `nano` command.
+```
+nano <file_name>
+```
+That is more or less the gist of the very basics you will need to know about terminal-based text editors for this course. Alternatively, if you are comfortable with using any other text editor such as Vim, feel free to use that as well.
+
+In the next sections, we will continue our discussion about Git and how to configure it locally.
