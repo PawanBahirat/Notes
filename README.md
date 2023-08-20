@@ -17,6 +17,7 @@ Data structure and Algorithms.
     - [Find The Sum Of Maximum Sum Subarray](#find-the-sum-of-maximum-sum-subarray)
     - [Binary Search](#binary-search-on-sorted-array)
     - [Find Maximum In Sliding Window](#find-maximum-in-sliding-window)
+    - [Move All Zeroes to the Beginning of the Array](#move-all-zeroes-to-the-beginning-of-the-array)
 
 ## Data Structures
 
@@ -934,5 +935,62 @@ The index of the current maximum element is at the front.
       return result;
   }
 ```
+
+### Move All Zeroes to the Beginning of the Array
+<hr>
+
+- Description :
+
+Given an integer array, move all elements that are 0 to the left while maintaining the order of other elements in the array. The array has to be modified in-place. Let’s look at the following integer array:
+
+`1`	`10`	`20`	`0`	`59`	`63`	`0`	`88`	`0`
+
+- After moving all zeros to the left, the array should look like this:
+
+`0`	`0`	`0`	`1`	`10`	`20`	`59`	`63`	`88`
+
+- Remember : We need to maintain the order of non-zero elements.
+
+- Solution Approach :
+
+We will keep two markers: `read_index` and `write_index` and point them to the end of the array. Let’s take a look at an overview of the algorithm: While moving `read_index` towards the start of the array:
+
+If `read_index` points to `0`, skip.
+If `read_index` points to a non-zero value, write the value at `read_index` to `write_index` and decrement `write_index`.
+Assign zeros to all the values before the `write_index` and to the current position of `write_index` as well.
+
+- Code :tada:
+```java
+static void moveZerosToLeft(int[] A) {
+    if (A.length < 1) {
+      return;
+    }
+
+    int writeIndex = A.length - 1;
+    int readIndex = A.length - 1;
+
+    while(readIndex >= 0) {
+      if(A[readIndex] != 0) {
+        A[writeIndex] = A[readIndex];
+        writeIndex--;
+      }
+
+      readIndex--;
+    }
+
+    while(writeIndex >= 0) {
+      A[writeIndex] = 0;
+      writeIndex--;
+    }
+  }
+```
+- Runtime complexity :
+
+The runtime complexity if this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
+
 
 ... (rest of your README)
