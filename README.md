@@ -19,6 +19,7 @@ Data structure and Algorithms.
     - [Find Maximum In Sliding Window](#find-maximum-in-sliding-window)
     - [Move All Zeroes to the Beginning of the Array](#move-all-zeroes-to-the-beginning-of-the-array)
     - [Stock Buy Sell to Maximize Profit](#stock-buy-sell-to-maximize-profit)
+    - [Sort an Array Using Quicksort Algorithm](#sort-an-array-using-quicksort-algorithm)
 
 ## Data Structures
 
@@ -1075,4 +1076,75 @@ The runtime complexity if this solution is linear, O(n).
 - Memory complexity :
 
 The memory complexity of this solution is constant, O(1).
+
+### Sort an Array Using Quicksort Algorithm
+
+- Description :
+
+Given an integer array, sort it in ascending order using the quicksort algorithm.
+
+- Original Array :
+
+`55`	`23`	`26`	`2`	`25`
+
+- Sorted Array :
+
+`2`	`23`	`25`	`26`	`55`
+
+- Solution Approach :
+
+Here is an overview of how the quicksort algorithm works :
+
+Select a pivot element from the array to divide the array into two parts based on the pivot. We pick the first element as the pivot.
+Reorder the array by comparing with the pivot element such that smaller values end up at the left side, and larger values end up at the right side of the pivot.
+Now, the pivot element is in its correct sorted position. Applying the above steps, we can recursively sort the sublists on the right and left sides of the pivot.
+
+Code :tada:
+```java
+  static int partition(int[] arr, int low, int high) {
+    int pivotValue = arr[low];
+    int i = low;
+    int j = high;
+
+    while (i < j) {
+      while (i <= high && arr[i] <= pivotValue) i++;
+      while (arr[j] > pivotValue) j--;
+
+      if (i < j) {
+        // swap arr[i] and arr[j]
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+    }
+
+    arr[low] = arr[j];
+    arr[j] = pivotValue;
+  
+    // return the pivot index
+    return j;
+  }
+
+  static void quickSortRec(int[] arr, int low, int high) {
+    if (high > low) {
+      int pivotIndex = partition(arr, low, high);
+
+     quickSortRec(arr, low, pivotIndex - 1);
+      quickSortRec(arr, pivotIndex + 1, high);
+    }
+  }
+
+  static void quickSort(int[] arr) {
+    quickSortRec(arr, 0, arr.length - 1);
+  }
+```
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linearithmic, O(nlogn).
+
+- Memory complexity :
+
+The memory complexity of this solution is logarithmic, O(logn).
+
 ... (rest of your README)
