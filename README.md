@@ -2029,7 +2029,9 @@ Changes are localized when inserting and deleting somewhere in the middle of the
 As each node also contains a pointer, it has a memory overhead.
 We cannot access a node through indexing directly, rather we have to traverse from the start to access an element at a given position n.
 Reverse traversing is not possible with a singly linked list.
-Doubly Linked List
+
+- Doubly Linked List :
+
 Each node in a doubly linked list contains a pointer to the next node as well as pointer to the previous node. This allows the list to be traversed in both directions: forward and backward.
 
 Doubly linked lists have all the advantages of singly-linked lists while providing some additional pros and cons.
