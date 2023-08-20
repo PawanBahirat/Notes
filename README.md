@@ -7679,4 +7679,140 @@ class CoinChange {
 ```
 The above solution has time and space complexity of O(C*T), where ‘C’ represents total coin denominations and ‘T’ is the total amount that we want to make change.
 The above solution has time and space complexity of O(C*T)O(C∗T), where ‘C’ represents total coin denominations and ‘T’ is the total amount that we want to make change.
+
+
+### Fibonacci numbers
+<hr>
+
+- Problem Statement :
+
+Write a function to calculate the nth Fibonacci number.
+
+Fibonacci numbers are a series of numbers in which each number is the sum of the two preceding numbers. First few Fibonacci numbers are: 0, 1, 1, 2, 3, 5, 8, …
+
+Mathematically we can define the Fibonacci numbers as:
+```
+Fib(n) = Fib(n-1) + Fib(n-2), for n > 1
+
+Given that: Fib(0) = 0, and Fib(1) = 1
+```
+- Basic Solution :
+
+A basic solution could be to have a recursive implementation of the mathematical formula discussed above:
+
+- Code :tada:
+```java
+
+class Fibonacci {
+
+  public int CalculateFibonacci(int n) {
+    if(n < 2)
+      return n;
+    return CalculateFibonacci(n-1) + CalculateFibonacci(n-2);
+  }
+
+  public static void main(String[] args) {
+    Fibonacci fib = new Fibonacci();
+    System.out.println("5th Fibonacci is ---> " + fib.CalculateFibonacci(5));
+    System.out.println("6th Fibonacci is ---> " + fib.CalculateFibonacci(6));
+    System.out.println("7th Fibonacci is ---> " + fib.CalculateFibonacci(7));
+  }
+}
+```
+The time complexity of the above algorithm is exponential O(2^n) as we are making two recursive calls in the same function. The space complexity is O(n)O(n) which is used to store the recursion stack.
+
+- Top-down Dynamic Programming with Memoization :
+
+We can use an array to store the already solved subproblems. Here is the code:
+
+- Code :tada:
+```java
+
+class Fibonacci {
+
+  public int CalculateFibonacci(int n) {
+    int dp[] = new int[n + 1];
+    return CalculateFibonacciRecursive(dp, n);
+  }
+
+  public int CalculateFibonacciRecursive(int[] dp, int n) {
+    if (n < 2)
+      return n;
+    if (dp[n] == 0)
+      dp[n] = CalculateFibonacciRecursive(dp, n - 1) + CalculateFibonacciRecursive(dp, n - 2);
+    return dp[n];
+  }
+
+  public static void main(String[] args) {
+    Fibonacci fib = new Fibonacci();
+    System.out.println("5th Fibonacci is ---> " + fib.CalculateFibonacci(5));
+    System.out.println("6th Fibonacci is ---> " + fib.CalculateFibonacci(6));
+    System.out.println("7th Fibonacci is ---> " + fib.CalculateFibonacci(7));
+  }
+}
+```
+- Bottom-up Dynamic Programming :
+
+Let’s try to populate our dp[] array from the above solution, working in a bottom-up fashion. Since every Fibonacci number is the sum of the previous two numbers, we can use this fact to populate our array.
+
+Here is the code for the bottom-up dynamic programming approach:
+
+- Code  :tada:
+
+Here is the code for our bottom-up dynamic programming approach:
+```java
+
+class Fibonacci {
+
+  public int CalculateFibonacci(int n) {
+    if (n < 2)
+      return n;
+
+    int dp[] = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++)
+      dp[i] = dp[i - 1] + dp[i - 2];
+    return dp[n];
+  }
+
+  public static void main(String[] args) {
+    Fibonacci fib = new Fibonacci();
+    System.out.println("5th Fibonacci is ---> " + fib.CalculateFibonacci(5));
+    System.out.println("6th Fibonacci is ---> " + fib.CalculateFibonacci(6));
+    System.out.println("7th Fibonacci is ---> " + fib.CalculateFibonacci(7));
+  }
+}
+```
+The above solution has time and space complexity of O(n).
+
+- Memory optimization :
+
+We can optimize the space used in our previous solution. We don’t need to store all the Fibonacci numbers up to ‘n’, as we only need two previous numbers to calculate the next Fibonacci number. We can use this fact to further improve our solution:
+
+- Code :tada:
+```java
+class Fibonacci {
+
+  public int CalculateFibonacci(int n) {
+    if (n < 2)
+      return n;
+    int n1 = 0, n2 = 1, temp;
+    for (int i = 2; i <= n; i++) {
+      temp = n1 + n2;
+      n1 = n2;
+      n2 = temp;
+    }
+    return n2;
+  }
+
+  public static void main(String[] args) {
+    Fibonacci fib = new Fibonacci();
+    System.out.println("5th Fibonacci is ---> " + fib.CalculateFibonacci(5));
+    System.out.println("6th Fibonacci is ---> " + fib.CalculateFibonacci(6));
+    System.out.println("7th Fibonacci is ---> " + fib.CalculateFibonacci(7));
+  }
+}
+```
+The above solution has a time complexity of O(n) but a constant space complexity O(1).
 ... (rest of your README)
