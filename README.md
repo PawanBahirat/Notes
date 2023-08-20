@@ -4217,7 +4217,7 @@ If it is not empty, we return `false`.
 
 We traverse the string `exp` once. So, the time complexity is O(n), where n is the length of the string. Similarly, the space complexity of this algorithm is also O(n) because we have initialized the stack with the size equal to the length of string `exp`.
 
-### Create Stack where min() gives minimum in O(1)
+### Create Stack Where Min() Gives Minimum In Constant Time O(1)
 
 - Problem Statement :
 
