@@ -5,7 +5,8 @@
     - [What Is Version Control?](#what-is-version-control)
     - [Why Is Git So Important?](#why-is-git-so-important)
     - [Basic Terminal-Based Text Editors](#basic-terminal-based-text-editors)
-  - [Configure Git Locally](#configure-git_locally)
+  - [Configure Git Locally](#configure-git-locally)
+    - [Git Config](#git-config)
   
 ## Getting Started
 
