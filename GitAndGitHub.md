@@ -7,6 +7,10 @@
     - [Basic Terminal-Based Text Editors](#basic-terminal-based-text-editors)
   - [Configure Git Locally](#configure-git-locally)
     - [Git Config](#git-config)
+    - [Creating A New Project With Git](#creating-a-new-project-with-git)
+    - [Git Commit](#git-commit)
+    - [Git Logs](#git-logs)
+    - 
   
 ## Getting Started
 
@@ -179,3 +183,165 @@ In the terminal below, and in every terminal you will be provided in the course,
 This change will be reflected in all the proceeding terminals in the course. You can also configure Git using the commands above, but those changes will be restricted to that specific terminal. If you’d like to continue forward with a name and email of your own preference on the platform, you will need to use the environment variables, since they are configured globally, and their values will remain persistent throughout the course.
 
 > Note: The environment variables are used here to make sure the course is more interactive for you as a learner with the terminals provided. You do not need to rely on environment variables to configure Git otherwise and can proceed forward with the course using the default configurations.
+
+
+### Creating A New Project With Git
+<hr>
+
+In this lesson, you will create a new project and learn how to use Git to track it.
+
+- Creating a new project directory :
+
+Let’s start by creating a new working directory or folder in the terminal. We’ll call the new working directory `test_project`. You can create a new directory by using the following command:
+```
+mkdir test_project
+```
+Once we have created the new directory, we will need to set that as the current working directory. We will do that by entering the following command:
+```
+cd test_project
+```
+Once the `test_project` directory becomes the working directory, which will be initially empty, we will create a plain `text file`. Let’s call it `file1.txt`. We will create the new file using this command:
+```
+touch file1.txt
+```
+To verify that the file was created, enter the plain command ls in the terminal window below. It should print all the folders and files present within the working directory, which, in our case, is `file1.txt`.
+
+- The `git init` command :
+
+Now that we have a working project directory with a file in it, we can initialize Git to track this project and its contents:
+```
+-test_project/
+--file1.txt
+```
+Enter this command in the terminal provided above:
+```
+git init
+```
+The `git init` command simply creates an empty repository. Therefore, your project will not automatically come under the ambit of version control with this command alone. What `git init` does, however, is create a `.git` directory. The `.git`; directory will contain all the metadata that Git will require for tracking the project.
+
+The subdirectory `.git` will contain several files and more subdirectories that Git will use to keep track of changes in the project.
+
+- The `git add` command :
+
+Now that we have a project that has a file and an empty Git repository set up, we want Git to track the contents of the entire project.
+
+At this point, the `git add` command will help us. Enter the following command in the `test_project` directory:
+```
+git add .
+```
+This will result in all of the contents within the test_project directory to be tracked by Git. Congratulations! Now you have a Git repository that is actively tracking the test_project directory.
+
+- The `git status` command :
+
+To verify what state your files in the repository are in, you can use the `git status` command. It doesn’t change or update anything. Instead, it prints out which files are modified, staged, or untracked.
+```
+git status
+```
+Let’s see what has happened to our new repository once we try this command, once before using the `git add` . command and once after we have entered it.
+
+Look at the kind of information you get with `git status`. You can identify when `file1.txt` is untracked by Git and how it then changes to a staged state. As you get more familiar with Git and use it more often, you will find yourself checking the status of your files quite often.
+
+
+### Git Commit
+<hr>
+
+Learn how to create your first snapshot with the git commit command.
+
+The `git commit` command
+Once we have a local repository that is tracking our project, we will move towards creating our very first commit.
+
+A commit is a snapshot of the entire state that your project is in at that moment. Git keeps track of your project through a series, or chain, of commits. The most recent snapshot of your repository is referred to as the HEAD.
+
+As soon as you create a new commit, it will directly link to the HEAD. However, since the latest commit is now the most recent one, it will be considered the HEAD instead, replacing the previous one.
+
+- The commit message :
+
+The structure of the commit command is very straight forward:
+```
+git commit -m "What changes occurred within the commit."
+```
+From the snippet above, you will notice the -m flag, followed by a string. The string is called the commit message. Usually, the commit message is a phrase that describes what changes or modifications occurred within the commit.
+
+- Our first commit :
+
+Let’s move on to creating our first commit. Since it is the first one, let’s have the commit message be “initial commit.”
+
+Enter the following command in the terminal below and see what happens. Please note that before we create a commit, it is a wise decision to use the `git status` command to check which changes will be reflected in that commit.
+```
+git commit -m "initial commit"
+```
+The commit message can be anything you want it to be, so there is no restriction on keeping it as “initial commit.” This decision is up to you. The primary purpose of the commit message is to make sure it is sufficiently descriptive, and it gives an idea of what the snapshot contains.
+
+> Note: It is tempting to use meaningless short messages like “Commit 1,” “Commit 2,” etc. However, it is highly recommended NOT to do that. Descriptive commit messages can save a lot of time.
+
+Once you have successfully created your first commit, try entering git status again and check what has changed. All the staged files become part of your initial commit, and there are no other changes to commit anymore.
+
+You have officially made your first commit!
+
+
+### Git Logs
+<hr>
+
+Let’s take a deeper look at the commit structure and see how we can view our commit history using the Git log command.
+
+- The `git log` command :
+
+Git tracks changes to a project by maintaining a chain of snapshots or commits. If you are working on a collaborative project, you will find that your repository will have commits from different contributors. The `git log` command lets you view the commit history for your project.
+
+Entering the `git log` command in your terminal will allow you to view a list of commits or snapshots that will be sorted based on the time they were created with the latest one at the very top.
+
+Each log will contain information about the author of the commit, displaying their username and email that we set with the git config command (discussed in one of the previous lessons).
+
+The log will also contain a timestamp of when each commit was created along with the commit message.
+
+One more critical piece of information that the log will show is the 40-characters-long unique hash. The hash is vital because it helps identify commits and acts as an excellent way to secure the commit.
+
+The commit hash uses the cryptographic hash function SHA-1. The hash key allows each commit to have integrity. If the hash were to change, we would be able to identify that the commit has been tampered with.
+
+
+### Undo a Commit
+<hr>
+
+Let’s learn how to undo or revert a commit in this lesson.
+
+There are many instances where you will realize that the commit you just created had some things that weren’t supposed to make it into the snapshot. There are several ways to go about correcting these mistakes.
+
+One way would be to create a new commit that fixes the issue you added in the previous one. Another option would be to undo or revert the last commit or at least update it. Let’s look at some options we can try out.
+
+- The `git reset` command :
+
+The `git reset` command is a useful tool to help fix past mistakes. There are a lot of ways it can be used depending on the scenario.
+
+- Undo the last commit :
+
+What if while you are working on your project, you decide to create another file, file2.txt, and want to commit it into a new snapshot?
+```
+touch file2.txt
+git add file2.txt
+git commit -m "added a new file"
+```
+The commands above are all you need. Let’s see how this plays out in the terminal. We can use git status to verify what state our file is in while creating a new commit.
+
+- The `--soft` flag :
+
+If you want to modify or update your changes from the previous commit but don’t want to remove them completely, you can use the following command:
+```
+git reset --soft HEAD~1
+```
+The `--soft` flag changes the state of the committed files to “staged." You can see more clearly what happens when you run the command in a terminal. Note how the output that the `git status` command produces will change after you reset the most recent commit using the `--soft` flag. This flag preserves the changes.
+```
+The --hard flag
+```
+If you want to completely get rid of the changes that were part of the recent commit, you can use the --hard flag instead. It will reset the changes and not preserve them. Let’s see how this plays out in the terminal. Enter the following command in the terminal below:
+```
+git reset --hard HEAD~1
+```
+The `git reset` command can prove to be very useful if we want to update or revert changes made in older commits. The examples shown above dealt with reverting only the most recent commit. You will have noticed the reset commands used in this lesson had the `HEAD~1` portion. The number indicates how many commits you want to go back.
+
+If you’re going to revert several older commits, you can change the number to how many commits you want to be reverted, and that will land you back to an earlier snapshot of your project. For example:
+```
+git reset --soft HEAD~2
+```
+would revert the two most recent commits.
+
+This marks the end of the chapter. In the next chapter, we are going to learn about branches. But before we do, let’s take a small quiz to review the new commands we practiced and the concepts we’ve learned in this chapter.
