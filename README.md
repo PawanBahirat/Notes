@@ -24,6 +24,7 @@ Data structure and Algorithms.
   - [Strings](#strings)
     - [Strings](#strings)
     - [Reverse Words in a Sentence](#reverse-words-in-a-sentence)
+    - [Remove Duplicates from a String](#remove-duplicates-from-a-string)
   
 ## Data Structures
 
@@ -1355,7 +1356,181 @@ The memory complexity of this solution is constant, O(1).
 The solution reverses every word in-place i.e., it does not require any extra space.
 ```
 
+### Remove Duplicates from a String
+<hr>
 
+Remove duplicate characters from a string which is passed by reference.
+
+- Description :
+
+Given a string that contains duplicate occurrences of characters, remove the duplicate occurrences.
+
+The string is passed by reference. So you don’t need to return anything.
+
+**Solution**
+In this solution, we’ll keep two pointers or indices one for the current reading position and one for the current writing position. Whenever we encounter the first occurrence of a character, we add it to the HashSet. Any character already existing in the HashSet is skipped on any subsequent occurrence. Below is an overview of the algorithm:
+```
+read_pos = 0
+write_pos = 0
+
+for each character 'c' in str
+  if 'c' not found in hashset
+    add 'c' to hashset
+    str[write_pos] = str[read_pos]
+    write_pos++
+  read_pos++
+```
+- Code :tada:
+```java
+class RemoveDuplicates {
+  // this solution uses extra memory
+  // to keep all characters present in string.
+
+  static void removeDuplicates(char[] str) {
+    Set<Character> hashset = new LinkedHashSet<Character> ();
+
+    int writeIndex = 0;
+    int readIndex = 0;
+
+    while (readIndex != str.length) {
+
+      if (!hashset.contains(str[readIndex])) {
+
+        hashset.add(str[readIndex]);
+        str[writeIndex] = str[readIndex];
+        ++writeIndex;
+      }
+
+      ++readIndex;
+    }
+
+    str[writeIndex] = '\0';
+  }
+
+  // Test Program
+
+  static char[] getArray(String t) {
+    char[] s = new char[t.length() + 1];
+    int i = 0;
+    for (; i < t.length(); ++i) {
+      s[i] = t.charAt(i);
+    }
+    s[i] = '\0';
+    return s;
+  }
+
+  static void print(char[] s) {
+    int i = 0;
+    while (s[i] != '\0') {
+      System.out.print(s[i]);
+      ++i;
+    }
+    System.out.println();
+  }
+
+  public static void main(String[] args) {
+  
+    char[] input = getArray("dabbac");
+    System.out.print("Before: ");
+    System.out.println(input);
+    RemoveDuplicates.removeDuplicates(input);
+    System.out.print("After: ");
+    print(input);
+  }
+}
+```
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n).
+
+**Solution 2**
+This algorithm does not require any extra memory. It maintains two pointers indices: one for the read position and one for the write position. For every character in the input string that is present in the sub-string [0, write_pos], we skip it; otherwise, we write the character at read_pos to write_pos. Here is the algorithm:
+
+```
+read_pos = 0
+write_pos = 0
+while read_pos less than length(str)
+  if str[read_pos] not found in sub_string(0, write_pos)
+    str[write_pos] = str[read_pos]
+    ++write_pos
+  ++read_pos
+```
+
+- Code :tada:
+```java
+class RemoveDuplicates {
+  // this solution does not require any extra memory
+  // but runs in O(n^2) time
+
+  static void removeDuplicates(char[] str) {
+    if (str == null || str.length == 0) {
+      return;
+    }
+
+    int writeIndex = 0;
+    for (int i = 0; i < str.length; i++) {
+      boolean found = false;
+
+      for (int j = 0; j < writeIndex; j++) {
+        if (str[i] == str[j]) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        str[writeIndex] = str[i];
+        writeIndex++;
+      }
+    }
+
+    if (writeIndex != str.length) {
+      str[writeIndex] = '\0';
+    }
+  }
+
+  /// Test Program.
+  static void print(char[] s) {
+    int i = 0;
+    while (s[i] != '\0') {
+      System.out.print(s[i]);
+      ++i;
+    }
+    System.out.println();
+  }
+
+  static char[] getArray(String t) {
+    char[] s = new char[t.length() + 1];
+    int i = 0;
+    for (; i < t.length(); ++i) {
+      s[i] = t.charAt(i);
+    }
+   
+    return s;
+  }
+  
+  public static void main(String[] args) {
+    char[] input = getArray("dabbac");
+    System.out.print("Before: ");
+    System.out.println(input);
+    RemoveDuplicates.removeDuplicates(input);
+    System.out.print("After: ");
+    print(input);
+  }
+}
+```
+- Runtime complexity :
+
+The runtime complexity of this solution is quadratic, O(n^2).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
 
 
 
