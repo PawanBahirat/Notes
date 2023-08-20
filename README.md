@@ -810,8 +810,7 @@ Given a sorted array of integers, return the index of the given key. Return `-1`
 
 Given the following array, if the search key is `47`, binary search will return `3`.
 
-| `0` | `1`  | `2`   | `3`  |
-| `1` | `10` | `20`  | `47` |
+![image](https://github.com/PawanBahirat/Notes/assets/99033177/e83ca0c0-1e65-4536-88b7-da46e32c0543)
 
 - Explanation :
 
