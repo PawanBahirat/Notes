@@ -681,6 +681,7 @@ class CheckFirstUnique {
 The time complexity of this program is O(n).
 
 ### Find Second Maximum Value In An Array
+<hr>
 
 - Problem Statement :
 
