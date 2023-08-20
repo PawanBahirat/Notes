@@ -26,9 +26,8 @@
     - [Find all Palindrome Substrings](#find-all-palindrome-substrings)
     - [Balanced Parentheses](#balanced-parentheses)
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
- - [Linked List](#linked-lists)
+ - [Linked List](#linked-list)
     - [Introduction TO Linked Lists](introduction-to-linked-lists)
-    - 
 ## Data Structures
 
 ### Arrays
