@@ -2,6 +2,7 @@
 
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
+  - [Strings](#strings)
     
 # DSA (Data structure and Algorithms)
 
