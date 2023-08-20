@@ -5545,7 +5545,7 @@ It’s a pretty straightforward algorithm. Starting from the root, we visit each
 
 Since the array under each node is traversed and checked for children, the worst-case running time is O(d^h), where dd is the size of the alphabet (26 for English), and hh is the length of the longest word in the dictionary. Note that dd is constant, but hh is not. So, this is an exponential function.
 
-### Find All Ff The Words In A Trie
+### Find All Of The Words In A Trie
 <hr>
 
 - Problem Statement :
