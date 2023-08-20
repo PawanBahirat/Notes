@@ -29,6 +29,19 @@
  - [Linked List](#linked-list)
     - [Introduction To Linked Lists](#introduction-to-linked-lists)
     - [Insertion in a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-insert-at-end)
+    - [Search in Singly Linked List](#search-in-singly-linked-list)
+    - [Deletion In Singly Linked List (delete By Value)](#deletion-in-singly-linked-list-delete-by-value)
+    - [Linked Lists Vs Array](#linked-list-vs-Array)
+    - [Find The Length Of A Linked List](#find-the-length-of-a-linked-list)
+    - [Reverse A Linked List](#reverse-a-linked-list)
+    - [Detect Loop In A Linked List(#detct-loop-in-a-linked-list)
+    - [Find The Middle Node Of A Linked List](#find-the-middle-node-of-a-linked-list)
+    - [Remove Duplicates From A Linked List](#remove-duplicates-from-a-linked-list)
+    - [Return The Nth Node From End](#return-the-nth-node-from-end)
+    - [Implementation Of Linked List](#implementaion-of-linked-list)
+    - [Intersection Point Of Two Lists](#intersection-point-of-two-lists)
+    - [Reverse Alternate K Nodes In A Singly Linked List](#reverse-alternate-k-nodes-in-asingly-linked-list)
+    - [Merge K Sorted Lists](#merge-k-sorted-lists)
 
 ## Data Structures
 
