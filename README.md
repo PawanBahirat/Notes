@@ -47,7 +47,7 @@
     - [Implementation Of Stack](#implementation-of-stack)
     - [Implementation Of Queue](#implementation-of-queue)
     - [Implement Queue Using Stacks](#implement-queue-using-stacks)
-    - [Implement Queue Using Stacks (1)](#implement-queue-using-stacks-1)
+    - [Implement stack Using queue (1)](#implement-stack-using-queue)
     - [Reversing The First K Elements Of A Queue](#reversing-the-first-k-element-of-a-queue)
     - [Evaluate Postfix Expressions Using Stacks](#evaluate-postfix-expressions-using-stacks)
     - [Next Greater Element Using Stackproblem Statement](#next-greater-element-using-stack)
