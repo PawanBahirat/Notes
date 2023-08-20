@@ -866,9 +866,9 @@ Given a large array of integers and a window of size ww, find the current maximu
 
 Let’s try to find all maximums for a window size equal to 33 in the array given below:
 
-| Column 0  | Column 1  | Column 2   | Column 3  |
 | :-------  | :-------  | :-------   | :-------  |
 | `a[0][0]` | `a[0][1]` | `a[0][2]`  | `a[0][3]` |
+
 Step1: For the first 3 elements in the window, max is 2.
 
 -4	2	-5
