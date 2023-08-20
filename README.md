@@ -2185,4 +2185,373 @@ public class SinglyLinkedList<T> {
 
 This algorithm traverses the entire linked list, and hence, works in O(n) time.
 
+### Search in Singly Linked List
+<hr>
+
+- Introduction :
+
+Now, we will take a look at the second most important operation, i.e. searching for an element in a linked list. This exercise of finding a value in a Singly Linked List is relatively more straightforward than the other three operations of insertion.
+
+The steps to search for a node in a Singly Linked List are as follows:
+
+Start from the `headNode`.
+Traverse the list till you either find a node with the given value, or you reach the end showing that the node being searched doesn’t exist.
+
+- Problem Statement :
+
+If you know how to insert an element in a list, then searching for an item will not be that difficult for you. Now, based on the steps mentioned above, we have designed a simple coding exercise for your practice. There is a solution placed in the solution section for your help, but try to solve it on your own first.
+
+- Method Prototype :
+```
+boolean searchNode(T data)
+```
+- Output :
+
+It returns true or false to show if a certain value does or does not exists in the list.
+
+- Sample Input :
+```
+linkedlist = 5->90->10->4 and value = 4
+```
+- Sample Output :
+```
+true
+```
+**Soution**
+
+In this function, we traverse through the list, checking whether the currentNode’s `data` matches the searched value `data`. If the currentNode’s `data` matches the searched value `data`, we will return `True` else we will return `False`.
+
+- Code :tada:
+```java
+public class SinglyLinkedList<T> {
+    //Node inner class for SLL
+    public class Node {
+        public T data;
+        public Node nextNode;
+
+    }
+
+    //head node of the linked list
+    public Node headNode;
+    public int size;
+
+    //constructor
+    public SinglyLinkedList() {
+        headNode = null;
+        size = 0;
+    }
+
+    public boolean isEmpty() {
+
+        if (headNode == null) return true;
+        return false;
+    }
+
+    //Inserts new data at the start of the linked list
+    public void insertAtHead(T data) {
+        //Creating a new node and assigning it the new data value
+        Node newNode = new Node();
+        newNode.data = data;
+        //Linking head to the newNode's nextNode
+        newNode.nextNode = headNode;
+        headNode = newNode;
+        size++;
+    }
+
+    //Inserts new data at the end of the linked list
+    public void insertAtEnd(T data) {
+        //if the list is empty then call insertATHead()
+        if (isEmpty()) {
+            insertAtHead(data);
+            return;
+        }
+        //Creating a new Node with value data
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.nextNode = null;
+
+        Node last = headNode;
+        //iterate to the last element
+        while (last.nextNode != null) {
+            last = last.nextNode;
+        }
+        //make newNode the next element of the last node
+        last.nextNode = newNode;
+        size++;
+    }
+
+    //inserts data after the given prev data node
+    public void insertAfter(T data, T previous) {
+
+        //Creating a new Node with value data
+        Node newNode = new Node();
+        newNode.data = data;
+        //Start from head node
+        Node currentNode = this.headNode;
+        //traverse the list until node having data equal to previous is found
+        while (currentNode != null && currentNode.data != previous) {
+            currentNode = currentNode.nextNode;
+        }
+        //if such a node was found
+        //then point our newNode to currentNode's nextElement
+        if (currentNode != null) {
+            newNode.nextNode = currentNode.nextNode;
+            currentNode.nextNode = newNode;
+            size++;
+        }
+    }
+
+    public void printList() {
+        if (isEmpty()) {
+            System.out.println("List is Empty!");
+            return;
+        }
+
+        Node temp = headNode;
+        System.out.print("List : ");
+
+        while (temp.nextNode != null) {
+            System.out.print(temp.data.toString() + " -> ");
+            temp = temp.nextNode;
+        }
+
+        System.out.println(temp.data.toString() + " -> null");
+    }
+
+    //Searches a value in the given list.
+    public boolean searchNode(T data) {
+        //Start from first element
+        Node currentNode = this.headNode;
+
+        //Traverse the list till you reach end
+        while (currentNode != null) {
+            if (currentNode.data.equals(data))
+                return true; //value found
+
+            currentNode = currentNode.nextNode;
+        }
+        return false; //value not found
+    }
+}
+
+```
+- Time Complexity :
+
+The time complexity for this algorithm is O(n) because we have to traverse through the list.
+
+### Deletion in Singly Linked List (Delete by Value)
+<hr>
+
+- Introduction :
+
+This operation deletes the required node, e.g., n, from any position in a Singly Linked List. This deletion follows the following steps:
+
+It takes in the value that needs to be deleted from the list.
+It traverses the list searching for that value.
+Once the node (n) with the required value is found, it connects n's previous node to the nextNode of n.
+It then removes n from the list.
+
+- Problem Statement :
+
+In the code snippet given below, you have to implement the void deleteByValue(T data) method. In this method, we will pass a particular value that we want to delete from the list. The node containing this value could be anywhere on the list. It is also possible that such a node may not exist at all. Therefore, we would have to traverse the whole list until we find the value which needs to be deleted. If the value doesn’t exist, we simply return control to the calling function.
+
+```
+Note: This function removes only the first occurrence of the value from the list.
+```
+- Method Prototype :
+```
+void deleteByValue(T data)
+```
+- Output :
+```
+A linked list with the element removed.
+```
+- Sample Input :
+```
+linkedlist = 3->2->1->0, data = 1
+```
+- Sample Output :
+```
+linkedlist = 3->2->0
+```
+- Solution :
+
+While traversing through the linked list, there are three cases we can come across:
+
+List is empty
+One element in the list
+More than one element in the list
+If the list is empty, then we have nothing to do; just return the control to calling function. For a single element in the list, we’ll call `deleteAtHead()`, and this will delete the value at the head.
+
+If there is more than one element in the list, then we simply start traversing from the `headNode` and keep on checking until that node found and delete it.
+
+- Code :tada:
+```java
+
+  public class SinglyLinkedList<T> {
+    //Node inner class for SLL
+    public class Node {
+        public T data;
+        public Node nextNode;
+
+    }
+
+    //head node of the linked list
+    public Node headNode;
+    public int size;
+
+    //constructor
+    public SinglyLinkedList() {
+        headNode = null;
+        size = 0;
+    }
+
+    public boolean isEmpty() {
+
+        if (headNode == null) return true;
+        return false;
+    }
+
+    //Inserts new data at the start of the linked list
+    public void insertAtHead(T data) {
+        //Creating a new node and assigning it the new data value
+        Node newNode = new Node();
+        newNode.data = data;
+        //Linking head to the newNode's nextNode
+        newNode.nextNode = headNode;
+        headNode = newNode;
+        size++;
+    }
+
+    //Inserts new data at the end of the linked list
+    public void insertAtEnd(T data) {
+        //if the list is empty then call insertATHead()
+        if (isEmpty()) {
+            insertAtHead(data);
+            return;
+        }
+        //Creating a new Node with value data
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.nextNode = null;
+
+        Node last = headNode;
+        //iterate to the last element
+        while (last.nextNode != null) {
+            last = last.nextNode;
+        }
+        //make newNode the next element of the last node
+        last.nextNode = newNode;
+        size++;
+    }
+
+    //inserts data after the given prev data node
+    public void insertAfter(T data, T previous) {
+
+        //Creating a new Node with value data
+        Node newNode = new Node();
+        newNode.data = data;
+        //Start from head node
+        Node currentNode = this.headNode;
+        //traverse the list until node having data equal to previous is found
+        while (currentNode != null && currentNode.data != previous) {
+            currentNode = currentNode.nextNode;
+        }
+        //if such a node was found
+        //then point our newNode to currentNode's nextElement
+        if (currentNode != null) {
+            newNode.nextNode = currentNode.nextNode;
+            currentNode.nextNode = newNode;
+            size++;
+        }
+    }
+
+    public void printList() {
+        if (isEmpty()) {
+            System.out.println("List is Empty!");
+            return;
+        }
+
+        Node temp = headNode;
+        System.out.print("List : ");
+
+        while (temp.nextNode != null) {
+            System.out.print(temp.data.toString() + " -> ");
+            temp = temp.nextNode;
+        }
+
+        System.out.println(temp.data.toString() + " -> null");
+    }
+
+    //Searches a value in the given list.
+    public boolean searchNode(T data) {
+        //Start from first element
+        Node currentNode = this.headNode;
+
+        //Traverse the list till you reach end
+        while (currentNode != null) {
+            if (currentNode.data.equals(data))
+                return true; //value found
+
+            currentNode = currentNode.nextNode;
+        }
+        return false; //value not found
+    }
+
+    //Deletes data from the head of list
+    public void deleteAtHead() {
+        //if list is empty then simply return
+        if (isEmpty())
+            return;
+        //make the nextNode of the headNode equal to new headNode
+        headNode = headNode.nextNode;
+        size--;
+    }
+
+    //Deletes data given from the linked list
+    public void deleteByValue(T data) {
+        //if empty then simply return
+        if (isEmpty())
+            return;
+
+        //Start from head node
+        Node currentNode = this.headNode;
+        Node prevNode = null; //previous node starts from null
+
+        if(currentNode.data.equals(data)) {
+            //data is at head so delete from head
+            deleteAtHead();
+            return;
+        }
+        //traverse the list searching for the data to delete
+        while (currentNode != null) {
+            //node to delete is found
+            if (data.equals(currentNode.data)){
+                prevNode.nextNode = currentNode.nextNode;
+                size--;
+                return; 
+            }
+            prevNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+    }
+}   
+```
+
+`deleteByValue():` It takes a value as a parameter. Additionally, it searches for a node in the Singly Linked List that has the given data value while keeping track of current and previous nodes. If not found, it means no such value exists in the list. If found, it performs a series of steps to delete this value. However, before jumping to those steps, look at some of the terminologies that we used in the function:
+
+`currentNode` – node we are currently standing at
+`prevNode` – element that comes before `currentNode`
+`nextNode` – pointer to the next node of `currentNode`
+
+Executing the single line of code,
+```
+prevNode.nextNode = currentNode.nextNode
+```
+links the prevNode to the nextNode. The current node’s link will be destroyed from the list, and the garbage collector will take care of the deletion automatically.
+
+- Time Complexity :
+
+In the worst case, you would have to traverse until the end of the list. This means the time complexity will be O(n).
+
 ... (rest of your README)
