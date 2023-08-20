@@ -18,7 +18,8 @@
     - [Renaming Branches](#renaming-branches)
     - [Deleting A Branch](#deleting-a-branch)
     - [Git Stash](#git-stash)
-    
+  - [Merging Branches](#merging-branches)
+    - 
 ## Getting Started
 
 ### What Is Version Control?
@@ -570,4 +571,7 @@ Had you decided not to use `git stash`, Git would have prevented you from switch
 Commit your unfinished work, switch branches, do your work, switch back to `new_branch`, and revert the most recent commit.
 Completely get rid of the changes you had made, switch branches, do your work, switch back to `new_branch`, and start all over again.
 In case the altered file does not conflict with the branch you plan to switch to, Git will let you switch over without errors and the uncommitted changes would still be present in that branch as well.
+
+
+## Merging Branches
 
