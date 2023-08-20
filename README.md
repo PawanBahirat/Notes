@@ -26,7 +26,7 @@
     - [Find all Palindrome Substrings](#find-all-palindrome-substrings)
     - [Balanced Parentheses](#balanced-parentheses)
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
- - [Linked List](#linked-list)
+  - [Linked List](#linked-list)
     - [Introduction To Linked Lists](#introduction-to-linked-lists)
     - [Insertion In a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-insert-at-end)
     - [Search In Singly Linked List](#search-in-singly-linked-list)
