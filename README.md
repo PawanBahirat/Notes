@@ -2,6 +2,11 @@
 
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
+    
+# DSA (Data structure and Algorithms)
+
+- [Data Structures](#data-structures)
+  - [Arrays](#arrays)
     - [Arrays](#arrays)
     - [2D Array](#2d-array)
     - [Remove Even Integers From An Array](#remove-even-integers-from-an-array)
