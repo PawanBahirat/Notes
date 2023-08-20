@@ -1,9 +1,5 @@
 # DSA
-
 Data structure and Algorithms.
-
-## Lets get started!
-
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
     - [Arrays](#arrays)
