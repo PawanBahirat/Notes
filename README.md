@@ -38,7 +38,7 @@
     - [Find The Middle Node Of A Linked List](#find-the-middle-node-of-a-linked-list)
     - [Remove Duplicates From A Linked List](#remove-duplicates-from-a-linked-list)
     - [Return The Nth Node From End](#return-the-nth-node-from-end)
-    - [Implementation Of Linked List](#implementaion-of-linked-list)
+    - [Implementation Of Linked List](#implementation-of-linked-list)
     - [Intersection Point Of Two Lists](#intersection-point-of-two-lists)
     - [Reverse Alternate K Nodes In A Singly Linked List](#reverse-alternate-k-nodes-in-a-singly-linked-list)
     - [Merge K Sorted Lists](#merge-k-sorted-lists)
