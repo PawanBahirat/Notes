@@ -84,9 +84,9 @@ We can add text to a file using the echo command which is shown below:
 ```
 echo "Hello world!" >> file1.txt
 ```
-```
-Note: The `echo` command can’t be used to add text in arbitrary points in the file. It will, instead, append the text at the end of the text file.
-```
+
+> Note: The `echo` command can’t be used to add text in arbitrary points in the file. It will, instead, append the text at the end of the text file.
+
 Try out the command in the terminal provided below. The terminals in this lesson already have a file called `file1.txt`, which is present in the working directory `test_project`. You can verify this by using the command `ls`.
 
 > To view the contents of the file itself, use the command `cat file1.txt`, or you can opt to use one of the terminal-based text editors, such as `nano`, which is discussed later in this lesson.
@@ -105,9 +105,9 @@ Note the `^` key. It represents the `ctrl` key on your keyboard.
 
 In order to get help on the commands, press `ctrl + g` (hold down the control key while hitting `g`).
 If you want to exit nano, press `ctrl + x`. If there are unsaved changes, nano will prompt you to save those changes before exiting.
-```
-Note: The ^ is the control key on the MAC keyboard and Ctrl key on Windows.
-```
+
+> Note: The ^ is the control key on the MAC keyboard and Ctrl key on Windows.
+
 The image shown below is of the user interface you will encounter when you use the `nano` command.
 ```
 nano <file_name>
