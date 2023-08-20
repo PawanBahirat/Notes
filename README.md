@@ -1716,7 +1716,7 @@ Given a string, find all substrings that are palindromes.
 
 Given a string find all non-single letter substrings that are palindromes.
 
-- **Solution**
+**Solution**
 
 You can see that we may be computing the same substring multiple times, even if it doesn’t exist in the dictionary. This redundancy can be fixed by memoization, where we remember which substrings have already been solved To achieve memoization, we can store the `second` string in a new set each time.This will reduce both time and memory complexities. A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards as it reads forwards. A naive solution of this problem is to find all substrings of a given string and check whether each substring is a palindrome or not. This solution has a complexity of O(n^3).
 
@@ -1761,7 +1761,8 @@ The runtime complexity of this solution is polynomial, O(n^3).
 
 The memory complexity of this solution is constant, O(1).
 
-- **Solution 2**
+**Solution 2**
+
 We can reduce the runtime complexity of this algorithm to O(n^2) from O(n^3) by using the following approach. For each letter in the input string, start expanding to the left and right while checking for even and odd length palindromes. Move to the next letter if we know a palindrome doesn’t exist. We expand one character to the left and right and compare them. If both of them are equal, we print out the palindrome substring.
 
 - Code :tada:
