@@ -22,7 +22,7 @@
     - [Reverse Words in a Sentence](#reverse-words-in-a-sentence)
     - [Remove Duplicates from a String](#remove-duplicates-from-a-string)
     - [Remove White Spaces from a String](#remove-white-spaces-from-a-string)
-  
+    - [Word Break Problem](#word-break-problem)
 ## Data Structures
 
 ### Arrays
