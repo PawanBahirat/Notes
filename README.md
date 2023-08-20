@@ -76,8 +76,8 @@
   - [Recursion](#Recursion)
     - [Find The Greatest Common Divisor](#find-the-greatest-common-divisor)
     - [Check For Prime Number](#check-for-prime-number)
-    - [How Does The Decimal To Binary Conversion Work-?](#how-does-the-decimal-to-binary-conversion-work)
-    - [Is This String A Palindrome](#is-this-string-a-palindrome)
+    - [How Does The Decimal To Binary Conversion Work ?](#how-does-the-decimal-to-binary-conversion-work)
+    - [Is This String A Palindrome ?](#is-this-string-a-palindrome)
     - [Insert Values In A Binary Search Tree](#insert-values-in-a-binary-search-tree)
 ## Data Structures
 
