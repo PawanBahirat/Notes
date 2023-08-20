@@ -2,7 +2,6 @@
 
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
-  - [Strings](#strings)
     - [Arrays](#arrays)
     - [2D Array](#2d-array)
     - [Remove Even Integers From An Array](#remove-even-integers-from-an-array)
@@ -19,6 +18,7 @@
     - [Sort an Array Using Quicksort Algorithm](#sort-an-array-using-quicksort-algorithm)
     - [Maximum Sum Subarray Of Size K](#maximum-sum-subarray-of-size-k)
   - [Strings](#strings)
+    - [Strings](#strings)
     - [Reverse Words in a Sentence](#reverse-words-in-a-sentence)
     - [Remove Duplicates from a String](#remove-duplicates-from-a-string)
     - [Remove White Spaces from a String](#remove-white-spaces-from-a-string)
