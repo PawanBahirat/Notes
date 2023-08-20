@@ -10180,4 +10180,290 @@ class EditDistance {
 }
 ```
 The time and space complexity of the above algorithm is O(n*m), where ‘m’ and ‘n’ are the lengths of the two input strings.
+
+### Egg Dropping Problem
+<hr>
+
+- Problem Statement :
+
+Given a tall skyscraper and a few eggs, write a function to figure out how many tries it would take to figure out which floor of the skyscraper the eggs can be dropped from without breaking. Here are some rules:
+
+1. An egg that survives a fall can be used again but a broken egg must be discarded.
+2. The effect of a fall is the same for all eggs.
+3. If an egg breaks when dropped from a certain floor, it would also break if dropped from a higher floor.
+4. If an egg survives a fall from a certain floor, it would also survive a shorter fall.
+
+- Input :
+
+The inputs are two integers that represent the number of stories of the skyscraper and number of eggs respectively
+
+- Output :
+
+The output is the least number of egg-droppings to figure out the critical floor
+
+- Sample input :
+```
+int eggs = 6; int floors = 15;
+```
+- Sample output :
+```
+4
+```
+- Brute force :
+
+Let’s start by looking at the brute force solution to this problem:
+
+Here is the recursive implementation:
+
+- Code :tada:
+```java
+
+class EggDropping
+{
+  public static int eggDrop(int eggs, int floors) 
+  {
+    // If there are no eggs, then there can't be any tries
+    if (eggs <= 0)
+      return 0;
+    
+    // If there are no floors, then no trials needed. OR if there is 
+    // one floor, one trial needed.
+    if (floors == 1 || floors == 0)
+      return floors;
+
+    // We need k trials for one egg and k floors 
+    if (eggs == 1)
+      return floors;
+
+    int min = Integer.MAX_VALUE;
+    int x, res;
+
+    // Consider all droppings from 1st floor to kth floor and 
+    // return the minimum of these values plus 1. 
+    for (x = 1; x <= floors; x++) {
+      res = Math.max(eggDrop(eggs - 1, x - 1), eggDrop(eggs, floors - x));
+    if (res < min)
+        min = res;
+    }
+
+    return min + 1;
+  }
+ 
+  public static void main(String args[]) 
+  {
+    int eggs = 2, floors = 10;
+    System.out.println("With " + eggs + " eggs and " + floors + " floors, the minimum number of trials in worst are: " + eggDrop(eggs, floors));
+  }
+};
+```
+- Explanation :
+
+When we drop an egg from a floor x, there can be two cases:
+
+The egg breaks.
+The egg doesn’t break.
+1. If the egg breaks after dropping it from xth floor, we only need to check for floors lower than x with the remaining eggs; so, the problem reduces to x-1 floors and n-1 eggs (line 24).
+2. If the egg doesn’t break after dropping it from the xth floor, we only need to check for floors higher than x; so, the problem reduces to k-x floors and n eggs (line 24).
+Since we need to minimize the number of trials in the worst case, we take the maximum from both cases (line 24). We consider the max of the above two cases for every floor and choose the one which yields the minimum number of trials (lines 25-26).
+
+**Solution #2: Memoization**
+
+The solution above, even though it is correct, results in redundant recursive calls which can be avoided if the solution is memoized:
+
+Here is the code:
+
+- Code :tada:
+```java
+
+class EggDropping
+{
+  public static int eggDropRec(int eggs, int floors, int [][] lookupTable) 
+  {
+    // If there are no eggs, then there can't be any tries
+    if (eggs <= 0)
+      return 0;
+    
+    // If there are no floors, then no trials needed. OR if there is 
+    // one floor, one trial needed.
+    if (floors == 1 || floors == 0)
+      return floors;
+
+    // We need k trials for one egg and k floors 
+    if (eggs == 1)
+      return floors;
+    
+    lookupTable[eggs][floors] = Integer.MAX_VALUE;
+    int x, res;
+
+    // Consider all droppings from 1st floor to kth floor and 
+    // return the minimum of these values plus 1. 
+    for (x = 1; x <= floors; x++) 
+    {
+      res = 1 + Math.max(eggDropRec(eggs - 1, x - 1, lookupTable), eggDropRec(eggs, floors - x, lookupTable));
+      if (res < lookupTable[eggs][floors])
+        lookupTable[eggs][floors] = res;
+    }
+    return lookupTable[eggs][floors];
+  }
+
+  public static int eggDrop(int eggs, int floors) 
+  {
+    int [][] lookupTable;
+    lookupTable = new int[eggs + 1][];
+    for (int i = 0; i < eggs + 1; i++) {
+      lookupTable[i] = new int[floors + 1];
+      for (int j = 0; j < floors + 1; j++)
+        lookupTable[i][j] = 0;
+    }
+    return eggDropRec(eggs, floors, lookupTable);
+  }
+
+  public static void main(String args[]) 
+  {
+    int eggs = 2, floors = 10;
+    System.out.println("With " + eggs + " eggs and " + floors + " floors, the minimum number of trials in worst case are: " + eggDrop(eggs, floors));
+  }
+};
+```
+- Explanation :
+
+In the memoized approach, we use a 2-D array, `lookupTable` (initialized in the `eggDrop` function (lines 34-39)), to keep track of the eggs as well as the floors. We store all the computations in this lookupTable. Hence, we store the minimum number of tries needed for i eggs and j floors in the `lookupTable` (lines 25-27).
+
+The only difference between this approach and the brute force solution is that, since the values are stored in the `lookupTable`, the next time the function is called with the same arguments, instead of making another recursive call, the value is returned directly from the `lookupTable` (line 29).
+
+**Solution #3: Tabularization**
+
+In the above solution, we saw the top-down approach. Now let’s look at the bottom-up tabular approach.
+
+Here is the code for our bottom-up dynamic programming approach:
+
+- Code :tada"
+```java
+
+class EggDropping
+{
+
+  public static int eggDrop(int eggs, int floors) 
+  {
+    // If there are no eggs, then there can't be any tries
+    if (eggs <= 0)
+      return 0;
+    
+    // If there are no floors, then no trials needed. OR if there is 
+    // one floor, one trial needed.
+    if (floors == 1 || floors == 0)
+      return floors;
+
+    // We need k trials for one egg and k floors 
+    if (eggs == 1)
+      return floors;
+    
+    //A 2D table where entery eggFloor[i][j] will represent minimum 
+    //number of trials needed for i eggs and j floors. 
+    int [][] eggFloor = new int[eggs + 1][floors + 1];
+    int res;
+    int i, j, x;
+
+    // We need one trial for one floor and zero trials for zero floors 
+    for (i = 1; i <= eggs; i++) {
+      eggFloor[i][1] = 1;
+      eggFloor[i][0] = 0;
+    }
+
+    // We always need j trials for one egg and j floors. 
+    for (j = 1; j <= floors; j++)
+      eggFloor[1][j] = j;
+
+    // Fill rest of the entries in table using optimal substructure 
+    // property 
+    for (i = 2; i <= eggs; i++) {
+      for (j = 2; j <= floors; j++) {
+        eggFloor[i][j] = Integer.MAX_VALUE;
+        for (x = 1; x <= j; x++) {
+          res = 1 + Math.max(eggFloor[i - 1][x - 1], eggFloor[i][j - x]);
+          if (res < eggFloor[i][j])
+            eggFloor[i][j] = res;
+        }
+      }
+    }
+    // eggFloor[n][k] holds the result 
+    return eggFloor[eggs][floors];
+  }
+  
+  public static void main(String args[]) 
+  {
+    int eggs = 2, floors = 10;
+    System.out.println("With " + eggs + " eggs and " + floors + " floors, the minimum number of trials in worst are: " + eggDrop(eggs, floors));
+  }
+};
+```
+- Explanation :
+
+In this solution, we again make use of a 2-D array, `lookupTable`, that stores the minimum number of tries needed for `i` eggs and `j` floors.
+
+In this case, we build the solution bottom-up by dividing our problem into subproblems. We know that we only need one try for one floor and zero trials for zero floors, so we set these values in the `lookupTable` beforehand (lines 27-28).
+
+Since we always need `j` trials for one egg and `j` floors, we set those values equal to `j` in the `lookupTable` (line 33).
+
+We calculate the rest of the values using the optimal substructure property. The idea is that the number of tries needed is going to be the minimum number of tries needed if the egg broke at the current floor or if it didn’t (line 41). We consider the max of these two cases and choose the one that yields the minimum number of trials (lines 42-44).
+
+- Time complexity :
+
+The time complexity of this code is in O(eggs*floors^2).
+
+**Solution #4: Using the Binomial Coefficient and Search Solution**
+
+- Code:tada:
+```java
+
+class EggDropping {
+
+ public static int binomialCoeff(int x, int n, int k) {
+  int sum = 0, term = 1;
+  for (int i = 1; i <= n && sum < k; ++i) {
+   term *= x - i + 1;
+   term /= i;
+   sum += term;
+  }
+  return sum;
+ }
+ // Do binary search to find minimum number of trials in worst case. 
+ public static int eggDrop(int eggs, int floors) {
+  // If there are no eggs, then there can't be any tries
+  if (eggs <= 0)
+   return 0;
+
+  // If there are no floors, then no trials needed. OR if there is one floor, one trial needed.
+  if (floors == 1 || floors == 0)
+   return floors;
+
+  // We need k trials for one egg and k floors 
+  if (eggs == 1)
+   return floors;
+
+  // Initialize low and high as 1st and last floors 
+  int low = 1, high = floors;
+
+  // Do binary search, for every mid, find sum of binomial coefficients and check if the sum is greater than k or not. 
+  while (low < high) {
+   int mid = (low + high) / 2;
+   if (binomialCoeff(mid, eggs, floors) < floors)
+    low = mid + 1;
+   else
+    high = mid;
+  }
+  return low;
+ }
+
+ public static void main(String args[]) {
+  int eggs = 2, floors = 10;
+  System.out.println("With " + eggs + " eggs and " + floors + " floors, the minimum number of trials in worst are: " + eggDrop(eggs, floors));
+ }
+};
+```
+This solution is not relevant to this chapter, but since it is the most optimized, we decided to mention it. This is the one that you would want to come up with in an actual interview.
+
+- Time complexity :
+
+The time complexity of this code is O(eggs*log(floors)).
 ... (rest of your README)
