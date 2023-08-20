@@ -34,7 +34,7 @@
     - [Linked Lists Vs Array](#linked-list-vs-Array)
     - [Find The Length Of A Linked List](#find-the-length-of-a-linked-list)
     - [Reverse A Linked List](#reverse-a-linked-list)
-    - [Detect Loop In A Linked List(#detct-loop-in-a-linked-list)
+    - [Detect Loop In A Linked List](#detct-loop-in-a-linked-list)
     - [Find The Middle Node Of A Linked List](#find-the-middle-node-of-a-linked-list)
     - [Remove Duplicates From A Linked List](#remove-duplicates-from-a-linked-list)
     - [Return The Nth Node From End](#return-the-nth-node-from-end)
