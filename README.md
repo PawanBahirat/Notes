@@ -28,7 +28,8 @@
     - [Longest Substring with Distinct Characters](#longest-substring-with-distinct-characters)
  - [Linked List](#linked-list)
     - [Introduction To Linked Lists](#introduction-to-linked-lists)
-    - [Insertion in a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-\(insert-at-end)]
+    - [Insertion in a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-insert-at-end)
+
 ## Data Structures
 
 ### Arrays
