@@ -31,7 +31,7 @@
     - [Insertion In a Singly Linked List (insert at End)](#insertion-in-a-singly-linked-list-insert-at-end)
     - [Search In Singly Linked List](#search-in-singly-linked-list)
     - [Deletion In Singly Linked List (delete By Value)](#deletion-in-singly-linked-list-delete-by-value)
-    - [Linked Lists Vs Array](#linked-list-vs-Array)
+    - [Linked Lists Vs Arrays](#linked-lists-vs-Arrays)
     - [Find The Length Of A Linked List](#find-the-length-of-a-linked-list)
     - [Reverse A Linked List](#reverse-a-linked-list)
     - [Detect Loop In A Linked List](#detct-loop-in-a-linked-list)
@@ -2554,7 +2554,7 @@ links the prevNode to the nextNode. The current node’s link will be destroyed 
 
 In the worst case, you would have to traverse until the end of the list. This means the time complexity will be O(n).
 
-### Linked Lists vs Array
+### Linked Lists vs Arrays
 <hr>
 
 Let's put the two data structures against each other to find out which is more efficient.
