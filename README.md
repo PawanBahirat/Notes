@@ -23,6 +23,7 @@
     - [Remove Duplicates from a String](#remove-duplicates-from-a-string)
     - [Remove White Spaces from a String](#remove-white-spaces-from-a-string)
     - [Word Break Problem](#word-break-problem)
+    - [Find all Palindrome Substrings](#find-all-palindrome-substrings)
 ## Data Structures
 
 ### Arrays
