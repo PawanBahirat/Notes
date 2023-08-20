@@ -1633,6 +1633,7 @@ The runtime complexity of this solution is linear, O(n).
 The memory complexity of this solution is linear, O(1).
 
 ### Word Break Problem
+<hr>
 
 Given a dictionary of words and an input string tell whether the input string can be completely segmented into dictionary words.
 
