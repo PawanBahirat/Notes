@@ -4933,7 +4933,7 @@ class IsBST{
 }
 ```
 
-### Serialize_deserialize Binary Tree
+### Serialize/Deserialize Binary Tree
 <hr>
 
 - Description :
