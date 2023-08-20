@@ -7237,6 +7237,94 @@ Let’s assume the four items are identified as {A, B, C, and D}, and use the ab
 6. Subtract the profit of ‘B’ from ‘50’ to get the remaining profit ‘0’. We then jump to profit ‘0’ on the same row. As soon as we hit zero remaining profit, we can finish our item search.
 7. So items going into the knapsack are {B, D}.
 
+### Rod Cutting
+<hr>
 
+- Problem Statement :
+
+Given a rod of length ‘n’, we are asked to cut the rod and sell the pieces in a way that will maximize the profit. We are also given the price of every piece of length ‘i’ where ‘1 <= i <= n’.
+
+- Example :
+
+Lengths: [1, 2, 3, 4, 5] Prices: [2, 6, 7, 10, 13] Rod Length: 5
+
+Let’s try different combinations of cutting the rod:
+
+Five pieces of length 1 => 10 price Two pieces of length 2 and one piece of length 1 => 14 price One piece of length 3 and two pieces of length 1 => 11 price One piece of length 3 and one piece of length 2 => 13 price One piece of length 4 and one piece of length 1 => 12 price One piece of length 5 => 13 price
+
+This shows that we get the maximum price (14) by cutting the rod into two pieces of length ‘2’ and one piece of length ‘1’.
+
+- Basic Solution :
+
+This problem can be mapped to the Unbounded Knapsack pattern. The ‘Weights’ array of the Unbounded Knapsack problem is equivalent to the ‘Lengths’ array, and Profits is equivalent to Prices.
+
+A basic brute-force solution could be to try all combinations of the given rod lengths to choose the one with the maximum sale price. This is what our algorithm will look like:
+```
+for each rod length 'i' 
+  create a new set which includes one quantity of length 'i', and recursively process 
+      all rod lengths for the remaining length 
+  create a new set without rod length 'i', and recursively process for remaining rod lengths
+return the set from the above two sets with a higher sales price 
+Since this problem is quite similar to Unbounded Knapsack, let’s jump directly to the bottom-up dynamic solution.
+```
+- Bottom-up Dynamic Programming :
+
+Let’s try to populate our `dp[][]` array in a bottom-up fashion. Essentially, what we want to achieve is: “Find the maximum sales price for every rod length and for every possible sales price”.
+
+So for every possible rod length ‘len’ (0<= len <= n), we have two options:
+
+1. Exclude the piece. In this case, we will take whatever price we get from the rod length excluding this piece => `dp[index-1][len]`
+2. Include the piece if its length is not more than ‘len’. In this case, we include its price plus whatever price we get from the remaining rod length => `prices[index] + dp[index][len-lengths[index]]`
+Finally, we have to take the maximum of the above two values:
+```
+dp[index][len] = max (dp[index-1][len], prices[index] + dp[index][len-lengths[index]]) 
+```
+Let’s draw this visually, with the example:
+```
+Lengths: [1, 2, 3, 4, 5]
+Prices: [2, 6, 7, 10, 13]
+Rod Length: 5
+```
+- Code :tada:
+
+Here is the code for our bottom-up dynamic programming approach:
+```java
+
+class RodCutting {
+
+  public int solveRodCutting(int[] lengths, int[] prices, int n) {
+    // base checks
+    if (n <= 0 || prices.length == 0 || prices.length != lengths.length)
+      return 0;
+
+    int lengthCount = lengths.length;
+    int[][] dp = new int[lengthCount][n + 1];
+
+    // process all rod lengths for all prices
+    for(int i=0; i < lengthCount; i++) {
+      for(int len=1; len <= n; len++) {
+        int p1=0, p2=0;
+        if(lengths[i] <= len)
+          p1 = prices[i] + dp[i][len-lengths[i]];
+        if( i > 0 )
+          p2 = dp[i-1][len];
+        dp[i][len] = Math.max(p1, p2);
+      }
+    }
+
+    // maximum price will be at the bottom-right corner.
+    return dp[lengthCount-1][n];
+  }
+
+  public static void main(String[] args) {
+    RodCutting rc = new RodCutting();
+    int[] lengths = {1, 2, 3, 4, 5};
+    int[] prices = {2, 6, 7, 10, 13};
+    int maxProfit = rc.solveRodCutting(lengths, prices, 5);
+    System.out.println(maxProfit);
+  }
+}
+```
+The above solution has time and space complexity of O(N*C), where ‘N’ represents total items and ‘C’ is the maximum capacity.
    
 ... (rest of your README)
