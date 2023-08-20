@@ -1706,4 +1706,100 @@ The memory complexity of this solution is polynomial, O(n^2).
 Memory Complexity is O(n^2), because we create a substring on each recursion call. Creating a substring can be avoided if we pass indices.
 ```
 
+### Find all Palindrome Substrings
+<hr>
+
+Given a string, find all substrings that are palindromes.
+
+- Description :
+
+Given a string find all non-single letter substrings that are palindromes.
+
+- **Solution**
+
+You can see that we may be computing the same substring multiple times, even if it doesn’t exist in the dictionary. This redundancy can be fixed by memoization, where we remember which substrings have already been solved To achieve memoization, we can store the `second` string in a new set each time.This will reduce both time and memory complexities. A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards as it reads forwards. A naive solution of this problem is to find all substrings of a given string and check whether each substring is a palindrome or not. This solution has a complexity of O(n^3).
+
+- Code :tada:
+```java
+class PalindromeSubStrings{
+  public static boolean isPalindrome(String input, int i, int j) {
+    while(j > i){
+      if(input.charAt(i) != input.charAt(j))
+        return false;
+      i++;
+      j--;
+    }
+    return true;
+  }
+
+  public static int findAllPalindromeSubstrings(String input) {
+    int count = 0;
+    for(int i = 0 ; i < input.length() ; i++) {
+      for(int j = i + 1 ; j < input.length() ; j++) {
+        if(isPalindrome(input,i,j)){
+          System.out.println(input.substring(i,j+1));
+          count++;
+        }
+      }
+    }
+  
+    return count;
+  }
+  public static void main(String[] args) {
+    String str = "aabbbaa";
+    int count = findAllPalindromeSubstrings(str);
+    System.out.println("Total palindrome substrings: " + count);
+  }
+}
+```
+- Runtime complexity- :
+
+The runtime complexity of this solution is polynomial, O(n^3).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
+
+- **Solution 2**
+We can reduce the runtime complexity of this algorithm to O(n^2) from O(n^3) by using the following approach. For each letter in the input string, start expanding to the left and right while checking for even and odd length palindromes. Move to the next letter if we know a palindrome doesn’t exist. We expand one character to the left and right and compare them. If both of them are equal, we print out the palindrome substring.
+
+- Code :tada:
+```java
+class PalindromeSubStrings{
+  public static int findPalindromesInSubString(String input, int j, int k) {
+    int count = 0;
+    for (; j >= 0 && k < input.length(); --j, ++k) {
+      if (input.charAt(j) != input.charAt(k)) {      
+        break;
+      } 
+      System.out.println(input.substring(j, k+1));
+      count++;
+    }
+    return count;
+  }
+
+  public static int findAllPalindromeSubstrings(String input) {
+    int count = 0;
+    for(int i = 0 ; i < input.length() ; ++i) {
+      count+= findPalindromesInSubString(input, i-1, i+1);
+      count+= findPalindromesInSubString(input, i, i+1);
+    }
+
+    return count;
+  }
+
+  public static void main(String[] args) {
+    String str = "aabbbaa";
+    int count = findAllPalindromeSubstrings(str);
+    System.out.println("Total palindrome substrings: " + count);
+  }
+}  
+```
+- Runtime complexity :
+
+The runtime complexity of this solution is polynomial, O(n^2).
+
+- Memory complexity :
+
+The memory complexity of this solution is constant, O(1).
 ... (rest of your README)
