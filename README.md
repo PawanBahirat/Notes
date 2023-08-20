@@ -67,7 +67,12 @@
     - [Minimum Depth Of A Binary Tree](#minimum-depth-of-a-binary-tree)
     - [All Paths For A Sum](#all-paths-for-a-sum)
     - [Count Paths For A Sum](#count-paths-for-a-sum)
-
+  - [Trie](#Trie)
+    - [Introduction To Tries](#introduction-to-tries)
+    - [Total Number Of Words In A Trie](#total-number-of-words-in-a-trie)
+    - [Find All Of The Words In A Trie](#find-all-of-the-words-in-a-trie)
+    - [Sort The Elements Of An Array Using A Trie](#sort-the-elements-of-an-array-using-a-trie)
+    - [Word Formation From A Given Dictionary Using A Trie](#word-formation-from-a-given-dictionary-using-a-trie)
 ## Data Structures
 
 ### Arrays
@@ -5278,4 +5283,555 @@ class CountAllPathSum {
   }
 }
 ```
+## Trie
+
+### Introduction to Tries
+<hr>
+
+Tries are prefix trees that are used to store strings for fast retrieval. A node in a Trie represents a letter in an alphabet. For insertion, the tree takes a string as input and then creates a new node for each character of that string/word. The node registered for the last character of the string/word is marked as the `end of word`. A Boolean variable is usually used to do this.
+
+- Trie node :
+
+A typical Node in a Trie consists of two data members:
+
+children: An array that consists of the children nodes. The size of this array depends on the number of alphabets (26 for the English language). By default, all elements are set to Null.
+isEndWord: A flag to indicate the end of a word. It is set to false by default and is only updated when an end of the word is observed during insertion.
+
+- Methods :
+
+The following are the common operations performed by tries:
+
+`Insert(String)` : Inserts a string into the trie.
+`Delete(String)` : Deletes an existing string from the trie.
+`Search(String)` : Searches if the input string exists as a complete word in the trie.
+`prefixSearch(String)` : Searches if the prefix string exists in the trie.
+
+### Total Number Of Words In A Trie
+<hr>
+
+- Problem Statement :
+
+Implement the `totalWords(TrieNode root)` function to find the total number of words in a Trie.
+
+- Function Prototype :
+
+```
+int totalWords(TrieNode root);
+```
+Here, root is the root node of the Trie.
+
+- Output :
+
+It returns the total number of words in the Trie
+
+- Sample Input :
+```
+String keys[] = {"the", "a", "there", "answer", "any", "by", "bye", "their","abc"};
+```
+- Sample Output :
+```
+9
+```
+- Explanation :
+
+There are 9 words total in the given keys array.
+
+**Solution: Increment Recursively**
+
+- TrieNode.java :tada:
+```java
+
+class TrieNode
+{
+    TrieNode[] children;
+    boolean isEndWord; //will be true if the node represents the end of word
+    static final int ALPHABET_SIZE = 26; //Total # of English Alphabets = 26
+    TrieNode(){
+        this.isEndWord = false;
+        this.children = new TrieNode[ALPHABET_SIZE]; 
+    }
+
+    //Function to mark the currentNode as Leaf
+    public void markAsLeaf(){
+        this.isEndWord = true;
+    }
+
+    //Function to unMark the currentNode as Leaf
+    public void unMarkAsLeaf(){
+        this.isEndWord = false;
+    }
+}
+```
+- Trie.java :tada:
+```java
+
+class Trie {
+    private TrieNode root; //Root Node
+
+    //Constructor
+    Trie() {
+        root = new TrieNode();
+    }
+
+    //Function to get the index of a character 't'
+    public int getIndex(char t) {
+        return t - 'a';
+    }
+
+    //Function to get root
+    public TrieNode getRoot() {
+        return root;
+    }
+
+    //Function to insert a key in the Trie
+    public void insert(String key) {
+        //Null keys are not allowed
+        if (key == null) {
+            return;
+        }
+        key = key.toLowerCase(); //Keys are stored in lowercase
+        TrieNode currentNode = this.root;
+        int index = 0; //to store character index
+
+        //Iterate the Trie with given character index,
+        //If it is null, then simply create a TrieNode and go down a level
+        for (int level = 0; level < key.length(); level++) {
+            index = getIndex(key.charAt(level));
+
+            if (currentNode.children[index] == null) {
+                currentNode.children[index] = new TrieNode();
+            }
+            currentNode = currentNode.children[index];
+        }
+        //Mark the end character as leaf node
+        currentNode.markAsLeaf();
+    }
+
+    //Function to search given key in Trie
+    public boolean search(String key) {
+
+        if (key == null) return false; //Null Key
+
+        key = key.toLowerCase();
+        TrieNode currentNode = this.root;
+        int index = 0;
+
+        //Iterate the Trie with given character index,
+        //If it is null at any point then we stop and return false
+        //We will return true only if we reach leafNode and have traversed the
+        //Trie based on the length of the key
+
+        for (int level = 0; level < key.length(); level++) {
+            index = getIndex(key.charAt(level));
+            if (currentNode.children[index] == null) return false;
+            currentNode = currentNode.children[index];
+        }
+        if (currentNode.isEndWord) return true;
+
+        return false;
+    }
+
+    //Helper Function to return true if currentNode does not have any children
+    private boolean hasNoChildren(TrieNode currentNode) {
+        for (int i = 0; i < currentNode.children.length; i++) {
+            if ((currentNode.children[i]) != null)
+                return false;
+        }
+        return true;
+    }
+
+    //Recursive function to delete given key
+    private boolean deleteHelper(String key, TrieNode currentNode, int length, int level) {
+        boolean deletedSelf = false;
+
+        if (currentNode == null) {
+            System.out.println("Key does not exist");
+            return deletedSelf;
+        }
+
+        //Base Case: If we have reached at the node which points to the alphabet at the end of the key.
+        if (level == length) {
+            //If there are no nodes ahead of this node in this path
+            //Then we can delete this node
+            if (hasNoChildren(currentNode)) {
+                currentNode = null;
+                deletedSelf = true;
+            }
+            //If there are nodes ahead of currentNode in this path
+            //Then we cannot delete currentNode. We simply unmark this as leaf
+            else {
+                currentNode.unMarkAsLeaf();
+                deletedSelf = false;
+            }
+        } else {
+            TrieNode childNode = currentNode.children[getIndex(key.charAt(level))];
+            boolean childDeleted = deleteHelper(key, childNode, length, level + 1);
+            if (childDeleted) {
+                //Making children pointer also null: since child is deleted
+                currentNode.children[getIndex(key.charAt(level))] = null;
+                //If currentNode is leaf node that means currntNode is part of another key
+                //and hence we can not delete this node and it's parent path nodes
+                if (currentNode.isEndWord) {
+                    deletedSelf = false;
+                }
+                //If childNode is deleted but if currentNode has more children then currentNode must be part of another key.
+                //So, we cannot delete currenNode
+                else if (!hasNoChildren(currentNode)) {
+                    deletedSelf = false;
+                }
+                //Else we can delete currentNode
+                else {
+                    currentNode = null;
+                    deletedSelf = true;
+                }
+            } else {
+                deletedSelf = false;
+            }
+        }
+        return deletedSelf;
+    }
+
+    //Function to delete given key from Trie
+    public void delete(String key) {
+        if ((root == null) || (key == null)) {
+            System.out.println("Null key or Empty trie error");
+            return;
+        }
+        deleteHelper(key, root, key.length(), 0);
+    }
+
+}
+```
+- main.java :tada:
+```java
+
+class numWords{
+  public static int totalWords(TrieNode root){
+    int result = 0;
+
+    // Leaf denotes end of a word
+    if (root.isEndWord)
+      result++;
+
+    for (int i = 0; i < 26; i++)
+      if (root.children[i] != null)
+        result += totalWords(root.children[i]);
+    return result;
+  }
+
+
+  public static void main(String args[]){
+    // Input keys (use only 'a' through 'z' and lower case)
+    String keys[] = {"the", "a", "there", "answer", "any",
+                     "by", "bye", "their","abc"};
+
+    System.out.println("Keys: "+ Arrays.toString(keys));
+
+    // Construct trie
+    Trie t = new Trie();
+
+    for (int i = 0; i < keys.length ; i++)
+      t.insert(keys[i]);
+
+    System.out.println(totalWords(t.getRoot()));
+  }
+}
+```
+- Explanation :
+
+It’s a pretty straightforward algorithm. Starting from the root, we visit each branch recursively. Whenever a node is found with its isEndWord set to true, the result variable is incremented by 1.
+
+- Time Complexity :
+
+Since the array under each node is traversed and checked for children, the worst-case running time is O(d^h), where dd is the size of the alphabet (26 for English), and hh is the length of the longest word in the dictionary. Note that dd is constant, but hh is not. So, this is an exponential function.
+
+### Find All Ff The Words In A Trie
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `findWords()` function to return all of the words stored in the Trie in alphabetically sorted order.
+
+- Function Prototype :
+```
+ArrayList< String > findWords(TrieNode root);
+```
+Here, root is the root node of the Trie.
+
+- Output :
+
+In the form of an ArrayList, it returns all of the words stored in the Trie in lexicographic order.
+
+- Sample Input :
+```
+String keys[] = {"the", "a", "there", "answer", "any", "by", "bye", "their","abc"};
+```
+- Sample Output :
+```
+"a", "abc","answer","any","by","bye","the","their","there"
+```
+- Explanation :
+
+There are 9 words total in the given keys array, so we just need to iterate the Trie and return all of the words present in it.
+
+**Solution: Recursion**
+
+- main.java :tada:
+```java
+class TrieWords {
+  //Recursive Function to generate all words
+  public static void getWords(TrieNode root, ArrayList < String > result, int level, char[] str) {
+    //Leaf denotes end of a word
+    if (root.isEndWord) {
+      //current word is stored till the 'level' in the character array
+      String temp = "";
+      for (int x = 0; x < level; x++) {
+        temp += Character.toString(str[x]);
+      }
+      result.add(temp);
+    }
+    for (int i = 0; i < 26; i++) {
+      if (root.children[i] != null) {
+        //Non-null child, so add that index to the character array
+        str[level] = (char)(i + 'a');
+        getWords(root.children[i], result, level + 1, str);
+      }
+    }
+  }
+  public static ArrayList < String > findWords(TrieNode root) {
+    ArrayList < String > result = new ArrayList < String > ();
+    char[] chararr = new char[20];
+    getWords(root, result, 0, chararr);
+    return result;
+  }
+
+  public static void main(String args[]) {
+    // Input keys (use only 'a' through 'z' and lower case)
+    String keys[] = {"the", "a", "there", "answer", "any",
+                     "by", "bye", "their","abc"};
+    String output[] = {"Not present in trie", "Present in trie"};
+    Trie t = new Trie();
+
+    System.out.println("Keys: "+ Arrays.toString(keys));
+
+    // Construct trie
+
+    for (int i = 0; i < keys.length ; i++)
+      t.insert(keys[i]);
+
+
+    ArrayList < String > list = findWords(t.getRoot());
+    for(int i = 0; i < list.size(); i++) {
+      System.out.println(list.get(i));
+    }
+
+
+  }
+}
+```
+- Explanation :
+
+The findWords(root) function contains a result ArrayList which will contain all the words in the trie. word is a character array in which node characters are added one by one to keep track of all the alphabets in the same recursive call.
+
+`getWords()` is our recursive function which begins from the root and traverses every node. Whenever a node is the end of a word, `temp`(containing the character array) is converted into a string and inserted into `result`.
+
+Since `word` cannot be reset before recording every new word, we simply update the values at each index using `level`.
+
+- Time Complexity :
+
+As the algorithm traverses all the nodes, its run time is O(n) where n is the number of nodes in the trie.
+
+### Sort The Elements Of An Array Using A Trie
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `sortArray()` function to sort the elements of an array of strings in alphabetical order.
+
+- Function Prototype :
+```
+ArrayList< String > sortArray(String []arr);
+```
+Here, arr is a String array
+
+- Output :
+
+It returns the given array, sorted and in an ArrayList form.
+
+- Sample Input :
+```
+String keys[] = {"the", "a", "there", "answer", "any", "by", "bye", "their","abc"};
+```
+- Sample Output :
+```
+{"a", "abc", "answer", "any", "by", "bye", "the", "their", "there"}
+```
+- Explanation :
+
+There are 9 words total in the given keys array, so we need to sort them alphabetically before returning the list with strings in sorted order.
+
+**Solution: Pre-Order Traversal**
+
+- main.java :tada:
+```java
+
+class Sort {
+  //Recursive Function to generate all words in alphabetic order
+  public static void getWords(TrieNode root, ArrayList < String > result, int level, char[] str) {
+    //Leaf denotes end of a word
+    if (root.isEndWord) {
+      //current word is stored till the 'level' in the character array
+      String temp = "";
+      for (int x = 0; x < level; x++) {
+        temp += Character.toString(str[x]);
+      }
+      result.add(temp);
+    }
+
+    for (int i = 0; i < 26; i++) {
+      if (root.children[i] != null) {
+        //Non-null child, so add that index to the character array
+        str[level] = (char)(i + 'a');
+        getWords(root.children[i], result, level + 1, str);
+      }
+    }
+  }
+  public static ArrayList<String> sortArray(String[] arr){
+    ArrayList<String> result = new ArrayList<String>();
+
+    //Creating Trie and Inserting words from array
+    Trie trie = new Trie();
+    for (int x = 0; x < arr.length ; x++)
+      trie.insert(arr[x]);
+
+    char[] char_arr = new char[20];
+    getWords(trie.getRoot(),result,0,char_arr);  
+    return result;
+  }
+
+  public static void main(String args[]) {
+    // Input keys (use only 'a' through 'z' and lower case)
+    String keys[] = {"the", "a", "there", "answer", "any",
+                     "by", "bye", "their","abc"};
+    
+    Trie t = new Trie();
+
+    System.out.println("Keys: "+ Arrays.toString(keys));
+
+    // Construct trie
+
+    for (int i = 0; i < keys.length ; i++)
+      t.insert(keys[i]);
+
+
+    ArrayList < String > list = sortArray(keys);
+    for(int i = 0; i < list.size(); i++) {
+      System.out.println(list.get(i));
+    }
+
+
+  }
+
+```
+- Explanation :
+
+This exercise is very similar to Challenge 2, except the fact that you have to create the trie yourself.
+
+Since the children array for each node stores alphabets in alphabetical order, the tree itself is ordered from top to bottom. All we need to do is make a pre-order traversal (think of a as the left most child and z as the right most child) and store the words in a list just like we did in the previous challenge.
+
+- Time Complexity :
+
+We first insert the nodes into the graph and then traverse all the existing nodes. Hence, the bottleneck worst case time complexity is O(n).
+
+### Word Formation From A Given Dictionary Using A Trie
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `isFormationPossible()` function to find whether or not the given word can be formed by combining two words from the dictionary.
+
+- Function Prototype :
+```
+boolean isFormationPossible(String[] dict, String word);
+```
+Here, dict is the dictionary containing unique strings, and word is a string.
+
+- Output :
+
+It returns `true` if the given word can be generated by combining two words from the given dictionary; otherwise, it returns `false`.
+
+- Sample Input :
+```
+String dict[] = {"the" ,"hello", "there", "answer", "any", "Dragon", "world", "their", "inc"}; String word = "helloworld"
+```
+- Sample Output :
+```
+true
+```
+- Explanation :
+
+`helloworld` can be formed by combining hello and world from the “dictionary”, so the program returns true.
+
+**Solution: Iterative Word Matching**
+
+- main.java :tada:
+```java
+
+class DictWord {
+  
+  public static boolean isFormationPossible(String[] dict,String word) {
+    if(word.length() < 2 || dict.length < 2) {
+      return false;
+    }
+
+    //Create Trie and insert dictionary elements in it
+    Trie trie = new Trie();
+
+    for(int i = 0; i < dict.length; i++) {
+      trie.insert(dict[i]);
+    }
+
+    for(int i = 0; i < word.length(); i++) {
+      //Slice the word into two strings in each iteration
+      String first = word.substring(0, i);
+      String second = word.substring(i, word.length());
+
+      //If both substrings are present in the trie, the condition is fulfilled
+      if(trie.search(first) && trie.search(second)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static void main(String args[]){
+    // Input dict (use only 'a' through 'z' and lower case)
+    String dict[] = {"the", "hello", "there", "answer","any", "dragon", "world", "their",  "inc"};
+
+    Trie t = new Trie();
+
+    System.out.println("Keys: "+ Arrays.toString(dict));
+
+    if(isFormationPossible(dict, "helloworld"))
+      System.out.println("true");
+    else
+      System.out.println("false");
+
+  }
+
+
+}
+```
+- Explanation :
+
+At the beginning of the algorithm, all the keys are inserted into the trie. Then, we iterate through the word, dividing it into two strings called first and second. We search for the two strings in the trie and if both are found, word can be formed with two words from the given dict.
+
+- Time Complexity :
+
+We perform the insert operation m times for a dictionary of size m. After that, the search operation runs on the word in the sequence:
+```
+"h", "he", "hel", "hell"...
+```
+If the length of the average word in the dictionary is h, then the time taken for trie construction is O(m*h). Let the length of the word being searched be n. Then, the complexity for this turns out to be n^2. Hence, the total time complexity is O(mh + n ^ 2).. We could argue that in some applications, the trie is constructed only once, and then many many lookups are performed. So, the cost of trie creation is amortized over all the lookups. In that case, the complexity reduces to O(n ^ 2).
 ... (rest of your README)
