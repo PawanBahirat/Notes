@@ -10737,5 +10737,313 @@ The time complexity of building a heap is O(n), as discussed in the implementati
 
 Therefore, we can say that the total time complexity is O(n+klogn).
 
+### Find the k Smallest Elements in an Array
+
+- Problem Statement :
+
+In this problem, you have to implement the `findKlargest()` function to take an array as input and find the “k” largest elements in the array using a Max Heap. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+int[] findKLargest(int []arr,int k);
+```
+Here, arr is an unsorted integer array and k is an integer.
+
+- Output :
+
+It returns the integer array containing the first k largest elements from arr
+
+- Sample Input :
+```
+arr = [9,4,7,1,-2,6,5] k = 3
+```
+- Sample Output :
+```
+[9,7,6]
+```
+- Explanation :
+
+As “k” is 3, we need to find the top 3 maximum elements from the given array. 9 is the largest value in the array, while 7 is the second-largest, and 6 is the third-largest.
+
+**Solution:Creating a Max-Heap and removing max kk times**
+
+- Code :tada:
+```java
+
+//Build maxHeap of the given array. 
+//Extract the maximum element/root and add it to the result
+//Reduce the length of array and repeatedly build maxHeap till we reach K.
+class CheckLarge 
+{
+  public static int[] findKLargest(int[] arr, int k) {
+    int arraySize = arr.length;
+    if ( k <= arraySize) {      
+      int[] result = new int[k];	// build the result array of size = k
+      for (int i = 0; i < k; i++) {
+        buildMaxHeap(arr, arraySize);
+        result[i] = arr[0];
+        arr[0] = arr[--arraySize];
+      }
+      return result;
+    }
+    System.out.println("Value of k = " + k + "Out of Bounds");
+    return arr;
+  }
+
+  private static void buildMaxHeap(int[] heapArray, int heapSize) {
+
+    // swap largest child to parent node 
+    for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+      maxHeapify(heapArray, i, heapSize);
+    }
+  }
+
+  private static void maxHeapify(int[] heapArray, int index, int heapSize) {
+    int largest = index;
+
+    while (largest < heapSize / 2) { // check parent nodes only
+      int left = (2 * index) + 1; //left child
+      int right = (2 * index) + 2; //right child
+      if (left < heapSize && heapArray[left] > heapArray[index]) {
+        largest = left;
+      }
+
+      if (right < heapSize && heapArray[right] > heapArray[largest]) {
+        largest = right;
+      }
+
+      if (largest != index) { // swap parent with largest child
+        int temp = heapArray[index];
+        heapArray[index] = heapArray[largest];
+        heapArray[largest] = temp;
+        index = largest;
+      } else {
+        break; // if heap property is satisfied
+      }
+
+    } // end of while
+  }
+
+  public static void main(String args[]) {
+    int[] input = {9, 4, 7, 1, -2, 6, 5};
+    int[] output = findKLargest(input, 2);
+
+    for(int i = 0; i < output.length; i++) 
+      System.out.println(output[i]);
+  }
+
+}
+```
+- Explanation :
+
+We first create a max-heap out of the given array by inserting the list elements into an empty heap. Then we then call buildMaxHeap()on the heap kk times save the output in a list and return it.
+
+- Time Complexity :
+
+The time complexity of creating a heap is O(n) and removing min is O(klogn).
+
+Therefore, we can say that the total time complexity is O(n+klogn).
+
+
+### Find the Median of a Number Stream
+<hr>
+
+- Problem Statement :
+
+Design a class to calculate the median of a number stream. The class should have the following two methods:
+
+`insertNum(int num)` : stores the number in the class
+`findMedian()` : returns the median of all numbers inserted in the class
+
+- Example :
+```
+1. insertNum(3)
+2. insertNum(1)
+3. findMedian() -> output: 2
+4. insertNum(5)
+5. findMedian() -> output: 3
+6. insertNum(4)
+7. findMedian() -> output: 3.5
+```
+**Solution**
+
+As we know, the median is the middle value in an ordered integer list. So a brute force solution could be to maintain a sorted list of all numbers inserted in the class so that we can efficiently return the median whenever required. Inserting a number in a sorted list will take O(N)O(N) time if there are ‘N’ numbers in the list. This insertion will be similar to the Insertion sort. Can we do better than this? Can we utilize the fact that we don’t need the fully sorted list - we are only interested in finding the middle element?
+
+Assume ‘x’ is the median of a list. This means that half of the numbers in the list will be smaller than (or equal to) ‘x’ and half will be greater than (or equal to) ‘x’. This leads us to an approach where we can divide the list into two halves: one half to store all the smaller numbers (let’s call it `smallNumList`) and one half to store the larger numbers (let’s call it `largNumList`). The median of all the numbers will either be the largest number in the `smallNumList` or the smallest number in the `largNumList`. If the total number of elements is even, the median will be the average of these two numbers.
+
+The best data structure that comes to mind to find the smallest or largest number among a list of numbers is a Heap. Let’s see how we can use a heap to find a better algorithm.
+
+We can store the first half of numbers (i.e., `smallNumList`) in a Max Heap. We should use a Max Heap as we are interested in knowing the largest number in the first half.
+We can store the second half of numbers (i.e., `largeNumList`) in a Min Heap, as we are interested in knowing the smallest number in the second half.
+Inserting a number in a heap will take O(logN)O(logN), which is better than the brute force approach.
+At any time, the median of the current list of numbers can be calculated from the top element of the two heaps.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class MedianOfAStream {
+
+  PriorityQueue<Integer> maxHeap; //containing first half of numbers
+  PriorityQueue<Integer> minHeap; //containing second half of numbers
+
+  public MedianOfAStream() {
+    maxHeap = new PriorityQueue<>((a, b) -> b - a);
+    minHeap = new PriorityQueue<>((a, b) -> a - b);
+  }
+
+  public void insertNum(int num) {
+    if (maxHeap.isEmpty() || maxHeap.peek() >= num)
+      maxHeap.add(num);
+    else
+      minHeap.add(num);
+
+    // either both the heaps will have equal number of elements or max-heap will have one 
+    // more element than the min-heap
+    if (maxHeap.size() > minHeap.size() + 1)
+      minHeap.add(maxHeap.poll());
+    else if (maxHeap.size() < minHeap.size())
+      maxHeap.add(minHeap.poll());
+  }
+
+  public double findMedian() {
+    if (maxHeap.size() == minHeap.size()) {
+      // we have even number of elements, take the average of middle two elements
+      return maxHeap.peek() / 2.0 + minHeap.peek() / 2.0;
+    }
+    // because max-heap will have one more element than the min-heap
+    return maxHeap.peek();
+  }
+
+  public static void main(String[] args) {
+    MedianOfAStream medianOfAStream = new MedianOfAStream();
+    medianOfAStream.insertNum(3);
+    medianOfAStream.insertNum(1);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+    medianOfAStream.insertNum(5);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+    medianOfAStream.insertNum(4);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+  }
+}
+```
+- Time Complexity :
+
+The time complexity of the `insertNum()` will be O(logN) due to the insertion in the heap. The time complexity of the `findMedian()` will be O(1) as we can find the median from the top elements of the heaps.
+
+- Space complexity :
+
+The space complexity will be O(N) because, as at any time, we will be storing all the numbers.
+
+
+### Find the Median of a Number Stream
+<hr>
+
+- Problem Statement :
+
+Given an array of numbers and a number ‘k’, find the median of all the ‘k’ sized sub-arrays (or windows) of the array.
+
+- Example 1 :
+```
+Input: nums=[1, 2, -1, 3, 5], k = 2 Output: [1.5, 0.5, 1.0, 4.0] Explanation: Lets consider all windows of size ‘2’:
+
+[1, 2, -1, 3, 5] -> median is 1.5
+[1, 2, -1, 3, 5] -> median is 0.5
+[1, 2, -1, 3, 5] -> median is 1.0
+[1, 2, -1, 3, 5] -> median is 4.0
+```
+- Example 2 :
+```
+Input: nums=[1, 2, -1, 3, 5], k = 3 Output: [1.0, 2.0, 3.0] Explanation: Lets consider all windows of size ‘3’:
+
+[1, 2, -1, 3, 5] -> median is 1.0
+[1, 2, -1, 3, 5] -> median is 2.0
+[1, 2, -1, 3, 5] -> median is 3.0
+```
+**Solution**
+
+This problem follows the Two Heaps pattern and share similarities with Find the Median of a Number Stream. We can follow a similar approach of maintaining a max-heap and a min-heap for the list of numbers to find their median.
+
+The only difference is that we need to keep track of a sliding window of ‘k’ numbers. This means, in each iteration, when we insert a new number in the heaps, we need to remove one number from the heaps which is going out of the sliding window. After the removal, we need to rebalance the heaps in the same way that we did while inserting.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class SlidingWindowMedian {
+  PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+  PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+  public double[] findSlidingWindowMedian(int[] nums, int k) {
+    double[] result = new double[nums.length - k + 1];
+    for (int i = 0; i < nums.length; i++) {
+      if (maxHeap.size() == 0 || maxHeap.peek() >= nums[i]) {
+        maxHeap.add(nums[i]);
+      } else {
+        minHeap.add(nums[i]);
+      }
+      rebalanceHeaps();
+
+      if (i - k + 1 >= 0) { // if we have at least 'k' elements in the sliding window
+        // add the median to the the result array
+        if (maxHeap.size() == minHeap.size()) {
+          // we have even number of elements, take the average of middle two elements
+          result[i - k + 1] = maxHeap.peek() / 2.0 + minHeap.peek() / 2.0;
+        } else { // because max-heap will have one more element than the min-heap
+          result[i - k + 1] = maxHeap.peek();
+        }
+
+        // remove the element going out of the sliding window
+        int elementToBeRemoved = nums[i - k + 1];
+        if (elementToBeRemoved <= maxHeap.peek()) {
+          maxHeap.remove(elementToBeRemoved);
+        } else {
+          minHeap.remove(elementToBeRemoved);
+        }
+        rebalanceHeaps();
+      }
+    }
+    return result;
+  }
+
+  private void rebalanceHeaps() {
+    // either both the heaps will have equal number of elements or max-heap will have 
+    // one more element than the min-heap
+    if (maxHeap.size() > minHeap.size() + 1)
+      minHeap.add(maxHeap.poll());
+    else if (maxHeap.size() < minHeap.size())
+      maxHeap.add(minHeap.poll());
+  }
+
+  public static void main(String[] args) {
+    SlidingWindowMedian slidingWindowMedian = new SlidingWindowMedian();
+    double[] result = slidingWindowMedian.findSlidingWindowMedian(new int[] { 1, 2, -1, 3, 5 }, 2);
+    System.out.print("Sliding window medians are: ");
+    for (double num : result)
+      System.out.print(num + " ");
+    System.out.println();
+
+    slidingWindowMedian = new SlidingWindowMedian();
+    result = slidingWindowMedian.findSlidingWindowMedian(new int[] { 1, 2, -1, 3, 5 }, 3);
+    System.out.print("Sliding window medians are: ");
+    for (double num : result)
+      System.out.print(num + " ");
+  }
+
+}
+```
+- Time Complexity :
+
+The time complexity of our algorithm is O(N*K)O(N∗K) where ‘N’ is the total number of elements in the input array and ‘K’ is the size of the sliding window. This is due to the fact that we are going through all the ‘N’ numbers and, while doing so, we are doing two things:
+
+Inserting/removing numbers from heaps of size ‘K’. This will take O(logK)
+Removing the element going out of the sliding window. This will take O(K) as we will be searching this element in an array of size ‘K’ (i.e., a heap).
+
+- Space complexity :
+
+Ignoring the space needed for the output array, the space complexity will be O(K) because, at any time, we will be storing all the numbers within the sliding window.
+
 
 ... (rest of your README)
