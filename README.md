@@ -1253,6 +1253,8 @@ The time complexity of the above algorithm will be O(N).
 
 The algorithm runs in constant space O(1).
 
+## Strings
+
 ### Strings
 <hr>
 
