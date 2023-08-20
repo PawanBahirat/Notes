@@ -7956,7 +7956,9 @@ The above solution has time and space complexity of O(n).
 - Memory optimization :
 
 We can optimize the space used in our previous solution. We don’t need to store all the counts up to ‘n’, as we only need three previous numbers to calculate the next count. We can use this fact to further improve our solution:
+- Code :tada:
 
+```java
 class Staircase {
 
   public int CountWays(int n) {
@@ -7985,10 +7987,13 @@ The above solution has a time complexity of O(n) and a constant space complexity
 - Fibonacci number pattern :
 
 We can clearly see that this problem follows the Fibonacci number pattern. The only difference is that in Fibonacci numbers every number is a sum of the two preceding numbers, whereas in this problem every count is a sum of three preceding counts. Here is the recursive formula for this problem:
+
 ```
 CountWays(n) = CountWays(n-1) + CountWays(n-2) + CountWays(n-3), for n >=3
 ```
+
 This problem can be extended further. Instead of taking 1, 2, or 3 steps at any time, what if we can take up to ‘k’ steps at any time? In that case, our recursive formula will look like:
+
 ```
 CountWays(n) = CountWays(n-1) + CountWays(n-2) + CountWays(n-3) + ... + CountWays(n-k), for n >= k
 ```
@@ -7997,7 +8002,7 @@ CountWays(n) = CountWays(n-1) + CountWays(n-2) + CountWays(n-3) + ... + CountWay
 <hr>
 
 - Problem Statement :
-```
+
 Given an array of positive numbers, where each element represents the max number of jumps that can be made forward from that element, write a program to find the minimum number of jumps needed to reach the end of the array (starting from the first element). If an element is 0, then we cannot move through that element.
 
 - Example 1 :
