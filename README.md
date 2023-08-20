@@ -42,6 +42,18 @@
     - [Intersection Point Of Two Lists](#intersection-point-of-two-lists)
     - [Reverse Alternate K Nodes In A Singly Linked List](#reverse-alternate-k-nodes-in-a-singly-linked-list)
     - [Merge K Sorted Lists](#merge-k-sorted-lists)
+  - [Stack and Queues](#stack-and-queues)
+    - [Introduction To Stacks and Queues](#introduction-to-stacks-and-queues)
+    - [Implementation Of Stack](#implementation-of-stack)
+    - [Implementation Of Queue](#implementation-of-queue)
+    - [Implement Queue Using Stacks](#implement-queue-using-stacks]
+    - [Implement Queue Using Stacks (1)](#implement-queue-using-stacks-1)
+    - [Reversing The First K Elements Of A Queue](#reversing-the-first-k-element-of-a-queue)
+    - [Evaluate Postfix Expressions Using Stacks](#evaluate-postfix-expressions-using-stacks)
+    - [Next Greater Element Using Stackproblem Statement](#next-greater-element-using-stack)
+    - [Solve A Celebrity Problem Using A Stack](#solve-a-celebrity-problem-using-a-stack)
+    - [Check For Balanced Parentheses Using A Stack](#check-for-balanced-parantheses-using-a-stack)
+    - [Create Stack Where Min() Gives Minimum In Constant Time](#create-stack-where-min-gives-minimum-in-constant-time)
 
 ## Data Structures
 
