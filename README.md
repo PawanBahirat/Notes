@@ -10475,6 +10475,8 @@ This solution is not relevant to this chapter, but since it is the most optimize
 
 The time complexity of this code is O(eggs*log(floors)).
 
+## Heaps
+
 ### Introduction to Heaps
 <hr>
 
