@@ -14,6 +14,10 @@
   - [Branches](#branches)
     - [What Is a Branch?](#what-is-a-branch)
     - [Creating a Branch](#creating-a-branch)
+    - [Switching Between Branches](#swithching-between-branches)
+    - [Renaming Branches](#renaiming-branches)
+    - [Deleting A Branch](#deleting-a-branch)
+    - [Git Stash](#git-stash)
     
 ## Getting Started
 
@@ -386,3 +390,184 @@ This also allows you to switch back and forth between contexts without having to
 - Branches out of other branches :
 
 Git lets you create a branch from any other branch. A new branch doesn’t necessarily have to come out of the master branch.
+
+
+### Creating a Branch
+<hr>
+
+Learn how Git lets us create branches seamlessly and quickly.
+
+- The` git branch` command :
+
+The `git branch` command is a useful, multi-purpose tool that lets us do a lot of different things. When used as is (without any other options appended), the command will print out all the branches present in the repository and point out which branch we are currently on.
+
+- git branch :
+
+The `git branch` command will print out the `master` branch with a prepended asterisk. The asterisk denotes that this also happens to be the branch that is currently active in our repository. In other words, we are currently using the master branch. If there were more branches, their names would also be listed.
+
+Let’s see how we can use the `git branch` to create a new one.
+
+- How to create a new branch :
+
+To create a new branch, we will need to modify the `git branch` command by appending a branch name.
+```
+git branch my_new_branch
+```
+Now, try to enter this command in the terminal provided below. You can name your new branch anything you like. However, it is preferred that the new branch not have a very long name or spaces in between.
+
+After you create the new branch, enter the plain `git branch` command to double-check that it works. You will know if it works because the name will now be printed along with the master branch. One critical point to realize if you want to create a new branch in this manner is that you will still be using the parent branch in your working directory. That should be easy to identify, given the asterisk (`*`) next to the `master` branch name.
+
+This is a significant point that you shouldn’t ignore. If you want to now switch to the newly created branch from the master, that is where the `git checkout` command will help you.
+
+
+### Switching Between Branches
+<hr>
+
+Learn how Git allows us to quickly switch between different branches. This lesson also discusses an alternative way to create a new branch with Git.
+
+- The `git checkout` command :
+
+Using the `git branch` command lets us create new branches seamlessly. However, the problem is that even though we get to create new branches, we still don’t actually know how to switch over to those branches and use them. The `git checkout` command lets us do just that.
+
+Once you create a new branch (let’s call it `new_branch`), use the following command while still currently on the `master` branch, to switch over to that new branch:
+```
+git checkout new_branch
+```
+And there you have it! We can now freely switch over from one branch to another. To test it out for yourself, use the terminal provided above to switch back to the `master` branch using the command:
+```
+git checkout master
+```
+To verify that you did switch to the `master` branch, use `git branch` to list all the branches in your repository. You will see the asterisk next to `master`, indicating that you are using the `master` branch once again.
+
+- Creating new branches with `git checkout` :
+
+Right now, we need to rely on entering two separate commands to create a branch and then switch over to it.
+
+What if we could create a new branch that is a child of the branch that we are currently on and directly switch over to it with just one command? Well, `git checkout` lets us do that too.
+
+- The `-b` flag :
+
+Using the `-b` flag along with `git checkout` provides us with a convenient way to first implicitly execute `git branch` and then run `git checkout` to switch over to the newly created branch immediately. As an example, enter the following command in the terminal below:
+```
+git checkout -b new_branch
+```
+After entering the command above in the terminal, use `git branch` to see what exactly happens:
+
+Congratulations! You’ve mastered how to create a new branch and switch over to it with one single command. To really see the benefits of working on and creating new branches, try the following scenario out in the terminal provided above. In the new branch that you just created, add a new file using the command:
+```
+touch file2.txt
+```
+Then, make Git track this new file:
+```
+git add file2.txt
+```
+Finally, commit the newly created file.
+```
+git commit -m 'created file2'
+```
+Now, you can switch back to the `master` branch, and you’ll realize that the new file isn’t there. For now, it will only be available to you if the new branch is the active branch in the current directory.
+
+
+### Renaming Branches
+<hr>
+
+Learn how to rename a branch in this lesson.
+
+You might find yourself in a situation where you have to rename the new branch you’ve created. Git provides a very convenient way to do so.
+
+We will, once again, rely on the `git branch` command to rename an existing branch.
+
+Let’s say you have been working on a significant feature. You want to add authentication to your application. The branch that you are making all the relevant changes to is called `new_branch`. The name `new_branch` is not related to what you are doing in any way. No one else will be able to identify what this branch is about, either. It is a better idea to call it something like `authentication_feature`.
+
+- Renaming a branch you are currently on :
+
+1. Switch over to the branch you have to rename with the following command :
+```
+git checkout new_branch
+```
+2. Use the git branch command appended with the -m flag to provide the new name:
+```
+git branch -m authentication_feature
+```
+To verify that you were able to rename the branch, use the plain `git branch` command to print out the list of branches and you will be able to see that the current branch you are on is now called `authentication_feature` instead of just `new_branch`.
+
+- Renaming a branch without switching over to it :
+
+What if you want to rename the branch but want to remain on the branch that you are originally using at that moment? The `git branch` command can do that too.
+
+The general syntax for doing so is:
+```
+git branch -m old_name new_name
+```
+Therefore, if you want to rename `new_branch` as `authentication_feature` but also want to remain on the `master` branch, you would enter this command in the terminal:
+```
+git branch -m new_branch authentication_feature
+```
+Once again, you can use the plain `git branch` command to verify if the branch has the new name or not.
+
+
+### Deleting a Branch
+<hr?
+
+Learn how to delete a branch from your local repository in this lesson.
+
+- Using `git branch` to delete a branch :
+
+We can use the `git branch` command to create, list, rename, and delete a branch. In this lesson, we will take a look at how we can delete a branch from our repository.
+
+- The `-d` flag :
+
+The syntax for deleting a branch is fairly simple:
+```
+git branch -d <branch_name>
+```
+If you have a branch called `new_branch` in your repository and want to remove it, you will need to enter the following command in the terminal:
+```
+git branch -d new_branch
+```
+As always, to double-check that the deletion process has been executed successfully, you can rely on the simple `git branch` command to verify this. The branch that is deleted should no longer be listed in the output.
+
+> Note: You can’t delete the branch you are currently on. You will need to switch over to another branch and then delete it.
+
+
+### Git Stash
+<hr>
+
+Learn how to use the git stash command to stash uncommitted changes in this lesson.
+
+- The `git stash` command :
+
+Often, you will be working on your separate branch and making some changes that you don’t want to commit just yet, but you will be required to switch over to another branch to do something else in between.
+
+You don’t want to get rid of the changes but also don’t want to commit them either. This exact scenario is where you can use the `git stash` command.
+
+`git stash` temporarily stores the staged and modified files in a kind of a cache, all the while making the working branch directory clean.
+
+You could either stash all of the uncommitted changes you have made in the branch or stash individual files.
+```
+git stash
+```
+- When to use `git stash` :
+
+Let’s say you are currently working on a branch called `new_branch` and you made some changes to the `file1.txt`. You can verify which branch you are on by using the command `git branch` and check which files have changed using the command `it status`.
+
+Now, for some other task, you are required to move to the master branch. However, the changes to `file1.txt` aren’t ready to be committed yet, but you also don’t want to lose the changes.
+
+Ideally, you want to switch to the master branch where the changes you have made to `file1.txt` do not exist. Once you are done working with the `master` branch, you want to go back to `new_branch` and continue working on the changes you had started.
+
+Here is what you will need to do:
+
+1. Enter the command `git stash` while you are still on `new_branch`.
+2. Enter the command `git checkout master` to switch to the `master` branch.
+3. After you have done whatever you needed to do on the master branch, you will, once more, enter `git checkout new_branch` to switch back again.
+4. You want your changes to be present once again, so you will enter the command `git stash apply`.
+5.  Enter `git status` to verify if your changes are back or not.
+
+And there you have it. The uncommitted changes you had made are all back again in your working directory, and you will be able to continue with your work uninterrupted once more. You didn’t have to commit your unfinished work, and you were able to switch branches and still keep your changes! A win-win situation.
+
+Had you decided not to use `git stash`, Git would have prevented you from switching over to any other branch if the other branch had changes that would be overwritten with the new uncommitted changes (since the changes in the other branch would be out of context). You would have to do one of the following:
+
+Commit your unfinished work, switch branches, do your work, switch back to `new_branch`, and revert the most recent commit.
+Completely get rid of the changes you had made, switch branches, do your work, switch back to `new_branch`, and start all over again.
+In case the altered file does not conflict with the branch you plan to switch to, Git will let you switch over without errors and the uncommitted changes would still be present in that branch as well.
+
