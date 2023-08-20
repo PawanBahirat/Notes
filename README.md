@@ -2713,6 +2713,7 @@ true
 
 **Solution**
 - Code :tada:
+  
 ```java
     public static boolean detectLoop(SinglyLinkedList list) {
         SinglyLinkedList.Node slow = list.headNode;
@@ -2729,7 +2730,8 @@ true
         }
         return false;
     }
-    ```
+```
+
 - Explanation :
 
 This is the most optimized method to find out the loop in the LinkedList. We start traversing the LinkedList using two pointers called slow and fast. Move slow by one (line # 9) and fast by two (line # 10). If these pointers meet at the same node, then there is a loop. If these pointers do not meet, then LinkedList doesn’t have a loop.
@@ -2737,4 +2739,67 @@ This is the most optimized method to find out the loop in the LinkedList. We sta
 - Time Complexity :
 
 The algorithm runs in Constant with O(n) with the Auxiliary Space complexity of O(1).
+
+### Find the Middle Node of a Linked List
+
+- Problem Statement :
+
+In this problem, you have to implement the public static Object findMiddle(SinglyLinkedList list) method, which will take a linked list as an input and return the value at the middle node of the list. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+public static Object findMiddle(SinglyLinkedList list)
+```
+- Output :
+
+The value at the middle node in a linked list.
+
+- Sample Input :
+```
+linkedlist = 7->14->10->21
+```
+- Sample Output :
+```
+mid = 14
+```
+**Solution**
+- Code :tada;
+
+```java
+    public static  Object findMiddle(SinglyLinkedList list) {
+        //if list is empty, then return null
+        if (list.isEmpty())
+            return null;
+        
+        //both nodes start from the head
+        SinglyLinkedList.Node mid = list.headNode;
+        SinglyLinkedList.Node current = list.headNode;
+        
+        while(mid != null && current != null && current.nextNode != null)
+        {
+            //current jumps 2 nodes on each iteration
+            current = current.nextNode.nextNode;
+            //if current is not null (end of list is not reached)
+            if(current != null){
+                //then mid jumps 1 node
+                //mid is always halfway behind current
+                mid = mid.nextNode;
+            }
+        }
+        return mid.data;
+    }
+```
+
+- Explanation :
+
+We are using two pointers, which will work simultaneously. Think of it this way:
+
+The `current` pointer moves two steps at a time till the end of the list
+The `mid` pointer moves one step at a time
+When the `current` pointer reaches the end, the `mid` pointer will be at the middle
+
+- Time Complexity :
+
+We are traversing the linked list at twice the speed, so it is certainly faster. However, the bottleneck complexity is still O(n).
+
 ... (rest of your README)
