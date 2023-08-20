@@ -2630,4 +2630,111 @@ The logic behind it is very similar to that of the `search` function. The trick 
 
 Since this is a linear algorithm, the time complexity will be O(n).
 
+### Reverse a Linked List
+
+- Problem Statement :
+
+In this problem, you have to implement the public static void reverse(SinglyLinkedList list) method, which will take a linked list as input and reverse its content. An illustration is also provided for your help to see how the linked list will look after passing it to your function.
+
+- Method Prototype :
+```
+public static void reverse(SinglyLinkedList list)
+```
+- Output :
+
+A Singly linked list with all its content stored in reverse order.
+
+- Sample Input :
+```
+linkedlist = 10->9->4->4-6
+```
+- Sample Output :
+```
+linkedlist = 6->4->4->9->10
+```
+
+**Solution**
+- Code :tada:
+- 
+```java
+public static void reverse(SinglyLinkedList list){
+	SinglyLinkedList.Node previous = null; //To keep track of the previous element, will be used in swapping links
+			SinglyLinkedList.Node current = list.headNode; //firstElement
+			SinglyLinkedList.Node next = null;
+
+			//While Traversing the list, swap links
+			while (current != null) {
+					next = current.nextNode;
+					current.nextNode = previous;
+					previous = current;
+					current = next;
+			}
+			//Linking Head Node with the new First Element
+			list.headNode = previous;
+}
+```
+
+- Explanation :
+
+The brain of this solution lies in the loop, which iterates through the list. For any `current` node, its link with the `previous` node is reverse and the next stores `next` node in the list:
+
+Store the `current` node’s `nextNode` in `next`
+Set `current` node’s `nextNode` to `previous` (reversal)
+Make the `current` node the new `previous` so that it can be used for the next iteration
+Use `next` to move on to the next node
+In the end, we simply point the head to the last node in our loop.
+
+- Time Complexity :
+
+The algorithm runs in O(n) since the list is traversed once.
+
+### Detect Loop in a Linked List
+
+- Problem Statement :
+
+In this problem, you have to implement the public static boolean detectLoop(SinglyLinkedList list) method, which will take a Singly linked list as input and find if there is a loop present in the list. A loop in a linked list occurs if any node contains a reference to any previous node, then a loop will be formed. An illustration is also provided for your understanding.
+
+- Method Prototype :
+```
+public static boolean detectLoop(SinglyLinkedList list)
+```
+- Output :
+
+It returns true if a loop exists in the linked list; otherwise, false.
+
+- Sample Input :
+```
+linkedlist = 7->14->21->7
+```
+- Sample Output :
+```
+true
+```
+
+**Solution**
+- Code :tada:
+```java
+    public static boolean detectLoop(SinglyLinkedList list) {
+        SinglyLinkedList.Node slow = list.headNode;
+        SinglyLinkedList.Node fast = list.headNode;
+        
+        while(slow != null && fast != null && fast.nextNode != null)
+        {
+            slow = slow.nextNode;	//the slow pointer will jump 1 step
+            fast = fast.nextNode.nextNode; //the fast pointer will jump 2 steps 
+			// when the pointers become equal then there must be a loop
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+    ```
+- Explanation :
+
+This is the most optimized method to find out the loop in the LinkedList. We start traversing the LinkedList using two pointers called slow and fast. Move slow by one (line # 9) and fast by two (line # 10). If these pointers meet at the same node, then there is a loop. If these pointers do not meet, then LinkedList doesn’t have a loop.
+
+- Time Complexity :
+
+The algorithm runs in Constant with O(n) with the Auxiliary Space complexity of O(1).
 ... (rest of your README)
