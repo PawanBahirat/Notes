@@ -8155,7 +8155,7 @@ We can clearly see that this problem follows the Fibonacci number pattern. The o
 dp[end] = Math.min(dp[end], dp[start]+1);
 ```
 
-### House thief
+### House Thief
 <hr>
 
 There are n houses built in a line. A thief wants to steal the maximum possible money from these houses. The only restriction the thief has is that he can’t steal from two consecutive houses, as that would alert the security system. How should the thief maximize his stealing?
@@ -8320,6 +8320,7 @@ The above solution has a time complexity of O(n) and a constant space complexity
 We can clearly see that this problem follows the Fibonacci number pattern. The only difference is that every Fibonacci number is a sum of the two preceding numbers, whereas in this problem every number (total wealth) is the maximum of previous two numbers.
 
 ### Longest Palindromic Subsequence
+<hr>
 
 - Problem Statement :
 
@@ -8485,5 +8486,182 @@ class LPS {
 ```
 The time and space complexity of the above algorithm is O(n^2), where ‘n’ is the length of the input sequence.
 
+### Longest Palindromic Substring
+<hr>
 
+- Problem Statement :
+
+Given a string, find the length of its Longest Palindromic Substring (LPS). In a palindromic string, elements read the same backward and forward.
+
+- Example 1 :
+```
+Input: "abdbca" Output: 3 Explanation: LPS is "bdb".
+```
+- Example 2 :
+```
+Input: = "cddpd" Output: 3 Explanation: LPS is "dpd".
+```
+- Example 3 :
+```
+Input: = "pqr" Output: 1 Explanation: LPS could be "p", "q" or "r".
+```
+Basic Solution : 
+
+This problem follows the Longest Palindromic Subsequence pattern. The only difference is that in a palindromic subsequence characters can be non-adjacent, whereas in a substring all characters should form a palindrome. We will follow a similar approach though. The brute-force solution will be to try all the substrings of the given string. We can start processing from the beginning and the end of the string. So at any step, we will have two options:
+
+1. If the element at the beginning and the end are the same, we make a recursive call to check if the remaining substring is also a palindrome. If so, the substring is a palindrome from beginning to end.
+2. We will skip either the element from the beginning or the end to make two recursive calls for the remaining substring. The length of LPS would be the maximum of these two recursive calls.
+
+- Code :tada:
+```java
+
+class LPS {
+
+  public int findLPSLength(String st) {
+    return findLPSLengthRecursive(st, 0, st.length() - 1);
+  }
+
+  private int findLPSLengthRecursive(String st, int startIndex, int endIndex) {
+    if (startIndex > endIndex)
+      return 0;
+
+    // every string with one character is a palindrome
+    if (startIndex == endIndex)
+      return 1;
+
+    // case 1: elements at the beginning and the end are the same
+    if (st.charAt(startIndex) == st.charAt(endIndex)) {
+      int remainingLength = endIndex - startIndex - 1;
+      // check if the remaining string is also a palindrome
+      if (remainingLength == findLPSLengthRecursive(st, startIndex + 1, endIndex - 1))
+        return remainingLength + 2;
+    }
+
+    // case 2: skip one character either from the beginning or the end
+    int c1 = findLPSLengthRecursive(st, startIndex + 1, endIndex);
+    int c2 = findLPSLengthRecursive(st, startIndex, endIndex - 1);
+    return Math.max(c1, c2);
+  }
+
+  public static void main(String[] args) {
+    LPS lps = new LPS();
+    System.out.println(lps.findLPSLength("abdbca"));
+    System.out.println(lps.findLPSLength("cddpd"));
+    System.out.println(lps.findLPSLength("pqr"));
+  }
+}
+```
+Due to the three recursive calls, the time complexity of the above algorithm is exponential O(3^n), where ‘n’ is the length of the input string. The space complexity is O(n) which is used to store the recursion stack.
+
+- Top-down Dynamic Programming with Memoization :
+
+We can use an array to store the already solved subproblems.
+
+The two changing values to our recursive function are the two indexes, startIndex and endIndex. Therefore, we can store the results of all the subproblems in a two-dimensional array. (Another alternative could be to use a hash-table whose key would be a string (startIndex + “|” + endIndex))
+
+Here is the code for this:
+
+- Code :tada:
+```java
+
+class LPS {
+
+  public int findLPSLength(String st) {
+    Integer[][] dp = new Integer[st.length()][st.length()];
+    return findLPSLengthRecursive(dp, st, 0, st.length() - 1);
+  }
+
+  private int findLPSLengthRecursive(Integer[][] dp, String st, int startIndex, int endIndex) {
+    if (startIndex > endIndex)
+      return 0;
+
+    // every string with one character is a palindrome
+    if (startIndex == endIndex)
+      return 1;
+
+    if (dp[startIndex][endIndex] == null) {
+      // case 1: elements at the beginning and the end are the same
+      if (st.charAt(startIndex) == st.charAt(endIndex)) {
+        int remainingLength = endIndex - startIndex - 1;
+        // check if the remaining string is also a palindrome
+        if (remainingLength == findLPSLengthRecursive(dp, st, startIndex + 1, endIndex - 1)) {
+          dp[startIndex][endIndex] = remainingLength + 2;
+          return dp[startIndex][endIndex];
+        }
+      }
+
+      // case 2: skip one character either from the beginning or the end
+      int c1 = findLPSLengthRecursive(dp, st, startIndex + 1, endIndex);
+      int c2 = findLPSLengthRecursive(dp, st, startIndex, endIndex - 1);
+      dp[startIndex][endIndex] = Math.max(c1, c2);
+    }
+
+    return dp[startIndex][endIndex];
+  }
+
+  public static void main(String[] args) {
+    LPS lps = new LPS();
+    System.out.println(lps.findLPSLength("abdbca"));
+    System.out.println(lps.findLPSLength("cddpd"));
+    System.out.println(lps.findLPSLength("pqr"));
+  }
+}
+```
+The above algorithm has a time and space complexity of O(n^2) because we will not have more than n*nn∗n subproblems.
+
+- Bottom-up Dynamic Programming :
+
+Since we want to try all the substrings of the given string, we can use a two-dimensional array to store the subproblems’ results. So dp[i][j] will be ‘true’ if the substring from index ‘i’ to index ‘j’ is a palindrome.
+
+We can start from the beginning of the string and keep adding one element at a time. At every step, we will try all of its substrings. So for every endIndex and startIndex in the given string, we need to check the following thing:
+
+If the element at the startIndex matches the element at the endIndex, we will further check if the remaining substring (from startIndex+1 to endIndex-1) is a substring too.
+
+So our recursive formula will look like:
+```
+if st[startIndex] == st[endIndex], and 
+        if the remaing string is of zero length or dp[startIndex+1][endIndex-1] is a palindrome then
+   dp[startIndex][endIndex] = true
+```
+- Code :tada:
+```java
+
+Here is the code for our bottom-up dynamic programming approach:
+
+class LPS {
+
+  public int findLPSLength(String st) {
+    // dp[i][j] will be 'true' if the string from index 'i' to index 'j' is a
+    // palindrome
+    boolean[][] dp = new boolean[st.length()][st.length()];
+
+    // every string with one character is a palindrome
+    for (int i = 0; i < st.length(); i++)
+      dp[i][i] = true;
+
+    int maxLength = 1;
+    for (int startIndex = st.length() - 1; startIndex >= 0; startIndex--) {
+      for (int endIndex = startIndex + 1; endIndex < st.length(); endIndex++) {
+        if (st.charAt(startIndex) == st.charAt(endIndex)) {
+          // if it's a two character string or if the remaining string is a palindrome too
+          if (endIndex - startIndex == 1 || dp[startIndex + 1][endIndex - 1]) {
+            dp[startIndex][endIndex] = true;
+            maxLength = Math.max(maxLength, endIndex - startIndex + 1);
+          }
+        }
+      }
+    }
+
+    return maxLength;
+  }
+
+  public static void main(String[] args) {
+    LPS lps = new LPS();
+    System.out.println(lps.findLPSLength("abdbca"));
+    System.out.println(lps.findLPSLength("cdpdd"));
+    System.out.println(lps.findLPSLength("pqr"));
+  }
+}
+```
+The time and space complexity of the above algorithm is O(n^2), where ‘n’ is the length of the input string.
 ... (rest of your README)
