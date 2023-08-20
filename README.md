@@ -799,7 +799,7 @@ for i = 1 -> size of A
 
 The runtime complexity of this solution is linear, O(n).
 
-### Binary Search on Sorted Array
+### Binary Search on Sorted Array :tada:
 <hr>
 
 - Description :
