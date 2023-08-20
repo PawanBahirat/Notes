@@ -10,7 +10,7 @@
     - [Creating A New Project With Git](#creating-a-new-project-with-git)
     - [Git Commit](#git-commit)
     - [Git Logs](#git-logs)
-    - 
+    - [Undo a Commit](#undo-a-commit)
   
 ## Getting Started
 
