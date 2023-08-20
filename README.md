@@ -47,7 +47,7 @@
     - [Implementation Of Stack](#implementation-of-stack)
     - [Implementation Of Queue](#implementation-of-queue)
     - [Implement Queue Using Stacks](#implement-queue-using-stacks)
-    - [Implement Stack Using queue](#implement-stack-using-queue)
+    - [Implement Stack Using Queue](#implement-stack-using-queue)
     - [Reversing The First K Elements Of A Queue](#reversing-the-first-k-element-of-a-queue)
     - [Evaluate Postfix Expressions Using Stacks](#evaluate-postfix-expressions-using-stacks)
     - [Next Greater Element Using Stackproblem Statement](#next-greater-element-using-stack)
@@ -3653,7 +3653,7 @@ class QueueUsingStackClass{
 }  
 ```
 
-### Implement Stack Using Queues
+### Implement Stack Using Queue
 <hr>
 
 - Description :
