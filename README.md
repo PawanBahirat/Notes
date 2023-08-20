@@ -1,10 +1,4 @@
-# DSA (Data structure and Algorithms)
-
-- [Data Structures](#data-structures)
-  - [Arrays](#arrays)
-  - [Strings](#strings)
-    
-# DSA (Data structure and Algorithms)
+# DSA (Data structures & Algorithms)
 
 - [Data Structures](#data-structures)
   - [Arrays](#arrays)
