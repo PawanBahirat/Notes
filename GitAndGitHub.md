@@ -730,6 +730,8 @@ Use `git add` to add the updated files to staging
 Create a new commit that contains the files which have been updated to resolve the conflicts
 
 
+## Remote Repositories
+
 ### What Is GitHub?
 <hr>
 
