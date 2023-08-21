@@ -625,14 +625,16 @@ If you were to view which file was present in which branch before merging the br
 You can also verify if the commit and changes from the `feature_branch` are accessible in the `master` using the commands `ls` and `git log`. Using ls should list both `file1.txt` and `file2.txt`. Moreover, `git log` should list the commits from the master branch and the `feature_branch`.
 
 
-Merge Conflicts
+### Merge Conflicts
+<hr>
+
 Learn about merge conflicts and how they occur by reading through this lesson.
 
-What is a merge conflict?
-Merge conflicts occur, most commonly, when more than one contributor is working on a project. A merge conflict takes place when a file changes at the same line in different branches or if a file is deleted in one branch, but in another, its contents are updated. When the branches are merged, Git won’t be able to infer which change it should keep and which one it should discard. At this point, it becomes necessary for a developer to resolve this merge conflict.
+- What is a merge conflict?
 
-### How a merge conflict can occur
-<hr>
+`Merge conflicts` occur, most commonly, when more than one contributor is working on a project. A merge conflict takes place when a file changes at the same line in different branches or if a file is deleted in one branch, but in another, its contents are updated. When the branches are merged, Git won’t be able to infer which change it should keep and which one it should discard. At this point, it becomes necessary for a developer to resolve this merge conflict.
+
+- How a merge conflict can occur :
 
 Let’s look at an example of how a merge conflict can occur. We will create a new branch called `feature_branch` and switch over to it from `master` using the following command:
 ```
@@ -663,35 +665,41 @@ git merge feature_branch
 Make sure that you are currently on the `master` branch and that the working directory is clean and has no modified files.
 
 
-Resolving Merge Conflicts
+### Resolving Merge Conflicts
+<hr>
+
 This lesson will teach you ways in which you can resolve merge conflicts.
 
-In the previous lesson, we looked at how merge conflicts can occur and worked with an example to create a merge conflict. We made changes to the same file, file1.txt, in two different branches and tried to merge them. Git can’t decide on its own which change should remain so a developer would have to resolve the conflict themselves.
+In the previous lesson, we looked at how merge conflicts can occur and worked with an example to create a merge conflict. We made changes to the same file, `file1.txt`, in two different branches and tried to merge them. Git can’t decide on its own which change should remain so a developer would have to resolve the conflict themselves.
 
-In the terminal below, we have a merge conflict that has taken place when we try to merge a branch called feature_branch with master.
+In the terminal below, we have a merge conflict that has taken place when we try to merge a branch called `eature_branch` with `master`.
 
-What to do when a merge conflict occurs
+- What to do when a merge conflict occurs :
+
 In the terminal provided above, our merge process was halted because of a conflict. We need to make sure that the conflict no longer exists so that the merge can be completed.
 
-Identify a merge conflict in the code
-We made changes to file1.txt in both branches, so what does Git view as a conflict, and how does it depict it? Well, if you open up file1.txt in any text editor of your choice, you would see that Git has highlighted what it considers as a conflict in a syntax similar to this.
+- Identify a merge conflict in the code :
 
+We made changes to `file1.txt` in both branches, so what does Git view as a conflict, and how does it depict it? Well, if you open up `file1.txt` in any text editor of your choice, you would see that Git has highlighted what it considers as a conflict in a syntax similar to this.
+```
 <<<<<<< HEAD
 =======
 >>>>>>> feature_branch
-We can try to view the contents of the file using nano, vim, or simply using cat <file_name>, and we will note that the contents of the file have somewhat changed.
+```
+We can try to view the contents of the file using nano, vim, or simply using `cat <file_name>`, and we will note that the contents of the file have somewhat changed.
 
-Note: Both versions of the lines will be visible only for those lines that are different in the two branches being merged.
+> Note: Both versions of the lines will be visible only for those lines that are different in the two branches being merged.
 
-Edit the file with the conflict
-Now that we know where the merge conflict is, let’s see what we can do to fix the issue. The conflict in file1.txt occurred because both branches had modified the text in it, and Git isn’t sure which version to keep. The changes that each branch made are separated by line:
+- Edit the file with the conflict :
 
+Now that we know where the merge conflict is, let’s see what we can do to fix the issue. The conflict in `file1.txt` occurred because both branches had modified the text in it, and Git isn’t sure which version to keep. The changes that each branch made are separated by line:
+```
 =======
-It is up to us to decide which change should be kept. Since we are still on the master branch, we can proceed with keeping the text:
-
-### Updated file1 in master
-<hr>
-
+```
+It is up to us to decide which change should be kept. Since we are still on the `master` branch, we can proceed with keeping the text:
+```
+Updated file1 in master
+```
 - Resume the merge process :
 
 Now that we have updated `file1.txt`, we can proceed with making sure that the `feature_branch` is officially merged with the `master`. From this point on, the process is fairly straightforward. While making the necessary changes to the file, we inevitably modified it. Therefore, we will need to make sure Git marks these changes and adds `file1.txt` to a staged state. We can do that with the command:
