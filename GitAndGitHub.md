@@ -1034,6 +1034,7 @@ Close the pull request without merging the branch if the proposed changes arenâ€
 Pull requests also allow you to view the entire list of commits and who made the commit.
 Pull requests also allow you to view the files that will be changed and how they will be changed in a convenient manner. Each line of code is colored, which represents whether that line was added, deleted, or was left unchanged. The green color shows that the new line was inserted, and a red-colored line would mean the line is meant to be removed.
 
+## Rebasing Branches
 
 ### Git Rebase
 <hr>
