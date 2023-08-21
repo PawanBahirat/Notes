@@ -11293,7 +11293,7 @@ It should be noted that the pairs must be unique for this solution to work. We a
 
 The hash table lookups work in constant time. Hence, our traversal of the input list makes the algorithm run in O(n) where n is the array size.
 
-### Find Two Pairs In An Array Such That A+B C+D
+### Find Two Pairs In An Array Such That A+B=C+D
 <hr>
 
 - Problem Statement :
