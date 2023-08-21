@@ -122,6 +122,7 @@
     - [Find If A Subarray With A Sum Equal To 0 Exists](#find-if-a-subarray-with-a-sum-equal-to-0-exists)
     - [First Non-Repeating Integer In An Array](#first-non-repeating-integer-in-an-array)
     - [Remove Duplicate From A Linked List Using Hashing](#remove-duplicate-from-a-linked-list-using-hashing)
+  - [Graphs](#graphs)
 ## Data Structures
 
 ### Arrays
@@ -11671,4 +11672,7 @@ Every node we traverse is added to the `visitedNodes` set. If we reach a node th
 - Time Complexity :
 
 This is a linear algorithm, hence, the time complexity is O(n).
+
+## Graphs
+
 ... (rest of your README)
