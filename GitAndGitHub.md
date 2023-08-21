@@ -19,7 +19,10 @@
     - [Deleting A Branch](#deleting-a-branch)
     - [Git Stash](#git-stash)
   - [Merging Branches](#merging-branches)
-    - 
+    - [Git Merge](#git-merge)
+    - [Merge Conflicts](#merge-conflicts)
+    - [Resolving Merge Conflicts](#resolving-merge-conflicts)
+    
 ## Getting Started
 
 ### What Is Version Control?
@@ -575,3 +578,138 @@ In case the altered file does not conflict with the branch you plan to switch to
 
 ## Merging Branches
 
+### Git Merge
+<hr>
+
+Learn how Git allows the merging of different branches with one another in this lesson.
+
+Git allows us to create separate branches and work on them independently without interference from changes in other branches. The option to create different branches enables a very convenient workstream where you, or a group of people can work on new features and ship them out only when they are complete.
+
+Creating new branches is only one part of the complete workflow. Git is a convenient version control tool because not only can we create new branches, but we can also merge a branch with another as well. Once we have finished working on a new feature on a separate branch, we can then merge or combine this branch into the `master` branch. All the changes we made in the feature branch will now be present in `master` as well.
+
+- The git merge command :
+
+We can merge a branch into another using the `git merge` command. While the concept seems simple on the surface, there are some aspects that we should take a closer look at. When we create a new branch, the older branch more or less diverges into two separate paths from one common point, or commit in this case.
+
+Depending on which branch we are actively using, any commits we make will only be reflected in that particular branch. When we decide to merge the two branches, the two branches will find the most recent common commit that they share. From that point forward, the commit history will be different for both branches. Git will then merge the branch into the other by creating a new `merge commit` for it.
+
+Once the merging process is complete, the commit history of the merged branch will also become part of the branch with which it merged. The changes that were present only in the feature branch will also become available in the `master` branch as well.
+
+- Merging a branch with the `master` branch :
+
+Let’s try out the `git merge` command with a scenario.
+
+You have a `master` branch and another branch called the `feature_branch`.
+In the master branch, you will have `file1.txt`, and, in the `feature_branch`, you will create another commit where you will add another file, `file2.txt`.
+Once you decide to merge the `feature_branch` with the `master`, the master branch should have both `file1.txt` and `file2.txt`.
+The steps mentioned above have already been executed in the terminal provided later in the lesson. You can verify which branch contains which files by switching to each branch and entering the terminal command `ls` to identify the file names.
+
+Now, from this point forward, this is what you will need to do:
+
+Switch to the branch in which you want to contain the merging branch that you would like to merge. For example, if we want to merge the `feature_branch` into the `master`, we will switch to the `master` branch so that it is the active one. Use `git branch` to verify which branch you are currently on.
+```
+git checkout master
+```
+Now that you are using the branch that will contain the merging branch, we will move on to the git merge command. The basic syntax for it is as follows :
+```
+git merge <branch_to_be_merged>
+```
+Therefore, for this example, we will enter the following command :
+```
+git merge feature_branch
+```
+If you were to view which file was present in which branch before merging the branches, you would get an output similar to the image provided below using the ls command:
+
+- Verifying after merging :
+
+You can also verify if the commit and changes from the `feature_branch` are accessible in the `master` using the commands `ls` and `git log`. Using ls should list both `file1.txt` and `file2.txt`. Moreover, `git log` should list the commits from the master branch and the `feature_branch`.
+
+
+Merge Conflicts
+Learn about merge conflicts and how they occur by reading through this lesson.
+
+What is a merge conflict?
+Merge conflicts occur, most commonly, when more than one contributor is working on a project. A merge conflict takes place when a file changes at the same line in different branches or if a file is deleted in one branch, but in another, its contents are updated. When the branches are merged, Git won’t be able to infer which change it should keep and which one it should discard. At this point, it becomes necessary for a developer to resolve this merge conflict.
+
+### How a merge conflict can occur
+<hr>
+
+Let’s look at an example of how a merge conflict can occur. We will create a new branch called `feature_branch` and switch over to it from `master` using the following command:
+```
+git checkout -b feature_branch
+```
+Now that we’re at the `feature_branch`, we will update `file1.txt`.
+```
+echo 'Updated file1 in feature_branch' > file1.txt
+```
+Next, we will create a new commit and make sure that the change in file1.txt becomes part of the snapshot by entering this command:
+```
+git commit -m 'updated contents of file 1 in feature_branch'
+```
+We will then switch back over to `master` and update `file1.txt` again:
+```
+echo 'Updated file1 in master' > file1.txt
+```
+We will proceed to create another commit that will contain the new change but this time for the `master` branch.
+```
+git commit -m 'updated contents of file 1 in master'
+```
+Try entering the commands mentioned above in the terminal provided below.
+
+Now that we have two branches, with both containing commits that have changes affecting the same file, we can try to see what will happen when the two branches are merged. Enter the following command in the terminal below. All of the commands mentioned above have already been executed in that terminal, so you only have to merge the branches:
+```
+git merge feature_branch
+```
+Make sure that you are currently on the `master` branch and that the working directory is clean and has no modified files.
+
+
+Resolving Merge Conflicts
+This lesson will teach you ways in which you can resolve merge conflicts.
+
+In the previous lesson, we looked at how merge conflicts can occur and worked with an example to create a merge conflict. We made changes to the same file, file1.txt, in two different branches and tried to merge them. Git can’t decide on its own which change should remain so a developer would have to resolve the conflict themselves.
+
+In the terminal below, we have a merge conflict that has taken place when we try to merge a branch called feature_branch with master.
+
+What to do when a merge conflict occurs
+In the terminal provided above, our merge process was halted because of a conflict. We need to make sure that the conflict no longer exists so that the merge can be completed.
+
+Identify a merge conflict in the code
+We made changes to file1.txt in both branches, so what does Git view as a conflict, and how does it depict it? Well, if you open up file1.txt in any text editor of your choice, you would see that Git has highlighted what it considers as a conflict in a syntax similar to this.
+
+<<<<<<< HEAD
+=======
+>>>>>>> feature_branch
+We can try to view the contents of the file using nano, vim, or simply using cat <file_name>, and we will note that the contents of the file have somewhat changed.
+
+Note: Both versions of the lines will be visible only for those lines that are different in the two branches being merged.
+
+Edit the file with the conflict
+Now that we know where the merge conflict is, let’s see what we can do to fix the issue. The conflict in file1.txt occurred because both branches had modified the text in it, and Git isn’t sure which version to keep. The changes that each branch made are separated by line:
+
+=======
+It is up to us to decide which change should be kept. Since we are still on the master branch, we can proceed with keeping the text:
+
+### Updated file1 in master
+<hr>
+
+- Resume the merge process :
+
+Now that we have updated `file1.txt`, we can proceed with making sure that the `feature_branch` is officially merged with the `master`. From this point on, the process is fairly straightforward. While making the necessary changes to the file, we inevitably modified it. Therefore, we will need to make sure Git marks these changes and adds `file1.txt` to a staged state. We can do that with the command:
+```
+git add file1.txt
+```
+Now, we simply need to create a new snapshot or commit that will contain our new changes.
+
+Let’s create a new commit with the command:
+```
+git commit -m 'fixed merge conflict in file1.txt'
+```
+You can verify that the merge worked by viewing the contents of `file1.txt` and also by using `git log`. The most recent commit will contain a special line that tells us that this was a merge commit. It will begin with the word `Merge`.
+
+- Summary :
+
+And there you have it. You should now have a fairly good idea of what to do when a merge conflict arises.
+
+Update the files that contain the conflicts
+Use `git add` to add the updated files to staging
+Create a new commit that contains the files which have been updated to resolve the conflicts
