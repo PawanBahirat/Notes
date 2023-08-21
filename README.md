@@ -133,7 +133,9 @@
     - [Minimum Spanning Tree](#minimum-spanning-tree)
     - [Topological Sort](#topological-sort)
     - [Tasks Scheduling](#tasks-scheduling)
-    
+- [Algorithms](#algorithms)
+  - [Sorting And Searching](#sorting-and-searching)
+  
 ## Data Structures
 
 ### Arrays
@@ -12998,4 +13000,11 @@ class TaskScheduling {
   }
 }
 ```
+
+# Algorithms
+
+## Sorting And Searching
+
+### Selection Sort, Bubble Sort, And Insertion Sort
+
 ... (rest of your README)
