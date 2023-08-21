@@ -123,6 +123,17 @@
     - [First Non-Repeating Integer In An Array](#first-non-repeating-integer-in-an-array)
     - [Remove Duplicate From A Linked List Using Hashing](#remove-duplicate-from-a-linked-list-using-hashing)
   - [Graphs](#graphs)
+    - [Introduction To Graphs](#introduction-to-graphs)
+    - [Cycle Detection In A Directed Graph](#cycle-detection-in-a-directed-graph)
+    - [Mother Vertex In A Directed Graph](#mother-vertex-in-a-directed-graph)
+    - [Count The Number Of Edges In An Undirected Graph](#count-the-number-of-edges-in-an-undirected-graph)
+    - [Check If A Path Exists Between Two Vertices](#check-if-a-path-exists-between-two-vertices)
+    - [Find Length Of Shortest Path Between Two Vertices](#find-length-of-shortest-path-between-two-vertices)
+    - [Clone A Directed Graph](#clone-a-directed-graph)
+    - [Minimum Spanning Tree](#minimum-spanning-tree)
+    - [Topological Sort](#topological-sort)
+    - [Tasks Scheduling](#tasks-scheduling)
+    
 ## Data Structures
 
 ### Arrays
@@ -11675,4 +11686,1316 @@ This is a linear algorithm, hence, the time complexity is O(n).
 
 ## Graphs
 
+### Introduction to Graphs
+<hr>
+
+This lesson is a brief introduction to the graph data structure, its types, and its two representation techniques: adjacency matrix and adjacency list.
+
+- What is a graph?
+
+A graph is a set of nodes that are connected to each other in the form of a network. Let’s define the two basic components of a graph.
+
+- Vertex :
+
+A vertex (or node) is an essential part of a graph. A collection of vertices forms a graph. In that sense, vertices are similar to linked list nodes.
+
+- Edge :
+
+An edge is a link between two vertices. It can be directed or undirected. An undirected edge (u, v)(u,v) has no sense of direction and can be traversed in either direction - uu to vv or vv to uu. A directed edge (u, v)(u,v), on the other hand can only be traversed from uu to vv. Visually, a directed edge is drawn with an arrow and an undirected edge is drawn without an arrow.
+
+> An edge can exist from one vertex to itself. This is called a self loop
+
+- Path :
+
+A path between nodes uu and vv in a graph is an alternating sequence of nodes and edges, such that it:
+
+tarts with u
+ends with v
+all nodes and edges in the path are present in the graph
+Cycle
+A path that starts and ends at the same node in a graph, is called a cycle.
+
+- Types of graphs :
+
+Graphs can be categorized across multiple criteria, such as:
+
+Undirected vs directed graph
+
+Weighted vs unweighted graph
+
+Connected graph
+
+- Undirected vs directed :
+
+In an undirected graph, all the edges are undirected, whereas in aa directed graph, all the edges are directed.
+
+- Weighted vs unweighted graph :
+
+In an unweighted graph, the edges have no weight associated with them. The above examples are both unweighted graphs. When representing a social network, for example, where an edge represents friendship between two people, no weight is needed on the edge.
+
+In a weighted graph, each edge is associated with a weight. The weight may be used to represent certain properties of a problem. For instance, if an edge represents a road between two cities, the distance between the two cities may be represented as the edge weight.
+
+- Connected graph :
+
+An undirected graph in which there is at least one path between any two pairs of nodes is called a connected graph.
+
+> A tree is a connected graph in which there are no cycles
+
+- Shortest path :
+
+When we talk about path in a graph, we are mostly interested in the shortest path between two vertices in a graph. A shortest path in a weighted graph is the one for which the sum of edge weights is minimum. In case of an unweighted graph, the shortest path is the one with the minimum number of edges.
+
+- Ways to represent a graph :
+
+The two most common ways to represent a graph are :
+
+Adjacency Matrix
+
+Adjacency List
+
+- Adjacency matrix :
+
+The `*adjacency matrix` is a two-dimensional matrix where each cell can contain a `0` or a `1`.​ The row and column headings represent the vertices.
+
+If a cell contains `1`, there exists an edge between the corresponding vertices e.g., Matrix[0][1]=1Matrix[0][1]=1 shows that an edge exists between vertex 0 and 1.
+
+- Adjacency list :
+
+An array of linked list is used to store all the edges in the graph. The size of the array is equal to the number of vertices.
+
+The entry at index i of the array contains a linked list containing the vertices that are adjacent to vertex i.
+
+The above examples represented unweighted graphs using adjacency matrix and list. To represent weighted graph, instead of 1, we need to place the weight of the corresponding edge.
+
+
+### Cycle Detection in a Directed Graph
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the detectCycle() method to take a graph as input and detect a cycle in it. A cycle is formed when a few vertices are connected in such a way that they make a loop.
+
+- Method Prototype :
+```
+boolean detectCycle(Graph g); g is a Directed Graph represented by adjacency list.
+```
+- Output :
+
+It returns true if the graph contains a cycle, otherwise, the method returns false.
+
+- Sample Input :
+```
+graph = { 0 -> 1 1 -> 2 2 -> 0 }
+```
+- Sample Output :;
+```
+true
+```
+**Solution**
+
+- Code :tada:
+```java
+
+Graph.java
+public class Graph{
+    int vertices; //Total number of vertices in graph
+    DoublyLinkedList<Integer> adjacencyList[]; //An array of linked lists to store adjacent vertices.
+    
+    @SuppressWarnings("unchecked")
+    public Graph(int vertices) {
+        this.vertices = vertices;
+        adjacencyList = new DoublyLinkedList[vertices];
+
+        for (int i = 0; i < vertices; i++) {
+            adjacencyList[i] = new DoublyLinkedList<>();
+        }
+    }
+
+    public void addEdge(int source, int destination){
+        if (source < vertices && destination < vertices){
+        this.adjacencyList[source].insertAtEnd(destination);
+
+        //for undirected graph uncomment the line below
+        //this.adjacencyList[destination].insertAtEnd(source);
+        }
+    }
+    public void printGraph()
+    {
+        System.out.println(">>Adjacency List of Directed Graph<<");
+        for (int i = 0; i < vertices; i++)
+        {
+            if(adjacencyList[i]!=null){
+                System.out.print("|" + i + "| => ");
+
+                DoublyLinkedList<Integer>.Node temp = adjacencyList[i].getHeadNode();
+                while (temp != null)
+                {
+                    System.out.print("[" + temp.data + "] -> ");
+                    temp = temp.nextNode;
+                }
+                System.out.println("null");
+            }
+            else{
+
+                System.out.println("|" + i + "| => "+ "null");
+            }
+        }
+    }
+}
+main.java
+class CheckCycle {
+    public static boolean detectCycle(Graph g){
+        int num_of_vertices = g.vertices;
+
+        //Boolean Array to hold the history of visited nodes (by default-false)
+        boolean[] visited = new boolean [num_of_vertices];
+        //Holds a flag if the node is currently in Stack or not (by default- false)
+        boolean[] stackFlag = new boolean[num_of_vertices];
+
+        for (int i = 0; i < num_of_vertices; i++){
+            //Check cyclic on each node
+            if (cyclic(g, i, visited, stackFlag)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean cyclic(Graph g, int v, boolean[] visited, boolean[] stackFlag){
+        //if node is currently in stack that means we have found a cycle
+        if (stackFlag[v])
+            return true;
+
+        //if it is already visited (and not in Stack) then there is no cycle
+        if (visited[v])
+            return false;
+
+        visited[v] = true;
+        stackFlag[v] = true;
+
+        // check adjacency list of the node
+        DoublyLinkedList<Integer>.Node temp = null;
+        if (g.adjacencyList[v] != null)
+            temp = g.adjacencyList[v].headNode;
+
+        while (temp != null) {
+            //run cyclic function recursively on each outgowing path
+            if(cyclic(g, temp.data, visited, stackFlag)){
+                return true;
+            }
+            temp = temp.nextNode;
+        }
+        stackFlag[v] = false;
+
+        return false;
+    }
+    public static void main(String args[]) {
+        Graph g1 = new Graph(4);
+        g1.addEdge(0,1);
+        g1.addEdge(1,2);
+        g1.addEdge(1,3);
+        g1.addEdge(3,0);
+        g1.printGraph();
+        System.out.println(detectCycle(g1));
+
+        System.out.println();
+        Graph g2 = new Graph(3);
+        g2.addEdge(0,1);
+        g2.addEdge(1,2);
+        g2.printGraph();
+        System.out.println(detectCycle(g2));
+  }
+}
+```
+- Explanation :
+
+The solution might look confusing at first, but the logic behind it is pretty straight forward.
+
+We start by using two boolean arrays, `visited` and `stackFlag`. `visited` keeps a record of all the nodes that have been traversed regardless of the recursive call. `stackFlag` keeps track of the nodes that have been traversed in the current recursion.
+
+Then we apply a variation of `DFS` on each node of the graph in a recursive manner. On each call of the method `cyclic` if we encounter any node which is already in the stack, then we return `true`. Because this means that we have found a path from that node back to itself!
+
+- Time Complexity :
+
+O(V+E), which we already know is the complexity of traversing the adjacency list that represents our graph.
+
+### "Mother Vertex" in a Directed Graph
+<hr>
+
+- Problem Statement :
+
+> 🔍 Mother Vertex? A mother vertex in a graph G = (v,e) is a vertex v, such that all other vertices in G can be reached by a path from v.
+
+In this problem, you have to implement the `findMotherVertex()` method to take a graph as an input and find out which vertex is the mother vertex in the graph. Remember, there’s no mother vertex in a disconnected graph.
+
+- Method Prototype :
+```
+int findMotherVertex(graph g);
+```
+g is a directed graph represented by adjacency list, and it can either be a connected or disconnected graph
+
+- Output :
+
+It returns the Mother vertex if it exists, or else it returns -1.
+
+- Sample Input :
+```
+graph = { 3 -> 0 3 -> 1 0 -> 1 1 -> 2 }
+```
+- Sample Output :
+```
+3
+```
+**Solution: Last Finished Vertex**
+
+- Code :tada:
+```java
+
+main.java
+class CheckMotherVertex {
+    
+    public static int findMotherVertex(Graph g) {
+        // visited[] is used for DFS. Initially all are
+        // initialized as not visited
+        boolean[] visited = new boolean[g.vertices];
+        Arrays.fill(visited, false);
+
+        // To store last finished vertex (or mother vertex)
+        int lastV = 0;
+
+        // Do a DFS traversal and find the last finished vertex
+        for (int i = 0; i < g.vertices; i++) {
+            if (visited[i] == false) {
+                DFS(g, i, visited);
+                lastV = i;
+            }
+        }
+
+        // If there exist mother vertex (or vetices) in given
+        // graph, then lastV must be one (or one of them)
+
+        // Now check if lastV is actually a mother vertex (or graph
+        // has a mother vertex). We basically check if every vertex
+        // is reachable from lastV or not.
+
+        // Reset all values in visited[] as false and do
+        // DFS beginning from lastV to check if all vertices are
+        // reachable from it or not.
+        Arrays.fill(visited, false);
+        DFS(g, lastV, visited);
+
+        for (int i = 0; i < visited.length; i++){
+            if(visited[i] == false){
+                return -1;
+            }
+        }
+
+        return lastV;
+    }
+
+    // A recursive function to print DFS starting from v
+    public static void DFS(Graph g, int node, boolean[] visited) {
+
+        visited[node] = true;
+        DoublyLinkedList<Integer>.Node temp = null;
+        if (g.adjacencyList[node] !=null)
+            temp = g.adjacencyList[node].headNode;
+
+        while(temp != null){
+            if(visited[temp.data]){
+                temp = temp.nextNode;
+            }
+            else{
+                visited[temp.data] = true;
+                DFS(g, temp.data, visited);
+                temp = temp.nextNode;
+            }
+        }
+    }
+    
+    public static void main(String args[]) {
+        
+        Graph g = new Graph(4);
+        g.addEdge(0,1);
+        g.addEdge(1,2);
+        g.addEdge(3,0);
+        g.addEdge(3,1);
+        g.printGraph();
+        System.out.println("Mother Vertex is: " + findMotherVertex(g));
+        
+    }
+}
+```
+- Explanation :
+
+This solution is based on **Kosaraju’s Strongly Connected Component Algorithm**. Initially, we run the DFS on the whole graph in a loop (`line 13`). The DFS ensures that all the nodes in the graph are visited. If the graph is disconnected, the `visited` array will still have some vertices which haven’t been set to `true`.
+
+The theory is that the last vertex `visited` in the recursive DFS will be the mother vertex. This is because, at the last vertex, all slots in visited would be `true` (DFS only stops when all nodes are visited). Hence, we keep track of this last vertex using `lastV`.
+
+Then, we reset the `visited` array and run the DFS only on `lastV`. If it visits all nodes, it is a mother vertex. Otherwise, a mother vertex does not exist. The only limitation in this algorithm is that it can detect one mother vertex, even if others exist.
+
+- Time Complexity :
+
+The DFS of the whole graph works in O(V + E). If a mother vertex exists, the second DFS takes O(V + E) as well. Therefore, the complete time complexity for this algorithm is O(V + E).
+
+
+### Count the Number of Edges in an Undirected Graph
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the numEdges() method to take an undirected graph as an input and find the total number of edges in the graph.
+
+- Method Prototype :
+```
+int numEdges(Graph g);
+```
+g is a directed graph represented by adjacency list, and it can either be a connected or disconnected graph
+
+- Output :
+
+It returns the total number of edges in the graph.
+
+- Sample Input :
+```
+graph = { 0 - 1, 0 - 4, 1 - 2, 1 - 3, 4 - 2, 4 - 5, 2 - 5, 5 - 6, 5 - 7, 5 - 3, 6 - 7 }
+```
+- Sample Output :
+```
+11
+```
+**Solution: Last Finished Vertex**
+
+- Code :tada:
+```java
+
+main.java
+class CheckNumEdges {
+    public static int numEdges(Graph g) {
+
+        // For undirected graph, just sum up the size of
+        // all the adjacency lists for each vertex and then divide it by 2.
+        // It will give us total number of edges in the graph.
+        int sum = 0;
+
+        for (int i = 0; i < g.vertices; i++) {
+
+            DoublyLinkedList<Integer>.Node temp = null;
+            if (g.adjacencyList[i] != null)
+                temp = g.adjacencyList[i].headNode;
+
+            while (temp != null) {
+                sum++;
+                temp = temp.nextNode;
+            }
+        }
+        return sum/2;
+    }
+    public static void main(String args[]) {
+
+    Graph g = new Graph(9);
+    g.addEdge(0,2);
+    g.addEdge(0,5);
+    g.addEdge(2,3);
+    g.addEdge(2,4);
+    g.addEdge(5,3);
+    g.addEdge(5,6);
+    g.addEdge(3,6);
+    g.addEdge(6,7);
+    g.addEdge(6,8);
+    g.addEdge(6,4);
+    g.addEdge(7,8);
+    
+     
+    g.printGraph();
+    System.out.println("Number of edges: " + numEdges(g));
+    System.out.println();
+
+    Graph g2 = new Graph(7);
+    g2.addEdge(1,2);
+    g2.addEdge(1,3);
+    g2.addEdge(3,4);
+    g2.addEdge(3,5);
+    g2.addEdge(2,5);
+    g2.addEdge(2,4);
+    g2.addEdge(4,6);
+    g2.addEdge(4,5);
+    g2.addEdge(6,5);
+
+
+    g2.printGraph();
+    System.out.println("Number of edges: " + numEdges(g2));
+  }
+}
+```
+- Explanation :
+
+Nothing too tricky going on here. We simply traverse through the complete adjacency list and count the size of each linked list. In an undirected graph, the number of edges is always even because the edges are bidirectional. Hence, to get the number of unique edges, we halve the total sum.
+
+- Time complexity :
+
+The time complexity of this algorithm is O(V + E)
+
+### Check if a Path Exists Between Two Vertices
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement checkPath() method to take a graph and two vertices as an input and find out if a path exists between them.
+```
+If there is no repeated sequence of edges and vertices between the source and the destination vertex then the path exists between these two vertices. Note: Path will always exist if the source and destination nodes are the same.
+```
+Method Prototype :
+```
+boolean checkPath(Graph g, int source, int destination);
+```
+g is a directed graph represented by an adjacency list, with source and destination as two of the vertices.
+
+- Output :
+
+It returns true if a path exists from the given source to the destination in the graph.
+
+- Sample Input :
+```
+graph = { 0 -> 1, 0 -> 5 1 -> 2, 1 -> 3 4 -> 2, 4 -> 5, 2 -> 5, 5 -> 6, 5 -> 7, 5 -> 3 6 -> 7 } source = 0 destination = 6
+```
+Sample Output
+True
+
+**Solution: Using BFS/DFS**
+
+- Code :tada:
+```java
+
+main.java
+class CheckPaths {
+    
+    //Perfrom DFS Traversal starting from source and if you reach destination
+    //then it means that there exist a path between source and destination
+    //so return true and if you traverse the graph but can't reach destination
+    //then simply return false.
+    public static boolean checkPath(Graph g, int source, int destination) {
+        if (source == destination){
+            return true;
+        }
+
+        //Boolean Array to hold the history of visited nodes (by default-false)
+        //Make a node visited whenever you push it into stack
+        boolean[] visited = new boolean[g.vertices];
+
+        //Create Stack
+        Stack<Integer> stack = new Stack<>(g.vertices);
+
+        stack.push(source);
+        visited[source] = true;
+
+        //Traverse while stack is not empty
+        while (!stack.isEmpty()) {
+
+            //Pop a vertex/node from stack
+            int current_node = stack.pop();
+
+            //Get adjacent vertices to the current_node from the array,
+            //and if only push unvisited adjacent vertices into stack
+            //Before pushing into stack, check if it's the destination.
+            DoublyLinkedList<Integer>.Node temp = null;
+            if (g.adjacencyList[current_node] != null)
+                temp = g.adjacencyList[current_node].headNode;
+
+            while (temp != null) {
+
+                if (!visited[temp.data]) {
+
+                    if (temp.data == destination) {
+                        return true;
+                    }
+
+                    stack.push(temp.data);
+                    visited[temp.data] = true;
+
+                }
+
+                temp = temp.nextNode;
+            }
+
+        } //end of while
+        return false;
+    }
+    public static void main(String args[]) {
+    
+        Graph g1 = new Graph(9);
+        g1.addEdge(0,2);
+        g1.addEdge(0,5);
+        g1.addEdge(2,3);
+        g1.addEdge(2,4);
+        g1.addEdge(5,3);
+        g1.addEdge(5,6);
+        g1.addEdge(3,6);
+        g1.addEdge(6,7);
+        g1.addEdge(6,8);
+        g1.addEdge(6,4);
+        g1.addEdge(7,8);
+        g1.printGraph();
+        System.out.println("Path exists: " + checkPath(g1, 0, 7));
+        System.out.println();
+        Graph g2 = new Graph(4);
+        g2.addEdge(0,1);
+        g2.addEdge(1,2);
+        g2.addEdge(1,3);
+        g2.addEdge(2,3);
+
+        g2.printGraph();
+        System.out.println("Path exists: " + checkPath(g2, 3, 0));
+  }
+}
+```
+- Explanation :
+
+This problem can be solved by both DFS and BFS. All we need is a simple traversal from `source` to see if we can reach `destination`. If the `destination` value is found, we return True`.
+
+Note that we only use the values in the vertices, not the vertices or the linked list objects themselves. This makes syntax easier.
+
+- Time complexity :
+
+It has the same time complexity as the BFS or DFS algorithm: O(V + E).
+
+
+### Find Length of Shortest Path between Two Vertices
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the` findShortestPathLength()` method to take an undirected graph and two vertices (A and B) as inputs, and return the length of the shortest path between those vertices in Graph. Remember, the shortest path will contain the minimum number of edges.
+
+- Method Prototype :
+```
+int findMin(Graph g,int source,int destination);
+```
+g is an undirected graph represented by an adjacency list, with source and destination as two of the vertices.
+
+- Output :
+
+It returns the length of the shortest path between vertex A and B.
+
+- Sample Input :
+```
+graph = { 0 -- 1, 0 -- 2, 0 -- 3 3 -- 5, 5 -- 4, 2 -- 4 } Vertex A = 0 Vertex B = 4
+```
+- Sample Output :
+```
+2
+```
+**Solution: BFS Queue**
+
+- Code :tada:
+```java
+
+main.java
+class CheckMin {
+    public static int findMin(Graph g, int source, int destination) {
+        if (source == destination){
+            return 0;
+        }
+
+        int result = 0;
+        int num_of_vertices = g.vertices;
+
+        //Boolean Array to hold the history of visited nodes (by default-false)
+        //Make a node visited whenever you enqueue it into queue
+        boolean[] visited = new boolean[num_of_vertices];
+
+        //For keeping track of distance of current_node from source
+        int[] distance = new int[num_of_vertices];
+
+        //Create Queue for Breadth First Traversal and enqueue source in it
+        Queue<Integer> queue = new Queue<Integer>(num_of_vertices);
+
+        queue.enqueue(source);
+        visited[source] = true;
+
+        //Traverse while queue is not empty
+        while (!queue.isEmpty()) {
+
+            //Dequeue a vertex/node from queue and add it to result
+            int current_node = queue.dequeue();
+
+            //Get adjacent vertices to the current_node from the array,
+            //and if they are not already visited then enqueue them in the Queue
+            //and also update their distance from source by adding 1 in current_nodes's distance
+            DoublyLinkedList<Integer>.Node temp = null;
+            if (g.adjacencyList[current_node] != null)
+                temp = g.adjacencyList[current_node].headNode;
+
+            while (temp != null) {
+
+                if (!visited[temp.data]) {
+                    queue.enqueue(temp.data);
+                    visited[temp.data] = true;
+                    distance[temp.data] = distance[current_node] + 1;
+                }
+                if (temp.data == destination) {
+                    return distance[destination];
+                }
+                temp = temp.nextNode;
+            }
+        }//end of while
+        return -1;
+    }
+    public static void main(String args[]) {
+        Graph g=new Graph(5);
+        g.addEdge(0,1);
+        g.addEdge(0,2);
+        g.addEdge(1,3); 
+        g.addEdge(3,4); 
+        g.addEdge(1,4);
+        System.out.println(findMin(g, 0, 4));
+    }
+}
+```
+- Explanation :
+
+Once again, Breadth First Search comes to the rescue. The `visited` list must be familiar to you by now. The crux of this algorithm, however, lies in the `distance` list. For each node, the indexed value in the `distance` shows the node’s distance from the `source` in terms of the number of edges.
+
+The rest is a simple BFS traversal, where the `distance` is incremented by 1 each time.
+
+We are guaranteed to find the shortest distance to `destination`, once it has already been visited through the longer path and consequently marked because it won’t be visited the same way again.
+
+- Time Complexity :
+
+The algorithm will have the same time complexity as BFS: O(V + E)
+
+
+### Clone a Directed Graph
+<hr>
+
+- Problem Statement :
+
+Given the root node of a directed graph, clone this graph by creating its deep copy so that the cloned graph has the same vertices and edges as the original graph.
+
+Let’s look at the below graphs as an example. If the input graph is G = (V, E) where VV is set of vertices and EE is set of edges, then the output graph (cloned graph) G' = (V', E') such that V = V'and E = E`.
+
+> We are assuming that all vertices are reachable from the root vertex. i.e. we have a connected graph.
+
+**Solution: BFS Queue**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is linear, O(n).
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n). nn is the number of vertices in the graph.
+
+> We can have most n entries in hash table, so the worst-case space complexity is O(n).
+
+- Explanation :
+
+We use depth-first traversal and create a copy of each node while traversing the graph. To avoid getting stuck in cycles, we’ll use a hashtable to store each completed node and will not revisit nodes that exist in the hashtable. The hashtable key will be a node in the original graph, and its value will be the corresponding node in cloned graph.
+
+- Code :tada:
+```java
+
+class Node {
+  public int data;
+  public List<Node> neighbors = new ArrayList<Node>();
+  public Node(int d) {data = d;}
+}
+
+class Graph {
+  private static Node clone_rec(
+      Node root, 
+      HashMap<Node, Node> nodes_completed) {
+    if (root == null) {
+      return null;
+    }
+
+    Node pNew = new Node(root.data);
+    nodes_completed.put(root, pNew);
+
+    for (Node p : root.neighbors) {
+      Node x = nodes_completed.get(p);
+      if (x == null){
+        pNew.neighbors.add(clone_rec(p, nodes_completed));
+      } else {
+        pNew.neighbors.add(x);
+      }
+    }
+    return pNew;
+  }
+
+  public static Node clone(Node root) {
+    HashMap<Node, Node> nodes_completed = 
+      new HashMap<Node, Node>();
+      
+    return clone_rec(root, nodes_completed);
+  }
+
+  public static void main(String[] args) {
+    ArrayList<Node> vertices = CloneGraph.createTestGraphDirected(7, 18);
+
+    CloneGraph.printGraph(vertices.get(0));
+
+    Node cp = clone(vertices.get(0));
+    System.out.println();
+    System.out.println("After copy.");
+    CloneGraph.printGraph(cp);
+
+    HashSet<Node> set = new HashSet<Node>();
+    System.out.println(CloneGraph.are_graphs_equal_rec(vertices.get(0), cp, set));
+  }  
+}
+```
+
+
+### Minimum Spanning Tree
+<hr>
+
+- Problem Statement :
+
+Find the minimum spanning tree of a connected, undirected graph with weighted edges.
+
+**Solution: BFS Queue**
+
+- Runtime complexity :
+
+The runtime complexity of this solution is quadratic, O(n^2). Here, nn is the number of vertices.
+
+- Memory complexity :
+
+The memory complexity of this solution is linear, O(n + e). Here, nn is the number of vertices and ee is the number of edges.
+
+- Explanation :
+
+A `spanning-tree` of a connected, undirected graph is a subgraph that is a tree and connects all the vertices. One graph can have many different spanning trees. A graph with nn vertices has a spanning tree with n-1n−1 edges.
+
+A weight can be assigned to each edge of the graph. The weight of a spanning tree is the sum of weights of all the edges of the spanning tree. A `minimum spanning tree(MST)` for a weighted, connected and undirected graph is a spanning tree with a weight less than or equal to the weight of every other spanning tree.
+
+We’ll find the minimum spanning tree of a graph using `Prim’s algorithm`. This algorithm builds the tree one vertex at a time, starting from any arbitrary vertex. It adds the `minimum weight edge` from the tree being constructed to a vertex from the remaining vertices at each step.
+
+The algorithm is as follows:
+
+```
+Initialize the MST with an arbitrary vertex from the graph
+Find the minimum weight edge from the constructed graph to the vertices not yet added in the graph
+Add that edge and vertex to the MST
+Repeat steps 2-3 until all the vertices have been added to the MST
+The time complexity to find the minimum weight edge is O(n^2). However, it can be improved further by using heaps to find the minimum weight edge.
+```
+- Code :tada:
+```java
+
+class vertex {
+  private int id;
+  private boolean visited;
+
+  public vertex(int id, boolean visited) {
+    super();
+    this.id = id;
+    this.visited = visited;
+  }
+
+  int getId() {
+    return id;
+  }
+
+  void setId(int id) {
+    this.id = id;
+  }
+
+  boolean isVisited() {
+    return visited;
+  }
+
+  void setVisited(boolean visited) {
+    this.visited = visited;
+  }
+}
+
+class edge {
+  private int weight;
+  private boolean visited;
+  private vertex src;
+  private vertex dest;
+
+  public edge(int weight, boolean visited, vertex src,
+      vertex dest) {
+    this.weight = weight;
+    this.visited = visited;
+    this.src = src;
+    this.dest = dest;
+  }
+
+  int getWeight() {
+    return weight;
+  }
+
+  void setWeight(int weight) {
+    this.weight = weight;
+  }
+
+  boolean isVisited() {
+    return visited;
+  }
+
+  void setVisited(boolean visited) {
+    this.visited = visited;
+  }
+
+  vertex getSrc() {
+    return src;
+  }
+
+  void setSrc(vertex src) {
+    this.src = src;
+  }
+
+  vertex getDest() {
+    return dest;
+  }
+
+  void setDest(vertex dest) {
+    this.dest = dest;
+  }
+}
+
+class graph {
+  private List<vertex> g;   //vertices
+  private List<edge> e;     //edges
+
+  public graph(List<vertex> g, List<edge> e) {
+    super();
+    this.g = g;
+    this.e = e;
+  }
+
+  public List<vertex> getG() {
+    return g;
+  }
+
+  public void setG(List<vertex> g) {
+    this.g = g;
+  }
+
+  public List<edge> getE() {
+    return e;
+  }
+
+  public void setE(List<edge> e) {
+    this.e = e;
+  }
+
+  // This method returns the vertex with a given id if it
+  // already exists in the graph, returns NULL otherwise
+  vertex vertexExists(int id) {
+    for (int i = 0; i < g.size(); i++) {
+      if (g.get(i).getId() == id) {
+        return g.get(i);
+      }
+    }
+    return null;
+  }
+
+  // This method generates the graph with v vertices
+  // and e edges
+  void generateGraph(int vertices,
+      List<ArrayList<Integer>> edges) {
+    // create vertices
+    for (int i = 0; i < vertices; i++) {
+      vertex v = new vertex(i + 1, false);
+      g.add(v);
+    }
+
+    // create edges
+    for (int i = 0; i < edges.size(); i++) {
+      vertex src = vertexExists(edges.get(i).get(1));
+      vertex dest = vertexExists(edges.get(i).get(2));
+      edge e = new edge(edges.get(i).get(0), false, src,
+          dest);
+      getE().add(e);
+    }
+  }
+
+  // This method finds the MST of a graph using
+  // Prim's Algorithm
+  // returns the weight of the MST
+  int findMinSpanningTree() {
+    int vertex_count = 0;
+    int weight = 0;
+
+    // Add first vertex to the MST
+    vertex current = g.get(0);
+    current.setVisited(true);
+    vertex_count++;
+
+    // Construct the remaining MST using the
+    // smallest weight edge
+    while (vertex_count < g.size()) {
+      edge smallest = null;
+      for (int i = 0; i < e.size(); i++) {
+        if (e.get(i).isVisited() == false) {
+          if (e.get(i).getSrc().isVisited() == true && e.get(i).getDest().isVisited() == false) {
+            if (smallest == null || e.get(i).getWeight() < smallest.getWeight()) {
+              smallest = e.get(i);
+            } 
+          }
+        }
+      }
+
+      smallest.setVisited(true);
+      smallest.getDest().setVisited(true);
+      weight += smallest.getWeight();
+      vertex_count++;
+    }
+    return weight;
+  }
+
+  String printGraph() {
+    String result = "";
+
+    for (int i = 0; i < e.size(); i++) {
+     result += e.get(i).getSrc().getId() + "->"
+          + e.get(i).getDest().getId() + "["
+          + e.get(i).getWeight() + ", "
+          + e.get(i).isVisited() + "]  ";
+    }
+    return result;
+  }
+
+  void printMst(int w) {
+    System.out.println("MST");
+    for (int i = 0; i < e.size(); i++) {
+      if (e.get(i).isVisited() == true) {
+        System.out.println(e.get(i).getSrc().getId() + "->"
+            + e.get(i).getDest().getId());
+      }
+    }
+    System.out.println("weight: " + w);
+    System.out.println();
+  }
+};
+
+class mst {
+  public static void testGraph1() {
+    graph g = new graph(new ArrayList<vertex>(),
+        new ArrayList<edge>());
+    int v = 5;
+
+    // each edge contains the following: weight, src, dest
+    ArrayList<Integer> e1 = new ArrayList<Integer>(
+        Arrays.asList(1, 1, 2));
+    ArrayList<Integer> e2 = new ArrayList<Integer>(
+        Arrays.asList(1, 1, 3));
+    ArrayList<Integer> e3 = new ArrayList<Integer>(
+        Arrays.asList(2, 2, 3));
+    ArrayList<Integer> e4 = new ArrayList<Integer>(
+        Arrays.asList(3, 2, 4));
+    ArrayList<Integer> e5 = new ArrayList<Integer>(
+        Arrays.asList(3, 3, 5));
+    ArrayList<Integer> e6 = new ArrayList<Integer>(
+        Arrays.asList(2, 4, 5));
+
+    List<ArrayList<Integer>> e = new ArrayList<ArrayList<Integer>>();
+    e.add(e1);
+    e.add(e2);
+    e.add(e3);
+    e.add(e4);
+    e.add(e5);
+    e.add(e6);
+
+    g.generateGraph(v, e);
+    System.out.println("Testing graph 1...");
+    // g.printGraph();
+    int w = g.findMinSpanningTree();
+    g.printMst(w);
+  }
+
+  public static void testGraph2() {
+    graph g = new graph(new ArrayList<vertex>(),
+        new ArrayList<edge>());
+    int v = 7;
+
+    // each edge contains the following: weight, src, dest
+    ArrayList<Integer> e1 = new ArrayList<Integer>(
+        Arrays.asList(2, 1, 4));
+    ArrayList<Integer> e2 = new ArrayList<Integer>(
+        Arrays.asList(1, 1, 3));
+    ArrayList<Integer> e3 = new ArrayList<Integer>(
+        Arrays.asList(2, 1, 2));
+    ArrayList<Integer> e4 = new ArrayList<Integer>(
+        Arrays.asList(1, 3, 4));
+    ArrayList<Integer> e5 = new ArrayList<Integer>(
+        Arrays.asList(3, 2, 4));
+    ArrayList<Integer> e6 = new ArrayList<Integer>(
+        Arrays.asList(2, 3, 5));
+    ArrayList<Integer> e7 = new ArrayList<Integer>(
+        Arrays.asList(2, 4, 7));
+    ArrayList<Integer> e8 = new ArrayList<Integer>(
+        Arrays.asList(1, 5, 6));
+    ArrayList<Integer> e9 = new ArrayList<Integer>(
+        Arrays.asList(2, 5, 7));
+
+    List<ArrayList<Integer>> e = new ArrayList<ArrayList<Integer>>();
+    e.add(e1);
+    e.add(e2);
+    e.add(e3);
+    e.add(e4);
+    e.add(e5);
+    e.add(e6);
+    e.add(e7);
+    e.add(e8);
+    e.add(e9);
+
+    g.generateGraph(v, e);
+    System.out.println("Testing graph 2...");
+    // g.printGraph();
+    int w = g.findMinSpanningTree();
+    g.printMst(w);
+  }
+
+  public static void main(String[] args) {
+    testGraph1();
+    testGraph2();
+  }
+}
+```
+
+
+### Topological Sort
+<hr>
+
+- Problem Statement :
+
+Topological Sort of a directed graph (a graph with unidirectional edges) is a linear ordering of its vertices such that for every directed edge (U, V) from vertex U to vertex V, U comes before V in the ordering.
+
+Given a directed graph, find the topological ordering of its vertices.
+
+- Example 1 :
+
+Input: Vertices=4, Edges=[3, 2], [3, 0], [2, 0], [2, 1] Output: Following are the two valid topological sorts for the given graph:
+```
+3, 2, 0, 1
+3, 2, 1, 0
+```
+- Example 2 :
+```
+Input: Vertices=5, Edges=[4, 2], [4, 3], [2, 0], [2, 1], [3, 1] Output: Following are all valid topological sorts for the given graph:
+```
+```
+4, 2, 3, 0, 1
+4, 3, 2, 0, 1
+4, 3, 2, 1, 0
+4, 2, 3, 1, 0
+4, 2, 0, 3, 1
+```
+**Solution** :
+
+- Runtime complexity :
+
+In step ‘d’, each vertex will become a source only once and each edge will be accessed and removed once. Therefore, the time complexity of the above algorithm will be O(V+E), where ‘V’ is the total number of vertices and ‘E’ is the total number of edges in the graph
+
+- Memory complexity :
+
+The space complexity will be O(V+E), since we are storing all of the edges for each vertex in an adjacency list.
+
+- Explanation :
+
+The basic idea behind the topological sort is to provide a partial ordering among the vertices of the graph such that if there is an edge from U to V then U≤V i.e., U comes before V in the ordering. Here are a few fundamental concepts related to topological sort:
+
+**Source** : Any node that has no incoming edge and has only outgoing edges is called a source.
+
+**Sink** : Any node that has only incoming edges and no outgoing edge is called a sink.
+
+So, we can say that a topological ordering starts with one of the sources and ends at one of the sinks.
+
+A topological ordering is possible only when the graph has no directed cycles, i.e. if the graph is a `Directed Acyclic Graph (DAG)`. If the graph has a cycle, some vertices will have cyclic dependencies which makes it impossible to find a linear ordering among vertices.
+
+To find the topological sort of a graph we can traverse the graph in a `Breadth First Search (BFS)` way. We will start with all the sources, and in a stepwise fashion, save all sources to a sorted list. We will then remove all sources and their edges from the graph. After the removal of the edges, we will have new sources, so we will repeat the above process until all vertices are visited.
+
+This is how we can implement this algorithm:
+
+- a. Initialization :
+
+We will store the graph in `Adjacency Lists`, which means each parent vertex will have a list containing all of its children. We will do this using a `HashMap` where the ‘key’ will be the parent vertex number and the value will be a `List` containing children vertices. To find the sources, we will keep a `HashMap` to count the in-degrees i.e., count of incoming edges of each vertex. Any vertex with ‘0’ in-degree will be a source.
+
+- b. Build the graph and find in-degrees of all vertices :
+
+
+1. We will build the graph from the input and populate the in-degrees HashMap. c. Find all sources
+
+2. All vertices with ‘0’ in-degrees will be our sources and we will store them in a Queue.
+
+- d. Sort :
+
+1. For each source, do the following things :
+
+Add it to the sorted list.
+Get all of its children from the graph.
+Decrement the in-degree of each child by 1.
+If a child’s in-degree becomes ‘0’, add it to the sources Queue.
+
+2. Repeat step 1, until the source Queue is empty.
+
+- Code :tada:
+```java
+
+import java.util.*;
+
+class TopologicalSort {
+  public static List<Integer> sort(int vertices, int[][] edges) {
+    List<Integer> sortedOrder = new ArrayList<>();
+    if (vertices <= 0)
+      return sortedOrder;
+
+    // a. Initialize the graph
+    HashMap<Integer, Integer> inDegree = new HashMap<>(); // count of incoming edges for every vertex
+    HashMap<Integer, List<Integer>> graph = new HashMap<>(); // adjacency list graph
+    for (int i = 0; i < vertices; i++) {
+      inDegree.put(i, 0);
+      graph.put(i, new ArrayList<Integer>());
+    }
+
+    // b. Build the graph
+    for (int i = 0; i < edges.length; i++) {
+      int parent = edges[i][0], child = edges[i][1];
+      graph.get(parent).add(child); // put the child into it's parent's list
+      inDegree.put(child, inDegree.get(child) + 1); // increment child's inDegree
+    }
+
+    // c. Find all sources i.e., all vertices with 0 in-degrees
+    Queue<Integer> sources = new LinkedList<>();
+    for (Map.Entry<Integer, Integer> entry : inDegree.entrySet()) {
+      if (entry.getValue() == 0)
+        sources.add(entry.getKey());
+    }
+
+    // d. For each source, add it to the sortedOrder and subtract one from all of its children's in-degrees
+    // if a child's in-degree becomes zero, add it to the sources queue
+    while (!sources.isEmpty()) {
+      int vertex = sources.poll();
+      sortedOrder.add(vertex);
+      List<Integer> children = graph.get(vertex); // get the node's children to decrement their in-degrees
+      for (int child : children) {
+        inDegree.put(child, inDegree.get(child) - 1);
+        if (inDegree.get(child) == 0)
+          sources.add(child);
+      }
+    }
+
+    if (sortedOrder.size() != vertices) // topological sort is not possible as the graph has a cycle
+      return new ArrayList<>();
+
+    return sortedOrder;
+  }
+
+  public static void main(String[] args) {
+    List<Integer> result = TopologicalSort.sort(4,
+        new int[][] { new int[] { 3, 2 }, new int[] { 3, 0 }, new int[] { 2, 0 }, new int[] { 2, 1 } });
+    System.out.println(result);
+
+    result = TopologicalSort.sort(5, new int[][] { new int[] { 4, 2 }, new int[] { 4, 3 }, new int[] { 2, 0 },
+        new int[] { 2, 1 }, new int[] { 3, 1 } });
+    System.out.println(result);
+
+    result = TopologicalSort.sort(7, new int[][] { new int[] { 6, 4 }, new int[] { 6, 2 }, new int[] { 5, 3 },
+        new int[] { 5, 4 }, new int[] { 3, 0 }, new int[] { 3, 1 }, new int[] { 3, 2 }, new int[] { 4, 1 } });
+    System.out.println(result);
+  }
+}
+```
+
+### Tasks Scheduling
+<hr>
+
+- Problem Statement :
+
+There are ‘N’ tasks, labeled from ‘0’ to ‘N-1’. Each task can have some prerequisite tasks which need to be completed before it can be scheduled. Given the number of tasks and a list of prerequisite pairs, find out if it is possible to schedule all the tasks.
+
+- Example 1 :
+```
+Input: Tasks=3, Prerequisites=[0, 1], [1, 2] Output: true Explanation: To execute task '1', task '0' needs to finish first. Similarly, task '1' needs to finish before '2' can be scheduled. One possible scheduling of tasks is: [0, 1, 2]
+```
+- Example 2 :
+```
+nput: Tasks=3, Prerequisites=[0, 1], [1, 2], [2, 0] Output: false Explanation: The tasks have a cyclic dependency, therefore they cannot be scheduled.
+```
+**Solution** :
+
+- Runtime complexity :
+
+In step ‘d’, each task can become a source only once, and each edge (i.e., prerequisite) will be accessed and removed once. Therefore, the time complexity of the above algorithm will be O(V+E), where ‘V’ is the total number of tasks and ‘E’ is the total number of prerequisites.
+
+- Memory complexity :
+
+The space complexity will be O(V+E), since we are storing all of the prerequisites for each task in an adjacency list.
+
+- Explanation :
+
+This problem is asking us to find out if it is possible to find a topological ordering of the given tasks. The tasks are equivalent to the vertices and the prerequisites are the edges.
+
+We can use a similar algorithm as described in Topological Sort to find the topological ordering of the tasks. If the ordering does not include all the tasks, we will conclude that some tasks have cyclic dependencies.
+
+- Code :tada:
+
+import java.util.*;
+
+class TaskScheduling {
+  public static boolean isSchedulingPossible(int tasks, int[][] prerequisites) {
+    List<Integer> sortedOrder = new ArrayList<>();
+    if (tasks <= 0)
+      return false;
+
+    // a. Initialize the graph
+    HashMap<Integer, Integer> inDegree = new HashMap<>(); // count of incoming edges for every vertex
+    HashMap<Integer, List<Integer>> graph = new HashMap<>(); // adjacency list graph
+    for (int i = 0; i < tasks; i++) {
+      inDegree.put(i, 0);
+      graph.put(i, new ArrayList<Integer>());
+    }
+
+    // b. Build the graph
+    for (int i = 0; i < prerequisites.length; i++) {
+      int parent = prerequisites[i][0], child = prerequisites[i][1];
+      graph.get(parent).add(child); // put the child into it's parent's list
+      inDegree.put(child, inDegree.get(child) + 1); // increment child's inDegree
+    }
+
+    // c. Find all sources i.e., all vertices with 0 in-degrees
+    Queue<Integer> sources = new LinkedList<>();
+    for (Map.Entry<Integer, Integer> entry : inDegree.entrySet()) {
+      if (entry.getValue() == 0)
+        sources.add(entry.getKey());
+    }
+
+    // d. For each source, add it to the sortedOrder and subtract one from all of its children's in-degrees
+    // if a child's in-degree becomes zero, add it to the sources queue
+    while (!sources.isEmpty()) {
+      int vertex = sources.poll();
+      sortedOrder.add(vertex);
+      List<Integer> children = graph.get(vertex); // get the node's children to decrement their in-degrees
+      for (int child : children) {
+        inDegree.put(child, inDegree.get(child) - 1);
+        if (inDegree.get(child) == 0)
+          sources.add(child);
+      }
+    }
+
+    // if sortedOrder doesn't contain all tasks, there is a cyclic dependency between tasks, therefore, we
+    // will not be able to schedule all tasks
+    return sortedOrder.size() == tasks;
+  }
+
+  public static void main(String[] args) {
+
+    boolean result = TaskScheduling.isSchedulingPossible(3, new int[][] { new int[] { 0, 1 }, new int[] { 1, 2 } });
+    System.out.println("Tasks execution possible: " + result);
+
+    result = TaskScheduling.isSchedulingPossible(3,
+        new int[][] { new int[] { 0, 1 }, new int[] { 1, 2 }, new int[] { 2, 0 } });
+    System.out.println("Tasks execution possible: " + result);
+
+    result = TaskScheduling.isSchedulingPossible(6, new int[][] { new int[] { 2, 5 }, new int[] { 0, 5 },
+        new int[] { 0, 4 }, new int[] { 1, 4 }, new int[] { 3, 2 }, new int[] { 1, 3 } });
+    System.out.println("Tasks execution possible: " + result);
+  }
+}
+```
 ... (rest of your README)
