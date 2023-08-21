@@ -30,6 +30,10 @@
     - [Git Fetch](#git-fetch)
     - [Git Pull](#git-pull)
     - [Pull Requests](#pull-requests)
+  - [Rebasing Branches]
+    - [Git Rebase](#git-rebase)
+    - [Managing Conflicts When Rebasing](#managing-conflicts-when-rebasing)
+    - [Difference Between Rebasing And Merging](#difference-between-rebasing-and-merging)
 ## Getting Started
 
 ### What Is Version Control?
@@ -1029,3 +1033,112 @@ Request more changes
 Close the pull request without merging the branch if the proposed changes aren’t needed
 Pull requests also allow you to view the entire list of commits and who made the commit.
 Pull requests also allow you to view the files that will be changed and how they will be changed in a convenient manner. Each line of code is colored, which represents whether that line was added, deleted, or was left unchanged. The green color shows that the new line was inserted, and a red-colored line would mean the line is meant to be removed.
+
+
+### Git Rebase
+<hr>
+
+What is rebasing, and how do you use the git rebase command? You'll find the answers to these questions in this lesson.
+
+- The `git rebase` command :
+
+Rebasing is useful for making sure that the branch you are working on diverges from the latest version of the parent branch.
+
+Let’s say you took out a new branch from `master` and continued working on it, adding new commits. During this time, the `master` branch ends up with new commits and updates from other contributors who merged their code with it.
+
+Ideally, you would want to make sure that the branch you have been working on links to the latest version of the parent branch. This concern is what rebasing will allow you to manage.
+
+If the currently active branch you are working on is called `new_branch`, and it was taken out from the `master` branch, which has been updated after you had already created a separate branch, this is what you will need to enter to rebase your branch with the latest version of the `master` branch:
+```
+git rebase <parent_branch>
+```
+In this case, it would be:
+```
+git rebase master
+```
+If there were no errors and no conflicts, in the end, your branch would now be originating from the latest version of the master branch, thus modifying its commit history.
+
+- Rebasing in action :
+
+Let’s take a practical example and test out the `git rebase` command. In the terminal provided below, there are two branches, `master` and `new_branch`, that have already been set up.
+
+The `new_branch` branch was created after the initial commit for the `master` branch in which we added a new file, `file1.txt`.
+
+The `new_branch` has its own commit too, in which a new file, `file2.txt`, was added. Once that was done, the `master` branch also added its own new commit, which would mean that this commit would not be a part of the `new_branch`'s commit history. We can verify this by using the `git log` command.
+
+We want to make sure that `new_branch` is taken out from the latest version of the `master` branch. This means that `new_branch` would be branching out from the latest commit from `master`.
+
+This is what you will need to do:
+
+Checkout to the `new_branch` from the currently active `master` branch.
+Enter `git rebase master`
+If everything worked smoothly, `new_branch` should have an updated commit history. You can verify that once again by using the `git log` command.
+
+This looks fairly simple. However, what if the rebase were to fail mid way? What if there were new commits in `master` that conflicted with the changes that were made in `new_branch`?
+
+
+### Managing Conflicts When Rebasing
+<hr>
+
+What happens if the rebase operation runs into conflicts? Let's take a look.
+
+In the previous lesson, we discussed what rebasing does and also tested out a scenario where we were able to carry out and observe a successful rebase operation.
+
+However, it’s not all that simple.
+
+- Why conflicts can occur when rebasing :
+
+What if you decided to rebase your branch with the latest version of the parent branch, which contains new commits that have changed the same files at the same location within those files where you have also included your changes?
+
+Do note that when a rebase is carried out, it takes place commit by commit. Therefore, what would happen if one of the parent branch’s commit conflicted with the changes one of your branch’s commit was trying to introduce? Git is not intelligent enough to decipher which changes to keep and which ones ought to be discarded.
+
+That’s where it will prompt the rebase not to be completed and will require you to handle the conflict by picking out the changes you want to keep and discarding the rest. Once you are done with that, you can choose to continue the rebase operation that had been paused. You can also choose to completely abort the rebase operation altogether if such a situation arises. You might realize that a large number of conflicts could occur with each new commit that is applied, making it troublesome to resolve every conflict.
+
+In the terminal, checkout to the new_branch so that it becomes the currently active branch:
+```
+git checkout new_branch
+```
+In the working directory, enter the command:
+```
+git rebase master
+```
+You will get an error stating that the rebase could not be completed:
+
+This is how Git will display the conflict in `file1.txt`, by highlighting the content from each branch allowing you to visually differentiate it and also decide what to keep:
+
+Using any text editor you like, you can modify the contents of the file by removing changes you don’t want and keeping the ones you do. In the terminal provided below, you can either use nano or vim.
+
+Once you are done, you will enter the command:
+```
+git add file1.txt
+```
+This will make sure that Git has not added your changes to `file1.txt` to be staged. You can proceed with the rebase process now. Enter the following command to do so:
+```
+git rebase --continue
+```
+And there you have it. You have successfully resolved a conflict that occurred during the rebase process. Congratulations!
+
+
+### Difference Between Rebasing and Merging
+<hr>
+
+Let's see what the difference is between the rebasing and merging commands.
+
+`git merge` and `git rebase` are often used for very similar tasks. These commands are used to alter commit histories of branches and integrate one branch with another.
+
+- What is the difference between rebasing and merging?
+
+The significant differences to note between the two operations are as follows:
+
+Merging results in a new merge commit for the branch with which another is merged.
+Rebasing doesn’t result in any new commits. It updates the rebased branch’s commit history to look like it was taken out from a more recent version of the parent branch.
+
+- When should you merge and when should you rebase?
+
+If more than one person is working on a particular branch, then, in that case, rebasing it would not be a good idea. Other collaborators will be routinely pulling the latest version of the branch on their local machines, unaware that someone rebased it, fundamentally altering its state and leading to inconsistent branches for everyone. However, if you’re the only person working on the branch, then rebasing is a very viable option to make sure that your branch is taken from the latest version of the parent branch.
+
+If you don’t want to alter the commit history of a branch, you should use `git merge`. `git merge` will retain the commit history as it is and add a new merge commit instead, while rebasing a branch will alter the commit history for that branch. This will be a less intense change for people collaborating on a branch since one person merging another branch with it would result in a new commit that others can then simply pull locally from a remote repository. If the branch were rebased and pushed to the remote repository, when others pull it, the updated branch would conflict with the local one even though it would be the same branch.
+
+> Note: Reverting a rebase is a much more complicated process than reverting a merge in case there are many conflicts.
+
+This wraps up our discussion on the differences between the two commands. Hopefully, you now have an idea of which one to use and when you would want to prefer one over the other.
