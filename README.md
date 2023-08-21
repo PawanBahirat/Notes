@@ -118,7 +118,7 @@
     - [Hashmap Vs Hashset](#hashmap-vs-hashset)
     - [Find Whether An Array Is A Subset Of Another Array](#find-whether-an-array-is-a-subset-of-another-array)
     - [Find Symmetric Pairs In An Array](#find-symmetric-pairs-in-an-array)
-    - [Find Two Pairs In An Array Such That A+B C+D](#find-two-pairs-in-an-array-such-that-a+b-c+d)
+    - [Find Two Pairs In An Array Such That A+B=C+D](#find-two-pairs-in-an-array-such-that-a+b=c+d)
     - [Find If A Subarray With A Sum Equal To 0 Exists](#find-if-a-subarray-with-a-sum-equal-to-0-exists)
     - [First Non-Repeating Integer In An Array](#first-non-repeating-integer-in-an-array)
     - [Remove Duplicate From A Linked List Using Hashing](#remove-duplicate-from-a-linked-list-using-hashing)
@@ -11293,7 +11293,7 @@ It should be noted that the pairs must be unique for this solution to work. We a
 
 The hash table lookups work in constant time. Hence, our traversal of the input list makes the algorithm run in O(n) where n is the array size.
 
-### Find two pairs in an Array such that a+b = c+d
+### Find Two Pairs In An Array Such That A+B C+D
 <hr>
 
 - Problem Statement :
