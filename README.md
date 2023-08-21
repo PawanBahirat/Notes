@@ -11057,7 +11057,7 @@ Ignoring the space needed for the output array, the space complexity will be O(K
 
 ## Hash Table
 
-### ntroduction to Hash Tables
+### Introduction to Hash Tables
 <hr>
 
 - Introduction :
