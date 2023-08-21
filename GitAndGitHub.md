@@ -22,7 +22,14 @@
     - [Git Merge](#git-merge)
     - [Merge Conflicts](#merge-conflicts)
     - [Resolving Merge Conflicts](#resolving-merge-conflicts)
-    
+  - [Remote Repositories](#remote-repositories)
+    - [What Is GitHub?](#what-is-github)
+    - [Creating A Remote Repository](#creating-a-remote-repository)
+    - [Pushing Code To GitHub](#pushing-code-to-github)
+    - [Git Clone](#git-clone)
+    - [Git Fetch](#git-fetch)
+    - [Git Pull](#git-pull)
+    - [Pull Requests](#pull-requests)
 ## Getting Started
 
 ### What Is Version Control?
@@ -721,3 +728,302 @@ And there you have it. You should now have a fairly good idea of what to do when
 Update the files that contain the conflicts
 Use `git add` to add the updated files to staging
 Create a new commit that contains the files which have been updated to resolve the conflicts
+
+
+### What Is GitHub?
+<hr>
+
+Get introduced to GitHub and learn how you can create repositories on the platform.
+
+- A code hosting platform :
+
+GitHub is a code hosting platform. Git creates a local repository on every contributor’s computer, which contains the entire codebase and its revision history. You can consider GitHub as a platform that stores the whole codebase in a `remote repository`.
+
+By enabling the creation of remote repositories, GitHub allows developers to have a unified source of truth for their source code. They can treat that as the main version from which every other contributor creates local repositories.
+
+If your codebase is in a remote repository on GitHub:
+
+Every other contributor who wants to work on the project will know that they can get the code from the remote repository.
+Any updates that they make and then want to share can push those changes to the remote repository instead of sending each contributor the updates one by one.
+While Git is a convenient command-line tool that you can utilize to manipulate and update the repository, GitHub serves as an interactive interface where you can navigate through your codebase and the revision history it has gone through effortlessly.
+
+- Creating an account :
+
+To create your repositories on GitHub or contribute to other open source projects, you will need to create a personal account on [GitHub](#https://github.com/).
+
+> Open source projects are those software whose source code is available for free. GitHub has one of the largest communities of open-source projects.
+
+Once you have your own GitHub account with your unique username and ID, you will be able to contribute to a plethora of public repositories and projects. You will also be able to create your own repositories.
+
+
+### Creating a Remote Repository
+<hr>
+
+Learn how to create a remote repository for projects on GitHub.
+
+- Creating your first repository on GitHub :
+
+Let’s see how you can now create a repository on GitHub. Once you are logged in and are on the homepage, you will notice a button on the top left side titled ‘New’.
+
+Once you click on the ‘New’ button, GitHub will redirect you to a different page where you will have to provide a name for the repository. Additionally, you can add a description of your repository. You may provide the sample information given below for your first repository:
+
+**Name**: `test_project`
+**Description** : “The first repository that I will use to learn Git commands.”
+
+- Public and private repositories :
+
+Besides providing a name and description, you need to choose whether you want your repository to be `public` or `private`.
+
+As the name suggests, a public repository is accessible to anyone who wants to look it up. Anyone is able to see the codebase and clone this repository to their local machine for use.
+
+A private repository, on the other hand, is only visible to people who you have chosen. No other person is able to view it.
+
+Since you are creating your first repository and will only be using it to learn Git and GitHub, it would be wise to opt for a private repository.
+
+GitHub will allow you to select a private or public repository.
+
+- The README file :
+
+Another decision you will have to make while creating a new repository is whether or not you’ll create a README file.
+
+The README file contains necessary information about the repository. For example, it might include the following information:
+
+Instructions on how to clone and run the source code on local machines
+A basic guide on how to use the library or package that the repository contains
+What to do if you come across certain kinds of bugs
+Licensing and copyright information
+Contact information about people who contributed to the code\
+For now, let’s opt to create a repository that won’t have a README. GitHub will provide you with the option to choose to initialize a project with or without a README:
+
+- The `.gitignore` file :
+
+Finally, you will be able to choose whether or not you want a `.gitignore` file with your repository. The purpose of the `.gitignore` file is to filter out files and subdirectories in your repository that you do not want Git to keep track of. Therefore, any changes you make to files contained in a `.gitignore` file will not be marked as modified, staged, or committed by Git.
+
+Here is an example of a `.gitignore` file:
+```
+# if you dont want to track a single file
+abc.txt
+
+#if you dont want to track files with a certain extension
+*.pyc
+
+# if you dont want to track a directory
+htmlcov/
+```
+For now, you can opt not to create a `.gitignore` file with your repository. Once you fill in all the options, you will be ready to create your GitHub repository.
+
+
+### Pushing Code to GitHub
+<hr>
+
+Learn how to push your code present in the local repository to GitHub.
+
+When you create a remote repository on GitHub, it will initially be empty. You will need a way to get your local repository to the remote repository on GitHub.
+
+Git provides a convenient way to make this happen:
+
+You will need to add the link of the remote repository to a local repository.
+You will then `push` your code in the local repository to the remote one.
+
+The `git remote` and `git push` commands let us do this, respectively.
+
+> Note: When you’re done configuring the new remote GitHub repository, you will be redirected to a page that will contain all the relevant links you will need to set up the repository locally.
+
+- The `git remote` command :
+
+The `git remote` command allows Git to track remote repositories and connects local repositories to those remote ones. When we create a new remote repository on GitHub, we can provide its link to our local Git repository along with a reference name to that link, which we can use for our convenience.
+
+For example, let’s say we want to add our remote repository to the local one. Therefore, the command we will enter in the terminal will be:
+```
+git remote add <name> <url_to_remote_repository>
+```
+We will name our remote repository link `origin` :
+```
+git remote add origin <url_to_remote_repository>
+```
+> Note: The name `origin` is essentially a more human-readable way to link to the remote repository instead of always having to use the actual URL. `origin` is simply a conventional name, but we can use any other name as well.
+
+To verify that the remote link works, we can use the plain command `git remote`, and it will list all the remote repositories we have added. If the name `origin` is present in the list, we will know that the remote repository is accessible for us to retrieve or send code for our local repository.
+
+- The `git push` command :
+
+Once we have added the remote repository URL to our local one, we will want to push or upload our local code and its revision history to the remote repository. This can be done using `git push`.
+
+The `git push` command will update the remote repository code with all the updates that were made in the local repository.
+
+You can make changes to a local branch and create several commits. Once you are done, you can push your changes to the remote repository.
+
+For example, if you are working on the master branch and have added a remote repository and given it the name origin, you will need to enter the following command to push your changes to the remote repository:
+```
+git push origin master
+```
+In other words, the basic syntax for pushing a branch to a remote repository is:
+```
+git push <remote_repository> <branch_name>
+```
+And there you have it. You have successfully pushed your code to a remote repository.
+
+
+### Git Clone
+<hr>
+
+Learn how to clone remote repositories to your local machine in this lesson.
+
+- The `git clone` command
+
+We can use the `git clone` command to clone or copy the entire codebase of a project from a remote repository and set it up as a local repository on our machines.
+
+While cloning the project, two more actions occur as well:
+```
+1. The `git clone` command will also create a remote link to the remote repository being cloned and name it `origin`. This is similar to manually entering the command `git remote add origin <remote_repository_url>`.
+2. It will copy and set up the primary branch, which is the master branch in most cases, as the active branch in the working directory.
+```
+You can test this command out yourself in the terminal provided at the end of the lesson. You can look up a repository on GitHub that you like and clone it.
+```
+git clone <link_to_repository>
+```
+- Cloning a particular branch :
+
+In case you want to clone a branch that the HEAD in the remote repository doesn’t point to by default, you can also provide the name of that specific branch with the `git clone` command. For example, you might want to download or clone a branch other than the `master` branch.
+
+> The HEAD is the latest commit or snapshot of the branch that you are on. Consider it to be the last piece of a chain.
+
+For a remote repository, if you used the `git clone` command without specifying a particular branch name, the HEAD will be considered to be the latest commit in the `master` branch.
+```
+git clone --branch <branch_name> <link_to_repository>
+```
+- Shallow cloning :
+
+Sometimes, we might come across a remote repository that we want to clone, but its commit history might be too long, resulting in longer times to download and clone. This occurs when the project is very large and has a very large commit history. You can opt to clone the commit history up to a certain point by using the --depth flag.
+
+Try the following command in the terminal provided below:
+```
+git clone <repository_url> --depth 1
+```
+You can change the depth number according to your requirement.
+
+- Try it yourself :
+
+In the terminal provided below, try out the commands to clone a repository from GitHub on your own. You can clone a repository that you’ve created or clone any other repository you want. As an example, try cloning this repository:
+```
+https://github.com/githubteacher/github-slideshow.git
+```
+This is a simple public [repository](https://github.com/githubteacher/github-slideshow) for getting familiar with GitHub. You don’t need to worry about the contents of the repository itself.
+
+You will need to enter the following command:
+```
+git clone https://github.com/githubteacher/github-slideshow.git
+```
+When you successfully clone the project, all of the project’s files will be available to you locally in a separate directory. Use the `ls` command to view the directory name. You will need to switch to the project directory using the `cd` command and verifying the contents.
+
+Try entering other Git related commands as well, such as `git log` and `git branch`, to test various aspects of the newly cloned repository.
+
+
+### Git Fetch
+<hr>
+
+Let’s take a look at the git fetch command in this lesson.
+
+- The git fetch command
+
+`git fetch` is used to download the updated changes from a remote repository. If you are working in a collaborative environment and want to see how other people might have updated the remote repository between now and the last time you viewed it, you will need to use the `git fetch` command.
+
+The benefit of `git fetch` is that it merely downloads the latest changes and does not affect your local codebase and updates. The `git fetch` command is useful if you want to know how the remote repository has changed but don’t want those changes to alter your local setup.
+
+For example, let’s say you are working on the master branch, and in the meantime, other collaborators have made a few changes to the remote repository. You want to take a look at those changes but don’t want them to interfere with your branch just yet. Therefore, you can use the following command:
+```
+git fetch origin
+```
+`origin`, in this case, is the name of the remote repository. You will be able to view the updated commit history and the latest commits as well.
+
+> You can switch over to the fetched branch using the `git checkout origin/master` command.
+
+Once you’ve decided to merge those changes with your local master branch, you can use the following command:
+```
+git merge origin/master
+```
+The `git merge origin/master` command will make sure that the latest changes in the remote branch are merged with the local version of the branch as well.
+
+Enter the following command to verify which branch you are currently on:
+```
+git branch
+```
+You will notice you are currently on the `master` branch. Try entering the following command:
+```
+git fetch origin master
+```
+Followed by:
+```
+git merge origin/master
+```
+The `Already up-to-date` message means that the local branch and the remote one have no pending changes and are identical.
+
+
+### Git Pull
+<hr>
+
+This lesson discusses the git pull command and how you can make use of it.
+
+- The `git pull` command :
+
+Similar to `git fetch`, the `git pull` command also downloads the latest updates from the remote repository. In many ways, it does what `git fetch` also does but with the added function of merging the newly downloaded remote repository with the latest commits into the local version of the branch.
+
+Let’s say you’ve been working on creating a new feature for your project on a branch with another team member. Both you and the teammate have been working tirelessly, and making changes and committing them regularly. There will be countless times when you will need to make sure that your branch is in sync with your teammate’s branch.
+
+Both of you will push your commits to the remote repository and pull each other’s changes. This is where the `git pull` command comes in handy.
+```
+git pull origin branch_name
+```
+The command above will download the latest changes from the remote repository and merge them into your local branch, ultimately updating your branch HEAD to point to the latest commit in that branch.
+
+Enter the following command to check which branch you are currently on:
+```
+git branch
+```
+You will note that the currently active branch is `master`. Now, enter the following command to pull the remote `master` branch locally:
+```
+git pull origin master
+```
+You will notice an immediate difference between how the `git fetch` command worked and how the `git pull` command downloaded the remote branch. While it took two steps to download and merge the remote branch, you got the very same result with only one command using `git pull`.
+
+While the `git fetch` command only downloaded the remote branch, the `git pull` command downloaded and merged the remote branch into the local one as well. Once again, `The Already up-to-date` message means that the local branch and the remote one have no pending changes and are identical.
+
+
+### Pull Requests
+<hr>
+
+Let's learn about pull requests and how useful they can be when working with a team.
+
+- What are pull requests :
+
+Pull requests are a way to formally contribute to a project without disrupting the workflow of the other team members and also a way to maintain a check and balance of the contributions added to the project source code.
+
+Platforms such as GitHub have a straightforward and convenient way to create pull requests. These allow other contributors to review and evaluate your submitted work and provide comments and suggestions accordingly.
+
+Go over to the project repository on GitHub
+Switch to the pull requests tab
+Click on the ‘New pull request’ button on the top right
+Select the appropriate base branch (the branch with which the other one is meant to be merged) and the branch you want to compare changes with
+And that’s it! You’ve created your own pull request!
+
+Think of pull requests as the intermediate step before you can merge your contribution into the source code. Pull requests serve as barriers for the source code not to be polluted with modifications that are not vetted. Once the pull request is approved, the changes in the pull request are merged with the source code.
+
+Pull requests are a user-friendly way of keeping a record of all the modifications that your project’s source code goes through, the discussions that took place regarding the proposed changes, and also who the responsible stakeholders were for each change that was incorporated.
+
+- Pull requests are not restricted to Git :
+
+Pull requests aren’t specific to Git, and there is no special command that is used to create pull requests. They are simply a method or process that is extremely beneficial to developers working on projects with teams or for open source projects. You can create pull requests on GitHub, Bitbucket, or any other similar platform.
+
+- Pull requests have several functions :
+
+The image provided above shows the GitHub page for a pull request.
+
+The pull request displays the list of commits that will be merged and also displays the branch that will be merged and the branch with which the other branch will be merged. In this case, the branch `task/user-posts-in-newsfeed` will be merged with `master`.
+The pull requests page allows contributors and reviewers to start a discussion by adding comments and details regarding the changes proposed.
+You can ask other contributors to review your pull requests. Pull requests make the following tasks easier, quicker, and better documented:
+Merge the changes in the pull request
+Approve the pull request
+Request more changes
+Close the pull request without merging the branch if the proposed changes aren’t needed
+Pull requests also allow you to view the entire list of commits and who made the commit.
+Pull requests also allow you to view the files that will be changed and how they will be changed in a convenient manner. Each line of code is colored, which represents whether that line was added, deleted, or was left unchanged. The green color shows that the new line was inserted, and a red-colored line would mean the line is meant to be removed.
