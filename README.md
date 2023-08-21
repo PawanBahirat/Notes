@@ -12934,7 +12934,7 @@ This problem is asking us to find out if it is possible to find a topological or
 We can use a similar algorithm as described in Topological Sort to find the topological ordering of the tasks. If the ordering does not include all the tasks, we will conclude that some tasks have cyclic dependencies.
 
 - Code :tada:
-
+```java
 import java.util.*;
 
 class TaskScheduling {
