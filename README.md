@@ -112,7 +112,16 @@
     - [Find The K Largest Elements In An Array](#find-the-k-largest-elements-in-an-array)
     - [Find The Median Of A Number Stream](#find-the-median-of-a-number-stream)
     - [Sliding Window Median](#sliding-window-median)
-
+  - [Hash Table](#hash-table)
+    - [Introduction To Hash Tables](#introduction-to-hash-tables)
+    - [Trie Vs Hash Table](#trie-vs-hash-table)
+    - [Hashmap Vs Hashset](#hashmap-vs-hashset)
+    - [Find Whether An Array Is A Subset Of Another Array](#find-whether-an-array-is-a-subset-of-another-array)
+    - [Find Symmetric Pairs In An Array](#find-symmetric-pairs-in-an-array)
+    - [Find Two Pairs In An Array Such That A+B C+D](#find-two-pairs-in-an-array-such-that-a+b-c+d)
+    - [Find If A Subarray With A Sum Equal To 0 Exists](#find-if-a-subarray-with-a-sum-equal-to-0-exists)
+    - [First Non-Repeating Integer In An Array](#first-non-repeating-integer-in-an-array)
+    - [Remove Duplicate From A Linked List Using Hashing](#remove-duplicate-from-a-linked-list-using-hashing)
 ## Data Structures
 
 ### Arrays
@@ -11046,4 +11055,620 @@ Removing the element going out of the sliding window. This will take O(K) as we 
 Ignoring the space needed for the output array, the space complexity will be O(K) because, at any time, we will be storing all the numbers within the sliding window.
 
 
+## Hash Table
+
+### ntroduction to Hash Tables
+<hr>
+
+- Introduction :
+
+A hash table is a data structure that is used to search and retrieve elements in constant time. Hash tables apply a technique called hashing to uniquely identify each element. Elements or values are stored at some pre-calculated unique index called `key`. So every entry stored in the form of a `key-value` pair, and the collection of such items is called “Dictionary”. Each object can be searched using that `key` in O(1).
+
+- Internal working :
+
+Hash Tables are generally implemented using Arrays, as they are the only data structures that provide access to elements in constant O(1) time.
+
+Key-value pair
+So the idea of data retrieval in `O(1)` is executed by using a `key` to map the data on an array (there are many ways to compute this key). In the case of arrays, you can directly use the `key` as an index to store data. If you pass the key to the array, `the valu`e is retrieved; alternatively (in the most naive form),
+```
+value = arr[key]
+```
+Here’s an illustration of how a Hash Table is mapped to the indices (1,2,3,…,5) in an array, with the index of this array calculated through a pre-defined function.
+
+### Trie vs Hash Table
+<hr>
+
+- Comparison between Trie & HashTable# :
+
+One might wonder what is the need of using Tries when we can implement dictionaries with Hash Tables as well. A simple answer to this would be, yes, you can use Hash Tables to build dictionaries, but if you need a fast lookup and have long words which share common prefixes then a` Trie` is the perfect data structure for you. It also makes storing words easier, as the implementation is very simple. Some of the key points which differentiate a `Hash Table` from `Tries` are given below:
+
+1. **Common Prefixes In `Tries`**, the words having common prefixes share a common path until the end of the prefix. After that, they are divided into two branches. We cannot do that in `Hash Tables`; no matter how similar the words are, we would still need to store them at different locations. This would result in irrelevant iterations while searching. Here is an interesting example to explain what we just said: two words “interest” and “interesting” will be stored differently in a `HashTable`, but in a `Trie` we only need to add 3 new `nodes` for “ing” at the end of the “t” `Node`. Did you notice the space efficiency?
+
+2. **Lookup for Exact Words** As discussed in the previous lesson, `Tries` can perform a spell-check, but in `Hashing`. We can only look up exact words, otherwise, it will not be able to identify the word.
+
+3. **No Re-hashing Required** The most important part of a HashTable is the Hash function. It is often very difficult to build as the performance of `HashTable` is entirely dependent on it. But in Tries, we do not need to perform re-hashing to generate an index. It just traverses the nodes and inserts new `nodes`, that’s it!
+
+4. **Collision Resolution** One downside of using a `HashTable` is that we always need to come up with good collision resolution strategies to avoid collisions if the data is huge. A collision can never occur in `Trie` because all words are unique and can act like a “key”. This makes the implementation of Tries so much simpler!
+
+5. **Memory Requirements** In **worst case** scenarios, a `Trie` will definitely perform better than a HashTable, but `HashTables` will be more convenient to use in average cases-- depending upon the efficiency of the Hash function. As in `Trie`, we need to allocate 26 pointers at every node even if most of them are Null, so a `HashTable` would be more of a wise choice here!
+
+If your dictionary contains a lot of words with common prefixes or suffixes then Tries would be an efficient data structure to use as compared to Hash-Tables.
+
+### HashMap vs HashSet
+<hr>
+
+- Introduction :
+
+Before we solve any challenges regarding Hast Tables, it is necessary to look at the definitions of `HashMap` and `HashSet` and see how they are different. Both are implemented in Java using the `Hash Table` class, which is why it is also a common misconception that these two structures are the same, but they are very different from each other.
+
+- 🔍 HashMap? :
+
+`HashMap` is a collection that contains all the `key-value` pairs; it maps the values to keys. There is a built-in class available in Java for `HashMap`, implemented by using `Map` interface. It provides the basic functionality of hashing along with some helper functions that help in the process of insertion, deletion, and search.
+
+Some of the key features of `HashMap` are given below:
+
+A `HashMap` stores `key-value pairs` (examples given below) to map a key to the value:
+```
+abc->123
+xyz->456
+```
+`HashMap` cannot contain duplicate keys. It can, however, have duplicate values.
+
+`HashMap` also allows multiple null values and only one null key
+
+This mechanism does not support synchronous operations and is not thread-safe.
+
+- 🔍 HashSet?# :
+
+`HashSet` class is implemented in Java using `Set` interface. It is also built in the same way as `HashMap`, i.e., using the Hash Table class, but it is still quite different from the `HashMap` class. Some of the key features of `HashSet` are listed below:
+
+`HashSet` also stores values in an unordered way, using hashing, but this happens in the backend. On the backend, the `HashSet` class is implemented using the HashMap class. The `value` that we add to the `HashSet` is then added to the `HashMap` as a `key`, corresponding to a dummy `value` Object. The retrieval remains O(1).
+HashSet is a class which implements the Set interface and this interface only stores values, not a `key-value` pair.
+`HashSet` restricts storing multiple null values and only allows one null value in the whole table
+`HashSet` does not allow storing duplicate values as a set can only contain unique elements
+Just like `HashMap`, `HashSet` also does not support synchronous operations
+Enough of concepts for now. It’s time to test your understanding. You gotta solve some mind crunching exercises in the upcoming lessons. See you there!
+
+
+### Find whether an array is a subset of another array
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the isSubset() function to take two arrays as input and check whether an array is a subset of another given array.
+
+> Note: Both of these arrays represent sets, therefore, they do not contain duplicate values.
+
+Use the built-in `HashSet()` class. It works like a Hash Table at the back-end and comes in handy during Java interviews.
+
+- Function Prototype :
+```
+boolean isSubset(int []arr1,int[]arr2);
+```
+Here, arr1 and arr2 are integer arrays.
+
+- Output :
+
+It returns true if arr2 is a subset of arr1, or else it returns false
+
+- Sample Input :
+```
+arr1 = [9,4,7,1,-2,6,5] arr2 = [7,1,-2]
+```
+- Arrays representing sets.
+
+- Sample Output :
+```
+true
+```
+- Explanation :
+
+[7,1,-2] is present in arr1 from index 2 to 4, therefore arr2 is a subset of arr1.
+
+**Solution: Lookup in a Hash Table**
+
+- Code:tada:
+```java
+
+class CheckSubset {
+  static boolean isSubset(int arr1[], int arr2[]) {
+    HashSet<Integer> hset= new HashSet<>(); 
+    // hset stores all the values of arr1 
+    for(int i = 0; i < arr1.length; i++) { 
+      if(!hset.contains(arr1[i])) 
+        hset.add(arr1[i]); 
+    } 
+
+    // loop to check if all elements of arr2 also 
+    // lies in arr1 
+    for(int i = 0; i < arr2.length; i++) { 
+      if(!hset.contains(arr2[i])) 
+        return false; 
+    } 
+    return true; 
+  }
+  
+  public static void main(String args[]) {
+    
+    int[] arr1 = {9, 4, 7, 1, -2, 6, 5};
+    int[] arr2 = {7, 1, -2};
+    int[] arr3 = {10, 12};
+
+    System.out.println(isSubset(arr1, arr2));
+    System.out.println(isSubset(arr1, arr3));
+  }
+}
+```
+- Explanation :
+
+The solution is very simple when working Hash Tables. We simply iterate over `arr2` and `arr3` to see whether their elements can be found in `arr1`.
+
+At the back end, the values are checked against their hashed indices in `arr1`.
+
+- Time Complexity :
+
+For a lookup array with m elements and a subset array with n elements, the time complexity is O(m+n).
+
+### Find symmetric pairs in an Array
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the findSymmetric() function to find all the symmetric pairs in the given array. By definition, (a,b) and (c,d) are symmetric pairs if a = d and b = c. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+String findSymmetric(int [][]arr);
+```
+Here, arr is a 2D array containing pairs of integers.
+
+- Output :
+
+It returns a String containing the first occurance of all of the symmetric pairs of integers in the given array, arr.
+
+Sample Input :
+```
+arr[][] = [{1, 2}, {3, 4}, {5, 9}, {4, 3}, {9, 5}]
+```
+Sample Output :
+```
+"{3,4}{5,9}"
+```
+> Note: We will return {3, 4} and {5, 9} instead of {4, 3} and {9, 5} because the former occured first.
+
+- Explanation :
+
+Note: We will return {3, 4} and {5, 9} instead of {4, 3} and {9, 5} because the former occured first.
+
+**Solution: Using HashMap**
+
+- Code :tada:
+```java
+
+class CheckSymmetric {
+
+  public static String findSymmetric(int[][] arr) {
+    //Create an empty Hash Map
+    //Traverse given Array
+    //Look for second element of each pair in the hash. i.e for pair (1,2) look for key 2 in map.
+    //If found then store it in the result array, otherwise insert the pair in hash
+    HashMap < Integer,Integer > hashMap = new HashMap < Integer,Integer >();
+
+    String result = "";
+
+    //Traverse through the given array
+    for (int i = 0; i < arr.length; i++) {
+      int first = arr[i][0];
+      int second = arr[i][1];
+
+      Integer value = hashMap.get(second);
+
+      if (value != null && value == first) {
+        //Symmetric Pair found
+        result += "{" + String.valueOf(second) + "," + String.valueOf(first) + "}";
+      }
+      else 
+        hashMap.put(first, second);
+    }
+    return result;
+  }
+
+  public static void main(String args[]) {
+
+    int[][] arr = {{1, 2}, {3, 4}, {5, 9}, {4, 3}, {9, 5}};
+    String symmetric = findSymmetric(arr);
+    System.out.println(symmetric);
+
+  }
+
+}
+```
+- Explanation :
+
+We simply grab each pair and check if there is an existing entry in the dictionary for the second value of the pair. If the value for this key is equal to the first value in the pair, symmetry exists.
+```
+It should be noted that the pairs must be unique for this solution to work. We are using the first element as a key when inserting into our HashMap. A duplicate key would return incorrect results. Inserting { 1 , 3} followed by inserting { 1 , 5} would cause the HashMap to return 55 when 11 is passed to the get method. We would not be able to check for the pair { 3 , 1} as it would fail the if condition of value == first on line 19. This would result in an incorrect output.
+```
+- Time Complexity :
+
+The hash table lookups work in constant time. Hence, our traversal of the input list makes the algorithm run in O(n) where n is the array size.
+
+### Find two pairs in an Array such that a+b = c+d
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the findPair() function to find two pairs or 4 elements (a,b,c,d) in an array, such that,
+```
+a+b = c+d
+```
+You only have to find first two pairs in the array which satisfies the above condition. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+String findPair(int[] arr);
+```
+Here, arr is an Integer array.
+
+- Output :
+
+It returns a String containing two pairs, (a,b) and (c,d), which satisfies a+b = c+d.
+
+- Sample Input :
+```
+arr = {3, 4, 7, 1, 12, 9}
+```
+- Sample Output :
+```
+"{4,12}{7,9}"
+```
+- Explanation :
+
+4,12,7 and 9 follow the above condition, as 4+12 = 7+9. There are so many other possible pairs in the sample input that satisfy the above condition, but for this problem, we only have to find one of them.
+
+**Solution: Sums Stored as Hash Keys**
+
+- Code :tada:
+```java
+
+//Hash Set  =>  HashSet<Integer> hSet = new HashSet<>();
+//HashMap   =>  HashMap<Integer,String> hMap = new HashMap<>();  
+//HashTable =>  Hashtable<Integer,String> hTable = new Hashtable<>();  
+//Hash Set Functions => {add(), remove(), contains()}
+//Hash Map and Table Functions => {put(key,value), get(key), remove(key), containsKey(key), containsValue(value)}
+
+class CheckPair {
+
+  public static String findPair(int[] arr) {
+
+    String result = "";
+
+    // Create HashMap with Key being sum and value being a pair i.e key = 3 , value = {1,2}
+    // Traverse all possible pairs in given arr and store sums in map
+    // If sum already exist then print out the two pairs.
+    HashMap < Integer,int[] > hMap = new HashMap < >();
+
+    for (int i = 0; i < arr.length; ++i) {
+      for (int j = i + 1; j < arr.length; ++j) {
+        int sum = arr[i] + arr[j]; //calculate sum
+
+        if (!hMap.containsKey(sum)) {
+          // If sum is not present in Map then insert it alongwith pair
+          hMap.put(sum, new int[] {arr[i],arr[j]});
+        }
+        else {
+          //Sum already present in Map
+          int[] prev_pair = hMap.get(sum);
+
+          // Since array elements are distinct, we don't
+          // need to check if any element is common among pairs
+          result += "{" + prev_pair[0] + "," + prev_pair[1] + "}{" + arr[i] + "," + arr[j] + "}";
+
+          return result;
+        }
+      }
+    }//end of for
+    return result;
+  }
+  
+  public static void main(String args[]) {
+   
+     int[] arr = {3, 4, 7, 1, 12, 9};
+     System.out.println(findPair(arr));
+    
+  }
+}
+```
+- Explanation :
+
+Each element in `arr` is summed with all other elements one by one and store the pair. The sum becomes the key in the `hMap`. At every key, we store the integer pair whose sum generated that key.
+
+Whenever a sum is found such that its key in the `hMap` already has an integer pair stored in it, we can conclude that this sum can be made by two different pairs in the array. These two pairs are then returned in the `result` array.
+
+- Time Complexity :
+
+The nested loop over n elements means that this algorithm’s runtime is O(n2).
+
+
+### Find If a Subarray with a Sum Equal to 0 Exists
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `findSubZero()` function to check whether a given array has a contiguous subarray with a sum equal to zero. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+boolean findSubZero(int[] arr);
+```
+Here, arr is an Integer array.
+
+- Output :
+
+It returns true if a contiguous subarray exists with a sum equal to 0, or else the function returns false.
+
+- Sample Input :
+```
+arr = {6, 4, -7, 3, 12, 9}
+```
+- Sample Output :
+```
+true
+```
+- Explanation :
+
+The SubArray from index 1 to 3 has sums equal to zero, i.e.
+
+arr[1] + arr[2] + arr[3] = 0
+
+4 - 7 + 3 = 0
+
+**Solution: Iterative Hashing**
+
+- Code:tada:
+```java
+//Hash Set  =>  HashSet<Integer> hSet = new HashSet<>();
+//HashMap   =>  HashMap<Integer,String> hMap = new HashMap<>();  
+//HashTable =>  Hashtable<Integer,String> hTable = new Hashtable<>();  
+//Hash Set Functions => {add(), remove(), contains()}
+//Hash Map and Table Functions => {put(key,value), get(key), remove(key), containsKey(key), containsValue(value)}
+class CheckSubZero {
+
+  public static boolean findSubZero(int[] arr) {
+
+    //Use HashMap to store Sum as key and index i as value till sum has been calculated.
+    //Traverse the array and return true if either 
+    //arr[i] == 0 or sum == 0 or HashMap already contains the sum
+    //If you completely traverse the array and havent found any of the above three
+    //conditions then simply return false.
+    HashMap < Integer,Integer > hMap = new HashMap < >();
+
+    int sum = 0;
+
+    // Traverse through the given array
+    for (int i = 0; i < arr.length; i++) {
+      sum += arr[i];
+
+      if (arr[i] == 0 || sum == 0 || hMap.get(sum) != null) return true;
+
+      hMap.put(sum, i);
+    }
+
+    return false;
+  }
+
+  public static void main(String args[]) {
+
+    int[] arr = {6, 4, -7, 3, 12, 9};
+    System.out.println(findSubZero(arr));
+
+  }
+}
+```
+- Explanation :
+
+The naive solution would be to iterate the array in a nested loop, summing each element with all the elements succeeding it.
+
+A hash table makes things much simpler.
+
+We basically have to check for 3 conditions:
+
+If 0 exists in the array
+If the sum becomes zero in the iteration
+If the sum reverts back to a value which was already a key in the hash table
+Any of these three conditions confirms the existence of a subarray that sums up to be zero.
+
+- Time Complexity :
+
+As always, a linear iteration over n elements means that the algorithm’s time complexity is O(n).
+
+
+### First Non-Repeating Integer in an Array
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement the `int findFirstUnique(int[] arr)` function that will look for a first unique integer which appears only once in the whole array. You must use hashing to implement this function in the most optimized way possible.
+
+> Note: We consider zero to be an integer for the premise of this challenge.
+
+- Function Prototype :
+```
+int findFirstUnique(int[] arr)
+```
+- Output :
+
+The first unique element in the array.
+
+- Sample Input :
+```
+arr = {9, 2, 3, 2, 6, 6}
+```
+- Sample Output :
+```
+9
+```
+**Solution: Using a HashMap**
+
+- Code :tada:
+```java
+
+class CheckFirstUnique {
+    public static int findFirstUnique(int[] arr) {
+
+        Map<Integer, Integer> countElements = new HashMap<>();
+        //If the element does not exist in the HashMap
+        //Add that element with value = 0
+        //or else update the number of occurrences of that element by adding 1
+        for (int i = 0; i < arr.length; i++) {
+            if(countElements.containsKey(arr[i])){
+                int occurence = countElements.get(arr[i]) + 1;
+                countElements.put(arr[i], occurence);
+            }
+            else
+                countElements.put(arr[i], 0); 
+        }
+        //Traverse the array and check the number of occurrences
+        //Return the first element with 0 occurences
+        for (int i = 0; i < arr.length; i++) {
+            if (countElements.get(arr[i]) == 0) {
+                return arr[i];
+            }
+        }
+        //If no such element is found, return -1
+        return -1;
+    }
+
+    public static void main(String args[]) {
+
+        int[] arr = {2, 54, 7, 2, 6, 54};
+
+        System.out.println("Array: " + Arrays.toString(arr));
+
+        int unique = findFirstUnique(arr);
+        System.out.print("First Unique in an Array: " + unique);
+
+    }
+}
+```
+- Explanation :
+
+Firstly, we store all the elements from the array into a `HashMap`. The element is stored as `key` and the count of multiple occurrences is stored as `value` in the `HashMap`. Initially, the count is `0`. But if the same element is encountered again, the count is increased by `1` each time.
+
+Afterward, we traverse the array again from the beginning and return the first element which has count equal to `0` in the `HashMap`.
+
+- Time Complexity :
+
+The array is iterated multiple times but the complexity is still linear. The time complexity of this code is O(n).
+
+**Solution: Using a TreeMap**
+
+- Code:tada:
+```java
+
+class CheckFirstUnique {
+    public static int findFirstUnique(int[] arr) {
+
+        Map<Integer, Integer> countElements = new TreeMap<>(); //TreeMap is sorted
+        //If the element does not exist in the TreeMap
+        //Add that element with value = 0
+        //or else update the number of occurrences of that element by adding 1
+        for (int i = 0; i < arr.length; i++) {
+            if(countElements.containsKey(arr[i])){
+                int occurence = countElements.get(arr[i]) + 1;
+                countElements.put(arr[i], occurence);
+            }
+            else
+                countElements.put(arr[i], 0); 
+        }
+        //Traverse the array and check the number of occurrences
+        //Return the first element with 0 occurences
+        for (int i = 0; i < arr.length; i++) {
+            if (countElements.get(arr[i]) == 0) {
+                return arr[i];
+            }
+        }
+        //If no such element is found, return -1
+        return -1;
+    }
+
+    public static void main(String args[]) {
+
+        int[] arr = {2, 54, 7, 2, 6, 54};
+
+        System.out.println("Array: " + Arrays.toString(arr));
+
+        int unique = findFirstUnique(arr);
+        System.out.print("First Unique in an Array: " + unique);
+
+    }
+}
+```
+- Time Complexity :
+
+The time complexity of this program is O(n).
+
+
+### Remove Duplicate from a Linked List using Hashing
+<hr>
+
+- Problem Statement :
+
+In this problem, you have to implement public static void removeDuplicatesWithHashing(SinglyLinkedList list) function. This function will take a Singly linked list as input and remove all the elements that appear more than once in the list. An illustration is also provided for your understanding.
+
+- Function Prototype :
+```
+public static void removeDuplicatesWithHashing(SinglyLinkedList list)
+```
+- Output :
+```
+The linked list with all the duplicates removed.
+```
+- Sample Input :
+```
+linkedlist = 7->14->21->14->22->null
+```
+- Sample Output :
+```
+linkedlist = 7->14->21->22->null
+```
+**Solution: Using HashSet**
+- Code :tada:
+```java
+
+    public static void removeDuplicatesWithHashing(SinglyLinkedList list) {
+        SinglyLinkedList.Node current = list.getHeadNode();
+        SinglyLinkedList.Node prevNode = list.getHeadNode();
+        //will store all the elements that we observe once
+        HashSet visitedNodes = new HashSet();
+
+        if (!list.isEmpty() && current.nextNode != null) {
+            while (current != null) {
+                //check if already visited then delete this node
+                if (visitedNodes.contains(current.data)) {
+                    //deleting the node by undating the pointer of previous node
+                    prevNode.nextNode = current.nextNode;
+                    current = current.nextNode;
+                } else {
+                    //if node was not already visited then add it to the visited set
+                    visitedNodes.add(current.data);
+                    //moving on to next element in the list
+                    prevNode = current;
+                    current = current.nextNode;
+                }
+            }
+        }
+    }
+```
+- Explanation :
+
+This is, perhaps, the most efficient way of removing duplicates from a linked list.
+
+Every node we traverse is added to the `visitedNodes` set. If we reach a node that already exists in the set, it must be a duplicate.
+
+`prevNode` is used to keep track of the preceding node. This allows us to easily manipulate the previous and next nodes during the deletion of our `current` node.
+
+- Time Complexity :
+
+This is a linear algorithm, hence, the time complexity is O(n).
 ... (rest of your README)
