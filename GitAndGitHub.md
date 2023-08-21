@@ -30,7 +30,7 @@
     - [Git Fetch](#git-fetch)
     - [Git Pull](#git-pull)
     - [Pull Requests](#pull-requests)
-  - [Rebasing Branches]
+  - [Rebasing Branches](#rebasing-branches)
     - [Git Rebase](#git-rebase)
     - [Managing Conflicts When Rebasing](#managing-conflicts-when-rebasing)
     - [Difference Between Rebasing And Merging](#difference-between-rebasing-and-merging)
